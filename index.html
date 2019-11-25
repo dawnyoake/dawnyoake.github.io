@@ -128,29 +128,17 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Hexo-github搭建博客纪实"><a href="#Hexo-github搭建博客纪实" class="headerlink" title="Hexo+github搭建博客纪实"></a>Hexo+github搭建博客纪实</h1><h3 id="一、注册github仓库"><a href="#一、注册github仓库" class="headerlink" title="一、注册github仓库"></a>一、注册github仓库</h3><h3 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h3><h4 id="8195-1-下载node-js和git"><a href="#8195-1-下载node-js和git" class="headerlink" title="&#8195;1.下载node.js和git"></a>&#8195;1.下载node.js和git</h4><p>&#8195;&#8195;&#8195;git bash（用于授权SHH和安装hexo系列操作）</p>
-<h4 id="8195-2-SHH授权"><a href="#8195-2-SHH授权" class="headerlink" title="&#8195;2.SHH授权"></a>&#8195;2.SHH授权</h4><p>&#8195;&#8195;&#8195;公钥与秘钥</p>
-<h3 id="三、Hexo系列操作"><a href="#三、Hexo系列操作" class="headerlink" title="三、Hexo系列操作"></a>三、Hexo系列操作</h3><h4 id="8195-1-下载安装"><a href="#8195-1-下载安装" class="headerlink" title="&#8195;1.下载安装"></a>&#8195;1.下载安装</h4><h4 id="8195-2-初始化-本地预览"><a href="#8195-2-初始化-本地预览" class="headerlink" title="&#8195;2.初始化+本地预览"></a>&#8195;2.初始化+本地预览</h4><p>&#8195;&#8195;&#8195;自然要换好看的主题</p>
-<h4 id="8195-3-上传到github"><a href="#8195-3-上传到github" class="headerlink" title="&#8195;3.上传到github"></a>&#8195;3.上传到github</h4><h3 id="四、域名转接"><a href="#四、域名转接" class="headerlink" title="四、域名转接"></a>四、域名转接</h3><h4 id="8195-1-购买域名"><a href="#8195-1-购买域名" class="headerlink" title="&#8195;1.购买域名"></a>&#8195;1.购买域名</h4><h4 id="8195-2-在github设置domain"><a href="#8195-2-在github设置domain" class="headerlink" title="&#8195;2.在github设置domain"></a>&#8195;2.在github设置domain</h4><h3 id="五、搭建过程"><a href="#五、搭建过程" class="headerlink" title="五、搭建过程"></a>五、搭建过程</h3><h4 id="8195-1-参考教程"><a href="#8195-1-参考教程" class="headerlink" title="&#8195;1.参考教程"></a>&#8195;1.参考教程</h4><ul>
-<li>流程（系统）<br><a href="https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html#%E4%BD%BF%E7%94%A8hexo%E5%86%99%E5%8D%9A%E5%AE%A2" target="_blank" rel="noopener">https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html#%E4%BD%BF%E7%94%A8hexo%E5%86%99%E5%8D%9A%E5%AE%A2</a></li>
-<li>流程（易懂）<br><a href="https://www.cnblogs.com/trista222/p/8017300.html" target="_blank" rel="noopener">https://www.cnblogs.com/trista222/p/8017300.html</a></li>
-<li>域名绑定<br><a href="https://blog.csdn.net/mqdxiaoxiao/article/details/92799543" target="_blank" rel="noopener">https://blog.csdn.net/mqdxiaoxiao/article/details/92799543</a><h3 id="8195-2-Debug"><a href="#8195-2-Debug" class="headerlink" title="&#8195;2.Debug"></a>&#8195;2.Debug</h3><h4 id="ERROR1-“the-CNAME-is-already-taken”"><a href="#ERROR1-“the-CNAME-is-already-taken”" class="headerlink" title="ERROR1 “the CNAME is already taken”"></a>ERROR1 “the CNAME is already taken”</h4></li>
-</ul>
-<p><strong>问题描述：</strong><br> 搭建完博客，每次更新之后，使用域名地址访问博客都会404报错<br>并且github邮箱账户会收到一封Waring Email：</p>
-<blockquote>
-<p>The page build completed successfully, but returned the following warning for the ‘master’ branch:<br><strong>Your CNAME file was ignored because this repository is automatically hosted from yourUsername.github.io already</strong>. See <a href="https://help.github.com/articles/setting-up-your-pages-site-repository/" target="_blank" rel="noopener">https://help.github.com/articles/setting-up-your-pages-site-repository/</a><br>For information on troubleshooting Jekyll see:<br>  <a href="https://help.github.com/articles/troubleshooting-jekyll-builds" target="_blank" rel="noopener">https://help.github.com/articles/troubleshooting-jekyll-builds</a><br>If you have any questions you can contact us by replying to this email.<br> <a href="https://wangqy.cc/2018/05/26/CNAME/" target="_blank" rel="noopener">https://wangqy.cc/2018/05/26/CNAME/</a></p>
-</blockquote>
-<p>咱也不知道发生了啥，咱也不造去哪儿问，网上搜罗了下，发现了相同情况了老哥：<br><a href="https://wangqy.cc/2018/05/26/CNAME/" target="_blank" rel="noopener">https://wangqy.cc/2018/05/26/CNAME/</a><br>原因是 setting 下 github pages 的 custom domain 清空了，需要重新设置来生成 CNAME 文件。我们的<strong>初步解决方案</strong>，便是每次更新完去github仓库的settings里把domain调成自己的域名。</p>
-<p>然而人是贪婪的，也是懒的，次次更新次次调设置太繁琐了，于是又摸索了下，受名为saucxs的大佬文章启发：<a href="https://www.cnblogs.com/chengxs/p/7496265.html" target="_blank" rel="noopener">https://www.cnblogs.com/chengxs/p/7496265.html</a><br>找到了<strong>进阶解决方案</strong>，<br>修改_config.yml文件：</p>
-<blockquote>
-<p>`# URL<br>url: daybreakland.top【原来这里是“yourUsername.github.io”】<br>root: /<br>permalink: :year/:month/:day/:title/<br>permalink_defaults:<br>pretty_urls:<br>  trailing_index: true # Set to false to remove trailing index.html from permalinks</p>
-</blockquote>
-<p>这样就算是彻底解决了问题。</p>
-<h3 id="8195-3-功能和技巧"><a href="#8195-3-功能和技巧" class="headerlink" title="&#8195;3.功能和技巧"></a>&#8195;3.功能和技巧</h3><ul>
-<li>19.11.23 插入图片<br><a href="https://blog.csdn.net/L_201607/article/details/81176439" target="_blank" rel="noopener">https://blog.csdn.net/L_201607/article/details/81176439</a></li>
-<li>19.11.23 插入占位符</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&amp;#<span class="number">8195</span>;一个中文的占位符</span><br><span class="line">&amp;#<span class="number">8194</span>;半个中文的占位符</span><br><span class="line">&amp;#<span class="number">8197</span>;四分之一的中文占位符</span><br></pre></td></tr></table></figure>
+        
+
+          
+          <div class="entry-summary">
+          简单记述了搭建博客的过程，类似Debug的过程，马克了期间参考的资料，之后一个会持续更新功能。
+
+        
+          <p class="article-more-link">
+            <a href="/2019/11/25/Hexo-github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BA%AA%E5%AE%9E/#more">阅读全文</a>
+          </p>
+        </div>
       
     </div>
     <footer class="entry-meta entry-footer">
