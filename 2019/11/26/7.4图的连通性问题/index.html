@@ -3,26 +3,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>枕草子 | 夜明的Blog</title>
+  <title>图-4|图的连通性问题 | 夜明的Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="摘抄" />
+  <meta name="keywords" content="数据结构 图" />
   
   
   
   
-  <meta name="description" content="清少纳言随笔《枕草子》的第一篇，恬淡自由，勾勒出四时之美。">
-<meta name="keywords" content="摘抄">
+  <meta name="description" content="本篇记录了数据结构图这一章学习的第四部分，即图的连通性问题。">
+<meta name="keywords" content="数据结构 图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="枕草子">
-<meta property="og:url" content="daybreakland.top&#x2F;2019&#x2F;11&#x2F;23&#x2F;%E6%9E%95%E8%8D%89%E5%AD%90-%E6%98%A5%E6%9B%99%E4%B8%BA%E6%9C%80&#x2F;index.html">
+<meta property="og:title" content="图-4|图的连通性问题">
+<meta property="og:url" content="daybreakland.top&#x2F;2019&#x2F;11&#x2F;26&#x2F;7.4%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7%E9%97%AE%E9%A2%98&#x2F;index.html">
 <meta property="og:site_name" content="夜明的Blog">
-<meta property="og:description" content="清少纳言随笔《枕草子》的第一篇，恬淡自由，勾勒出四时之美。">
+<meta property="og:description" content="本篇记录了数据结构图这一章学习的第四部分，即图的连通性问题。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191125222738781.jpg?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-11-25T14:27:54.359Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191126170902517.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-11-26T14:57:28.715Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191125222738781.jpg?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191126170902517.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
   
     <link rel="alternate" href="/atom.xml" title="夜明的Blog" type="application/atom+xml">
   
@@ -107,7 +107,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-枕草子-春曙为最" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-7.4图的连通性问题" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
@@ -115,7 +115,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      枕草子
+      图-4|图的连通性问题
     </h1>
   
 
@@ -123,8 +123,8 @@
     
     <div class="article-meta">
       
-	<a href="/2019/11/23/%E6%9E%95%E8%8D%89%E5%AD%90-%E6%98%A5%E6%9B%99%E4%B8%BA%E6%9C%80/" class="article-date">
-	  <time datetime="2019-11-23T09:05:52.000Z" itemprop="datePublished">十一月 23, 2019</time>
+	<a href="/2019/11/26/7.4%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7%E9%97%AE%E9%A2%98/" class="article-date">
+	  <time datetime="2019-11-26T14:39:58.000Z" itemprop="datePublished">十一月 26, 2019</time>
 	</a>
 
        
@@ -136,17 +136,32 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="https://img-blog.csdnimg.cn/20191125222738781.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>清少纳言随笔《枕草子》的第一篇，恬淡自由，勾勒出四时之美。</p>
-<h5 id="まくらのそうし·春はあけぼの"><a href="#まくらのそうし·春はあけぼの" class="headerlink" title="まくらのそうし·春はあけぼの"></a><center>まくらのそうし·春はあけぼの</center></h5><blockquote>
-<p>　<br>&#8195;春は、あけぼの。やうやう白くなりゆく、山ぎは少し明りて、紫だちたる雲のほそくたなびきたる。<br>　夏は、夜。月のころはさらなり、闇もなほ、蛍の多く飛びちがひたる。また、ただ一つ二つなど、ほのかにうち光りて行くも、をかし。雨など降るも、をかし。<br>　秋は、夕暮れ。夕日のさして、山の端いと近うなりたるに、烏の寝どころへ行くとて、三つ四つ、二つ三つなど、飛び急ぐさへあはれなり。まいて、雁などのつらねたるが、いと小さく見ゆるは、いとをかし。日入り果てて、風の音、虫の音(ね)など、はた言ふべきにあらず。<br>　冬は、つとめて。雪の降りたるは言ふべきにもあらず。霜のいと白きも、またさらでも、いと寒きに、火など急ぎおこして、炭持て渡るも、いとつきづきし。昼になりて、ぬるくゆるびもていけば、火桶の火も白き灰がちになりて、わろし。 </p>
+        <p>本篇记录了数据结构图这一章学习的第四部分，<br>即图的连通性问题。</p>
+<a id="more"></a>
+<h3 id="图的连通性问题"><a href="#图的连通性问题" class="headerlink" title="图的连通性问题"></a>图的连通性问题</h3><h4 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h4><h5 id="问题提出"><a href="#问题提出" class="headerlink" title="问题提出"></a>问题提出</h5><p>要在n个城市间建立通信联络网，<br>顶点——表示城市<br>权——城市间建立通信线路所需花费代价<br>希望找到一棵生成树，它的每条边上的权值之和（即建立<br>该通信网所需花费的总代价）最小———最小代价生成树<br><img src="https://img-blog.csdnimg.cn/20191126170902517.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="图"><br>    n个城市间，最多可设置n(n-1)/2条线路<br>    n个城市间建立通信网，只需n-1条线路</p>
+<ul>
+<li>问题转化为：如何在可能的线路中选择n-1条，能把<pre><code>   所有城市（顶点）均连起来，且总耗费
+（各边权值之和）最小</code></pre><h5 id="构造最小生成树方法"><a href="#构造最小生成树方法" class="headerlink" title="构造最小生成树方法"></a>构造最小生成树方法</h5><h6 id="普里姆-Prim-算法-T-n-O-V²"><a href="#普里姆-Prim-算法-T-n-O-V²" class="headerlink" title="普里姆(Prim)算法/T(n)=O(V²)"></a>普里姆(Prim)算法/T(n)=O(V²)</h6>算法思想：</li>
+<li>设连通网N=(V,{E}),<br>点集U为已处理点集，最小生成树边集TE。</li>
+<li>初始任取一点，加入U，使U={v0}；</li>
+<li>在所有u∈U,v∈V-U的边(u,v)∈E中，找一条代价最小的边(u0,v0)</li>
+</ul>
+<blockquote>
+<p>两点确定一条边，即在所有生成树邻接的边里找条最小的。</p>
 </blockquote>
-<h5 id="枕草子·春曙为最"><a href="#枕草子·春曙为最" class="headerlink" title="枕草子·春曙为最"></a><center>枕草子·春曙为最</center></h5><blockquote>
-<p>&#8195;春，曙为最。逐渐转白的山顶，开始稍露光明，泛紫的细云轻飘其上。</p>
-<p>&#8195;夏则夜。有月的时候自不待言，无月的暗夜，也有群萤交飞。若是下场雨什么的，那就更有情味了。</p>
-<p>&#8195;秋则黄昏。夕阳照耀，近映山际，乌鸦返巢，三只、四只、两只的飞过，平添感伤。又有时见雁影小小，列队飞过远空，尤绕风情。而况，日入以后，尚有风声虫鸣。</p>
-<p>&#8195;冬则晨朝。降雪时不消说，有时霜色皑皑，即使无雪亦无霜，寒气凛冽，连忙生一盆火，搬运炭火跑过走廊，也挺合时宜；只可惜晌午时分，火盆里头炭木渐蒙白灰，便无甚可赏了。</p>
+<ul>
+<li>将(u0,v0)并入集合TE，同时v0并入U<blockquote>
+<p>把边并入生成树，点并入已处理点集。</p>
 </blockquote>
-<p>翻译来源：《枕草子》（清少纳言著，林月文译）<br>原文来源：<a href="http://www.eonet.ne.jp/~log-inn/03honkan.htm" target="_blank" rel="noopener">http://www.eonet.ne.jp/~log-inn/03honkan.htm</a></p>
+</li>
+<li>重复操作直至U=V。<h6 id="克鲁斯卡尔-Kruskal-算法-O-E-log-E"><a href="#克鲁斯卡尔-Kruskal-算法-O-E-log-E" class="headerlink" title="克鲁斯卡尔(Kruskal)算法/O(E log E)"></a>克鲁斯卡尔(Kruskal)算法/O(E log E)</h6>算法思想：</li>
+<li>设连通网N=(V,{E})，<br>初始状态为只有n个顶点而无边的非连通图T=(V,{∅})，每个顶点自成一个连通分量</li>
+<li>在E中选取代价最小的边，若该边依附的顶点落在T中不同的连通分量上，则将此边加入到T中；</li>
+<li>否则，舍去此边，选取下一条代价最小的边依此类推，直至T中所有顶点都在同一连通分量上为止。<blockquote>
+<p>一开始所有点各自独立，遍历E集合选代价最小边，若该边的两个顶点落在不同连通分量上，就加进T，直到T里所有顶点全在一个连通分量上。</p>
+</blockquote>
+</li>
+</ul>
 
       
     </div>
@@ -154,7 +169,7 @@
       
       
   <span class="ico-tags"></span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%91%98%E6%8A%84/" rel="tag">摘抄</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/" rel="tag">数据结构 图</a></li></ul>
 
       
         
@@ -189,19 +204,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/11/25/7.1%E5%9B%BE%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E6%9C%AF%E8%AF%AD/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/11/26/7.2%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          图-1|图的定义和术语
+          图-2|图的存储结构
         
       </div>
     </a>
   
   
-    <a href="/2019/11/22/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/11/26/7.3%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">论文Introduction改写</div>
+      <div class="article-nav-title">图-3|图的遍历</div>
     </a>
   
 </nav>
@@ -215,7 +230,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#まくらのそうし·春はあけぼの"><span class="nav-number">1.</span> <span class="nav-text">まくらのそうし·春はあけぼの</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#枕草子·春曙为最"><span class="nav-number">2.</span> <span class="nav-text">枕草子·春曙为最</span></a></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#图的连通性问题"><span class="nav-number">1.</span> <span class="nav-text">图的连通性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最小生成树"><span class="nav-number">1.1.</span> <span class="nav-text">最小生成树</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题提出"><span class="nav-number">1.1.1.</span> <span class="nav-text">问题提出</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构造最小生成树方法"><span class="nav-number">1.1.2.</span> <span class="nav-text">构造最小生成树方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#普里姆-Prim-算法-T-n-O-V²"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">普里姆(Prim)算法/T(n)=O(V²)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#克鲁斯卡尔-Kruskal-算法-O-E-log-E"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">克鲁斯卡尔(Kruskal)算法/O(E log E)</span></a></li></ol></li></ol></li></ol></li></ol>
     
     </div>
   </aside>
