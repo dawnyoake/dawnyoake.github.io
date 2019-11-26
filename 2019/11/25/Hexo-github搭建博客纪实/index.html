@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo+github搭建博客纪实 | 夜明的Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="简单记述了搭建博客的过程，类似Debug的过程，马克了期间参考的资料，之后应该会持续更新功能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo+github搭建博客纪实">
+<meta property="og:url" content="daybreakland.top&#x2F;2019&#x2F;11&#x2F;25&#x2F;Hexo-github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BA%AA%E5%AE%9E&#x2F;index.html">
+<meta property="og:site_name" content="夜明的Blog">
+<meta property="og:description" content="简单记述了搭建博客的过程，类似Debug的过程，马克了期间参考的资料，之后应该会持续更新功能。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-26T06:54:53.111Z">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="夜明的Blog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="夜明的Blog" rel="home"> 夜明的Blog </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">Where would a south wind take us</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">分类</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">标签</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">关于</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Hexo-github搭建博客纪实" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Hexo+github搭建博客纪实
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/11/25/Hexo-github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BA%AA%E5%AE%9E/" class="article-date">
+	  <time datetime="2019-11-25T14:57:23.000Z" itemprop="datePublished">十一月 25, 2019</time>
+	</a>
+
+       
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>简单记述了搭建博客的过程，类似Debug的过程，<br>马克了期间参考的资料，之后应该会持续更新功能。</p>
+<a id="more"></a>
+<h1 id="Hexo-github搭建博客纪实"><a href="#Hexo-github搭建博客纪实" class="headerlink" title="Hexo+github搭建博客纪实"></a>Hexo+github搭建博客纪实</h1><h3 id="一、注册github仓库"><a href="#一、注册github仓库" class="headerlink" title="一、注册github仓库"></a>一、注册github仓库</h3><h3 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h3><h4 id="8195-1-下载node-js和git"><a href="#8195-1-下载node-js和git" class="headerlink" title="&#8195;1.下载node.js和git"></a>&#8195;1.下载node.js和git</h4><p>&#8195;&#8195;&#8195;git bash（用于授权SHH和安装hexo系列操作）</p>
+<h4 id="8195-2-SHH授权"><a href="#8195-2-SHH授权" class="headerlink" title="&#8195;2.SHH授权"></a>&#8195;2.SHH授权</h4><p>&#8195;&#8195;&#8195;公钥与秘钥</p>
+<h3 id="三、Hexo系列操作"><a href="#三、Hexo系列操作" class="headerlink" title="三、Hexo系列操作"></a>三、Hexo系列操作</h3><h4 id="8195-1-下载安装"><a href="#8195-1-下载安装" class="headerlink" title="&#8195;1.下载安装"></a>&#8195;1.下载安装</h4><h4 id="8195-2-初始化-本地预览"><a href="#8195-2-初始化-本地预览" class="headerlink" title="&#8195;2.初始化+本地预览"></a>&#8195;2.初始化+本地预览</h4><p>&#8195;&#8195;&#8195;自然要换好看的主题</p>
+<h4 id="8195-3-上传到github"><a href="#8195-3-上传到github" class="headerlink" title="&#8195;3.上传到github"></a>&#8195;3.上传到github</h4><h3 id="四、域名转接"><a href="#四、域名转接" class="headerlink" title="四、域名转接"></a>四、域名转接</h3><h4 id="8195-1-购买域名"><a href="#8195-1-购买域名" class="headerlink" title="&#8195;1.购买域名"></a>&#8195;1.购买域名</h4><h4 id="8195-2-在github设置domain"><a href="#8195-2-在github设置domain" class="headerlink" title="&#8195;2.在github设置domain"></a>&#8195;2.在github设置domain</h4><h3 id="五、搭建过程"><a href="#五、搭建过程" class="headerlink" title="五、搭建过程"></a>五、搭建过程</h3><h4 id="8195-1-参考教程"><a href="#8195-1-参考教程" class="headerlink" title="&#8195;1.参考教程"></a>&#8195;1.参考教程</h4><ul>
+<li>流程（系统）<br><a href="https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html#%E4%BD%BF%E7%94%A8hexo%E5%86%99%E5%8D%9A%E5%AE%A2" target="_blank" rel="noopener">https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html#%E4%BD%BF%E7%94%A8hexo%E5%86%99%E5%8D%9A%E5%AE%A2</a></li>
+<li>流程（易懂）<br><a href="https://www.cnblogs.com/trista222/p/8017300.html" target="_blank" rel="noopener">https://www.cnblogs.com/trista222/p/8017300.html</a></li>
+<li>域名绑定<br><a href="https://blog.csdn.net/mqdxiaoxiao/article/details/92799543" target="_blank" rel="noopener">https://blog.csdn.net/mqdxiaoxiao/article/details/92799543</a><h3 id="8195-2-Debug"><a href="#8195-2-Debug" class="headerlink" title="&#8195;2.Debug"></a>&#8195;2.Debug</h3><h4 id="ERROR1-“the-CNAME-is-already-taken”"><a href="#ERROR1-“the-CNAME-is-already-taken”" class="headerlink" title="ERROR1 “the CNAME is already taken”"></a>ERROR1 “the CNAME is already taken”</h4></li>
+</ul>
+<p><strong>问题描述：</strong><br> 搭建完博客，每次更新之后，使用域名地址访问博客都会404报错<br>并且github邮箱账户会收到一封Waring Email：</p>
+<blockquote>
+<p>The page build completed successfully, but returned the following warning for the ‘master’ branch:<br><strong>Your CNAME file was ignored because this repository is automatically hosted from yourUsername.github.io already</strong>. See <a href="https://help.github.com/articles/setting-up-your-pages-site-repository/" target="_blank" rel="noopener">https://help.github.com/articles/setting-up-your-pages-site-repository/</a><br>For information on troubleshooting Jekyll see:<br>  <a href="https://help.github.com/articles/troubleshooting-jekyll-builds" target="_blank" rel="noopener">https://help.github.com/articles/troubleshooting-jekyll-builds</a><br>If you have any questions you can contact us by replying to this email.<br> <a href="https://wangqy.cc/2018/05/26/CNAME/" target="_blank" rel="noopener">https://wangqy.cc/2018/05/26/CNAME/</a></p>
+</blockquote>
+<p>咱也不知道发生了啥，咱也不造去哪儿问，网上搜罗了下，发现了相同情况了老哥：<br><a href="https://wangqy.cc/2018/05/26/CNAME/" target="_blank" rel="noopener">https://wangqy.cc/2018/05/26/CNAME/</a><br>原因是 setting 下 github pages 的 custom domain 清空了，需要重新设置来生成 CNAME 文件。我们的<strong>初步解决方案</strong>，便是每次更新完去github仓库的settings里把domain调成自己的域名。</p>
+<p>然而人是贪婪的，也是懒的，次次更新次次调设置太繁琐了，于是又摸索了下，受名为saucxs的大佬文章启发：<a href="https://www.cnblogs.com/chengxs/p/7496265.html" target="_blank" rel="noopener">https://www.cnblogs.com/chengxs/p/7496265.html</a><br>找到了<strong>进阶解决方案</strong>，<br>修改_config.yml文件：</p>
+<blockquote>
+<p>`# URL<br>url: daybreakland.top【原来这里是“yourUsername.github.io”】<br>root: /<br>permalink: :year/:month/:day/:title/<br>permalink_defaults:<br>pretty_urls:<br>  trailing_index: true # Set to false to remove trailing index.html from permalinks</p>
+</blockquote>
+<p>这样就算是彻底解决了问题。</p>
+<h3 id="8195-3-功能和技巧"><a href="#8195-3-功能和技巧" class="headerlink" title="&#8195;3.功能和技巧"></a>&#8195;3.功能和技巧</h3><ul>
+<li>19.11.23 插入图片<br><a href="https://blog.csdn.net/L_201607/article/details/81176439" target="_blank" rel="noopener">https://blog.csdn.net/L_201607/article/details/81176439</a></li>
+<li>19.11.23 插入占位符</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&amp;#<span class="number">8195</span>;一个中文的占位符</span><br><span class="line">&amp;#<span class="number">8194</span>;半个中文的占位符</span><br><span class="line">&amp;#<span class="number">8197</span>;四分之一的中文占位符</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/25/L1%E5%9B%BE%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E6%9C%AF%E8%AF%AD/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">L1图的定义和术语</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo-github搭建博客纪实"><span class="nav-number">1.</span> <span class="nav-text">Hexo+github搭建博客纪实</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、注册github仓库"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、注册github仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、环境搭建"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8195-1-下载node-js和git"><span class="nav-number">1.0.2.1.</span> <span class="nav-text"> 1.下载node.js和git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8195-2-SHH授权"><span class="nav-number">1.0.2.2.</span> <span class="nav-text"> 2.SHH授权</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、Hexo系列操作"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、Hexo系列操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8195-1-下载安装"><span class="nav-number">1.0.3.1.</span> <span class="nav-text"> 1.下载安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8195-2-初始化-本地预览"><span class="nav-number">1.0.3.2.</span> <span class="nav-text"> 2.初始化+本地预览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8195-3-上传到github"><span class="nav-number">1.0.3.3.</span> <span class="nav-text"> 3.上传到github</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、域名转接"><span class="nav-number">1.0.4.</span> <span class="nav-text">四、域名转接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8195-1-购买域名"><span class="nav-number">1.0.4.1.</span> <span class="nav-text"> 1.购买域名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8195-2-在github设置domain"><span class="nav-number">1.0.4.2.</span> <span class="nav-text"> 2.在github设置domain</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、搭建过程"><span class="nav-number">1.0.5.</span> <span class="nav-text">五、搭建过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8195-1-参考教程"><span class="nav-number">1.0.5.1.</span> <span class="nav-text"> 1.参考教程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8195-2-Debug"><span class="nav-number">1.0.6.</span> <span class="nav-text"> 2.Debug</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ERROR1-“the-CNAME-is-already-taken”"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">ERROR1 “the CNAME is already taken”</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8195-3-功能和技巧"><span class="nav-number">1.0.7.</span> <span class="nav-text"> 3.功能和技巧</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2019 夜明的Blog All Rights Reserved.
+        
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>L1图的定义和术语 | 夜明的Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="数据结构" />
+  
+  
+  
+  
+  <meta name="description" content="本篇记录了数据结构图这一章学习的第一部分，即图的定义和术语。">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="L1图的定义和术语">
+<meta property="og:url" content="daybreakland.top&#x2F;2019&#x2F;11&#x2F;25&#x2F;L1%E5%9B%BE%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E6%9C%AF%E8%AF%AD&#x2F;index.html">
+<meta property="og:site_name" content="夜明的Blog">
+<meta property="og:description" content="本篇记录了数据结构图这一章学习的第一部分，即图的定义和术语。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191125204133122.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191125204053350.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-11-25T15:05:31.548Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191125204133122.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+  
+    <link rel="alternate" href="/atom.xml" title="夜明的Blog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="夜明的Blog" rel="home"> 夜明的Blog </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">Where would a south wind take us</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">分类</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">标签</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">关于</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-L1图的定义和术语" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      L1图的定义和术语
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/11/25/L1%E5%9B%BE%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E6%9C%AF%E8%AF%AD/" class="article-date">
+	  <time datetime="2019-11-25T13:18:14.000Z" itemprop="datePublished">十一月 25, 2019</time>
+	</a>
+
+       
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本篇记录了数据结构图这一章学习的第一部分，<br>即图的定义和术语。</p>
+<a id="more"></a>
+<h2 id="图的定义和术语"><a href="#图的定义和术语" class="headerlink" title="图的定义和术语"></a>图的定义和术语</h2><h3 id="有向图"><a href="#有向图" class="headerlink" title="有向图"></a>有向图</h3><ul>
+<li>顶点：数据</li>
+<li>弧<br>表示方法：&lt;v,w&gt;有序对</li>
+<li>弧头 v</li>
+<li>弧尾 w<h3 id="无向图"><a href="#无向图" class="headerlink" title="无向图"></a>无向图</h3></li>
+<li>边<ul>
+<li>表示方法：（v,m）无序对<br>&lt;&gt;</li>
+</ul>
+</li>
+<li>如何表示一个无向图？<br>G1 =(V1 , {E1} )<pre><code>V1={v1,v2,v3,v4,v5}
+G1={ (v1,v2),(v2,v3),(v3,v4),(v3,v5),(v1,v4),(v2,v5) }</code></pre><h3 id="图的抽象数据类型定义："><a href="#图的抽象数据类型定义：" class="headerlink" title="图的抽象数据类型定义："></a>图的抽象数据类型定义：</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ADT Graph&#123;</span><br><span class="line">	数据对象V：顶点集；</span><br><span class="line">	数据关系R：R=&#123;VR&#125;</span><br><span class="line">		VR=&#123;&lt;v,w&gt;|v,w∈V,且P(v,w), &lt;v,w&gt;表示从v到w的弧，</span><br><span class="line">			P(v,w)定义了弧&lt;v,w&gt;的意义或信息&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="图的基本操作"><a href="#图的基本操作" class="headerlink" title="图的基本操作"></a>图的基本操作</h3>1  CreateGraph(&amp;G, V, VR);<br>初始条件：V是图的顶点集，VR是图中弧的集合<br>操作结果：按V和VR的定义构造图G<br>2 DestroyGraph(&amp;G);<br>初始条件：图G存在<br>操作结果：销毁图G<br>3 LocateVex(G,u);<br>初始条件：图G存在，u和G中顶点有相同特征<br>操作结果：若G中存在顶点u，则返回该顶点在图中位置；否则返回其它信息。<br>4 GetVex(G, v);<br>初始条件：图G存在，v是G中某个顶点<br>操作结果：返回v的值<br>5 PutVex(&amp;G, v, value);<br>初始条件：图G存在，v是G中某个顶点<br>操作结果：对v赋值value<br>6 FirstAdjVex(G, v);<br>初始条件：图G存在，v是G中某个顶点<br>操作结果：返回v的第一个邻接顶点。若顶点在G中没有邻接顶点，则返回“空”。<br>7 NextAdjVex(G, v, w);<br>初始条件：图G存在，v是G中某个顶点，w是v的邻接顶点。<br>操作结果：返回v的（相对于w的）下一个邻接顶点。若w是v的最后一个邻接点，则返回“空”。<br>8 InsertVex(&amp;G, v);<br>初始条件：图G存在，v和图中顶点有相同特征。<br>操作结果：在图G中增添新顶点v<br>9 DeleteVex(&amp;G, v);<br>初始条件：图G存在，v和图中顶点有相同特征<br>操作结果：删除G中顶点v及相关的弧<br>10 InsertArc(&amp;G, v, w);<br> 初始条件：图G存在，v和w是G中两个顶点。<br> 操作结果：在G中增添弧&lt;v,w&gt;，若G是无向的，则还增添对称弧&lt;w,v&gt;<br>11 DeleteArc(&amp;G, v, w);<br> 初始条件：图G存在，v和w是G中两个顶点。<br> 操作结果：在G中删除弧&lt;v,w&gt;，若G是无向的，则还删除对称弧&lt;w,v&gt;<br>12 DFSTraverse(G, v, Visit( ));<br> 初始条件：图G存在，v是G中某个顶点，Visit是顶点的应用函数。<br> 操作结果：从顶点v起深度优先遍历图G，对每个顶点调用函数Visit一次且仅一次。一旦visit( )失败，则操作失败<br>13 BFSTraverse(G, v, Visit( ));<br> 初始条件：图G存在，v是G中某个顶点，Visit是顶点的应用函数。<br> 操作结果：从顶点v起广度优先遍历图G，对每个顶点调用函数Visit一次且一次。一旦visit( )失败，则操作失败<h3 id="子图"><a href="#子图" class="headerlink" title="子图"></a>子图</h3></li>
+<li>设有两个图G  =（V,E）G1  =（V1,E1）,若V1∈V,<br>E1 ∈ E,则称 G1是G的子图；<blockquote>
+<p>编辑器打不出集合包含符号，先用∈代替</p>
+</blockquote>
+<h3 id="常见的图"><a href="#常见的图" class="headerlink" title="常见的图"></a>常见的图</h3></li>
+<li>1.有向完全图<br>n个顶点的有向图最大边数是n(n-1)</li>
+<li>2.完全图<br>n个顶点的无向图最大边数是n(n-1)/2</li>
+<li>3.稀疏图/稠密图<br>边数少为前者，多为后者</li>
+<li>4.权<br>与图的边或弧相关的数为权</li>
+<li>5.网<br>带权的图<h3 id="顶点的度"><a href="#顶点的度" class="headerlink" title="顶点的度"></a>顶点的度</h3></li>
+<li>无向图中，<br>顶点的度为与每个顶点相连的边数</li>
+<li>有向图中，<br>顶点的度分成入度与出度<ul>
+<li>入度：以该顶点为头的弧的数目</li>
+<li>出度：以该顶点为尾的弧的数目</li>
+</ul>
+</li>
+</ul>
+<h3 id="邻接点"><a href="#邻接点" class="headerlink" title="邻接点"></a>邻接点</h3><ul>
+<li>对于<strong>无向图</strong>G=(V,{E})，如果边 (v,v’)∈E，则称顶点v和v’<strong>互为邻接点(Adjacent)</strong>，即v和v’相邻接。边(v,v’) <strong>依附(Incident)</strong> 于顶点v和v’或者说  (v,v‘)和顶点v和v’<strong>相关联</strong>。</li>
+<li>对于<strong>有向图</strong>G=(V,{A}))，如果弧&lt;v,v’&gt;∈A，则称顶点v<strong>邻接到</strong>顶点v’,顶点v’<strong>邻接自</strong>顶点v<strong>，弧&lt;v,v’&gt;和顶点v,v’</strong>相关联**。</li>
+</ul>
+<h3 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h3><p>两个顶点之间的<strong>顶点序列</strong>，该序列的每个顶点与其前驱是邻接点，每个顶点与其后继也是邻接点</p>
+<ul>
+<li><p>路径长度——沿路径<strong>边的数目</strong>或沿路径各边<strong>权值之和</strong></p>
+</li>
+<li><p>回路——第一个顶点和最后一个顶点相同的路径叫~</p>
+</li>
+<li><p>简单路径——序列中<strong>顶点不重复出现</strong>的路径叫~</p>
+</li>
+<li><p>简单回路——除了第一个顶点和最后一个顶点外，其余顶点不重复出现的回路叫~</p>
+<h3 id="连通图（强连通图）"><a href="#连通图（强连通图）" class="headerlink" title="连通图（强连通图）"></a>连通图（强连通图）</h3></li>
+<li><p>无向图中，若任意两点都存在路径，此图是连通图。</p>
+</li>
+<li><p>有向图中，若任意两点都存在<strong>互通</strong>路径，此图是强连通图。</p>
+<h3 id="连通分量"><a href="#连通分量" class="headerlink" title="连通分量"></a>连通分量</h3><p>无向图G的极大连通子图成为G的连通分量。<br><img src="https://img-blog.csdnimg.cn/20191125204133122.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="连通分量"></p>
+<blockquote>
+<p>极大连通子图：该子图是G连通子图，将G的任何不在该子图中的顶点加入，子图不再连通。</p>
+</blockquote>
+<h3 id="强连通分量"><a href="#强连通分量" class="headerlink" title="强连通分量"></a>强连通分量</h3><p>有向图D的极大强连通子图成为D的强连通分量。<br><img src="https://img-blog.csdnimg.cn/20191125204053350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>极大强连通子图意思是：该子图是D强连通子图，将D的任何不在该子图中的顶点加入，子图不再是强连通的。</p>
+</blockquote>
+</li>
+<li><p>下面总结了如何判断连通子图是不是极大或极小连通子图。<br>（这个问题好像在离散数学提到过）</p>
+</li>
+</ul>
+<p>若在一个连通子图中，包含了与其中顶点有关<strong>所有边</strong>（the more the better），则是极大连通子图；若只包含了<strong>必不可少</strong>的边（the less the better），那就是极小连通子图。</p>
+<p>关于此概念，下面的博文讲的很好，上面的总结也是受教于这位博主。<br>原文链接：<a href="https://blog.csdn.net/merlyn_yang/article/details/82467980" target="_blank" rel="noopener">https://blog.csdn.net/merlyn_yang/article/details/82467980</a></p>
+<blockquote>
+<p>版权声明：本文为CSDN博主「merlyn_yang」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。</p>
+</blockquote>
+<h3 id="生成树"><a href="#生成树" class="headerlink" title="生成树"></a>生成树</h3><ul>
+<li>包含无向图G所有顶点的的<strong>极小连通子图</strong>称为G生成树。<br>它含有图中全部顶点，但只有足以构成一棵树的n-1条边。一棵有n个顶点的生成树有且仅有n-1条边。</li>
+</ul>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li></ul>
+
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/11/25/Hexo-github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BA%AA%E5%AE%9E/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Hexo+github搭建博客纪实
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/11/23/%E6%9E%95%E8%8D%89%E5%AD%90-%E6%98%A5%E6%9B%99%E4%B8%BA%E6%9C%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">枕草子</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#图的定义和术语"><span class="nav-number">1.</span> <span class="nav-text">图的定义和术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有向图"><span class="nav-number">1.1.</span> <span class="nav-text">有向图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无向图"><span class="nav-number">1.2.</span> <span class="nav-text">无向图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图的抽象数据类型定义："><span class="nav-number">1.3.</span> <span class="nav-text">图的抽象数据类型定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图的基本操作"><span class="nav-number">1.4.</span> <span class="nav-text">图的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子图"><span class="nav-number">1.5.</span> <span class="nav-text">子图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的图"><span class="nav-number">1.6.</span> <span class="nav-text">常见的图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顶点的度"><span class="nav-number">1.7.</span> <span class="nav-text">顶点的度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#邻接点"><span class="nav-number">1.8.</span> <span class="nav-text">邻接点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路径"><span class="nav-number">1.9.</span> <span class="nav-text">路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连通图（强连通图）"><span class="nav-number">1.10.</span> <span class="nav-text">连通图（强连通图）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连通分量"><span class="nav-number">1.11.</span> <span class="nav-text">连通分量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强连通分量"><span class="nav-number">1.12.</span> <span class="nav-text">强连通分量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成树"><span class="nav-number">1.13.</span> <span class="nav-text">生成树</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2019 夜明的Blog All Rights Reserved.
+        
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
