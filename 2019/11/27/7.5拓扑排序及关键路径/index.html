@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>图-5|拓扑排序 | 夜明的Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="数据结构" />
+  
+  
+  
+  
+  <meta name="description" content="本篇记录了数据结构图这一章学习的第五部分，即图的拓扑排序问题。">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图-5|拓扑排序">
+<meta property="og:url" content="daybreakland.top&#x2F;2019&#x2F;11&#x2F;27&#x2F;7.5%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%8F%8A%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84&#x2F;index.html">
+<meta property="og:site_name" content="夜明的Blog">
+<meta property="og:description" content="本篇记录了数据结构图这一章学习的第五部分，即图的拓扑排序问题。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191126180000112.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191126222922131.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191126223448630.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191127163138279.png">
+<meta property="og:updated_time" content="2019-11-27T09:17:36.454Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191126180000112.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+  
+    <link rel="alternate" href="/atom.xml" title="夜明的Blog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="夜明的Blog" rel="home"> 夜明的Blog </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">Where would a south wind take us</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">分类</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">标签</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">关于</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-7.5拓扑排序及关键路径" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      图-5|拓扑排序
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/11/27/7.5%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%8F%8A%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" class="article-date">
+	  <time datetime="2019-11-27T09:14:58.000Z" itemprop="datePublished">十一月 27, 2019</time>
+	</a>
+
+       
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本篇记录了数据结构图这一章学习的第五部分，<br>即图的拓扑排序问题。</p>
+<a id="more"></a>
+<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
+<li>顶点——表示课程</li>
+<li>有向弧——表示先决条件，若课程i是课程j的先决条件，则图中有<strong>弧&lt;i,j&gt;</strong></li>
+<li>拓扑排序<br>学生应按怎样的顺序学习这些课程，才能无矛盾、顺利地完成学业<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><h4 id="AOV网"><a href="#AOV网" class="headerlink" title="AOV网"></a>AOV网</h4>用<strong>顶点</strong>表示<strong>活动</strong>，用<strong>弧</strong>表示<strong>活动间优先关系</strong>的<strong>有向图</strong>称为顶点表示活动的网(Activity On Vertex network)，简称AOV网。</li>
+</ul>
+<blockquote>
+<p>若&lt;vi,vj&gt;是图中有向边，则vi是vj的直接前驱，vj是vi的直接后继；<br>AOV网中不允许有回路，这意味着某项活动以自己为先决条件；</p>
+</blockquote>
+<h4 id="拓扑排序的定义"><a href="#拓扑排序的定义" class="headerlink" title="拓扑排序的定义"></a>拓扑排序的定义</h4><p>把AOV网络中各顶点按照它们相互之间的优先关系排列成一个<strong>线性序列</strong>的过程叫拓扑排序</p>
+<blockquote>
+<p>-拓扑排序应用<br>检测AOV网中是否存在环：<br>对有向图构造其顶点的拓扑有序序列，若网中<strong>所有顶点</strong>都在它的拓扑序列，则该AOV网必定无环</p>
+</blockquote>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
+<li>在有向图中选一个没有前驱的顶点且输出之；</li>
+<li>从图中删除该顶点和所有以它为尾的弧；</li>
+<li>重复上述两步，直至全部顶点均已输出，或图中不存在无前驱的顶点。<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3>以邻接表作存储结构,</li>
+<li>把邻接表中所有入度为0的顶点进栈;</li>
+<li>栈非空时，输出栈顶元素Vj并退栈；</li>
+<li>在邻接表中查找Vj的直接后继Vk，把Vk的入度减1；若Vk的入度为0则进栈;</li>
+<li>重复上述操作直至栈空为止。<blockquote>
+<p>若栈空时输出的顶点个数不是n，则有向图有环；否则，拓扑排序完毕</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">TopologicalSort</span><span class="params">(ALGraph G)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">for</span>(i  = <span class="number">0</span>;i &lt;G.vexnum; ++ i ) <span class="comment">//查找入度为为零的顶点</span></span><br><span class="line">      <span class="keyword">if</span>(! Indegree[i])                      <span class="comment">//把入度为零的顶点进栈</span></span><br><span class="line">           push (S,i ); </span><br><span class="line"> 	 	count = <span class="number">0</span>;                                  <span class="comment">//计数器置0</span></span><br><span class="line">   <span class="keyword">while</span> (! StackEmpty(s)) &#123;</span><br><span class="line">        pop(s, i); </span><br><span class="line">        <span class="built_in">printf</span>(i,Gvextices[i].data);</span><br><span class="line">        ++count;<span class="comment">//输出顶点、计数</span></span><br><span class="line">        <span class="keyword">for</span>(p=G.vextices[i].firstarc;  p ;  p = p-&gt;nextarc) &#123;</span><br><span class="line">            k = p-&gt;adjvex; <span class="comment">//得到与输出顶点相邻接的顶点下标</span></span><br><span class="line">            <span class="keyword">if</span>(! (--indegree[k])) </span><br><span class="line">            	push( S,k);</span><br><span class="line">                                     <span class="comment">//将邻接点的入度减1，将为零的入栈</span></span><br><span class="line">        &#125;<span class="comment">//for</span></span><br><span class="line">     &#125;<span class="comment">//while</span></span><br><span class="line">     <span class="keyword">if</span> (count&lt;G.vexnum) </span><br><span class="line">     	<span class="keyword">return</span> ERROR;<span class="comment">//该图有回路</span></span><br><span class="line">     <span class="keyword">else</span> <span class="keyword">return</span>  OK;</span><br><span class="line">&#125;<span class="comment">//TopologicalSort</span></span><br></pre></td></tr></table></figure>
+<h2 id="关键路径"><a href="#关键路径" class="headerlink" title="关键路径"></a>关键路径</h2><h3 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h3><ul>
+<li>把工程计划表示为有向图，用顶点表示事件，弧表示活动；<br>每个事件表示在它之前的活动已完成，在它之后的活动可以开始；<br>事件 V1——表示整个工程开始<br>事件 V9——表示整个工程结束<br>其中，T为所有以第j个顶点为头的弧的集合。</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20191126180000112.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><h4 id="AOE网-Activity-On-Edge"><a href="#AOE网-Activity-On-Edge" class="headerlink" title="AOE网(Activity On Edge)"></a>AOE网(Activity On Edge)</h4><p>边表示活动的网。AOE网是一个带权的有向无环图，其中顶点表示事件，弧表示活动，权表示活动持续时间</p>
+<h4 id="路径长度"><a href="#路径长度" class="headerlink" title="路径长度"></a>路径长度</h4><p>路径上各活动持续时间之和。</p>
+<h4 id="关键路径-1"><a href="#关键路径-1" class="headerlink" title="关键路径"></a>关键路径</h4><p>路径长度<strong>最长的路径</strong>叫<strong>关键路径</strong>。</p>
+<h3 id="Ve——事件Vj的最早发生时间Ve-j"><a href="#Ve——事件Vj的最早发生时间Ve-j" class="headerlink" title="Ve——事件Vj的最早发生时间Ve(j)"></a>Ve——事件Vj的最早发生时间Ve(j)</h3><ul>
+<li><p><strong>源点</strong>的最早发生时间为0，其余任一顶点<strong>Vj</strong>的最早发生时间，等于从源点出发沿着各条路径达到Vj时每条路径上权的累加和的最大值。计算公式为：<br>**Ve(j)=Max{ve(i) + dut(&lt;i ,j&gt;)}   </p>
+<pre><code>&lt;i,j&gt;∈T, j = 1,2,3…n-1**</code></pre><p>  <img src="https://img-blog.csdnimg.cn/20191126222922131.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="求Ve最早发生时间"></p>
+<h3 id="Vl—事件的最迟发生时间Vl-j"><a href="#Vl—事件的最迟发生时间Vl-j" class="headerlink" title="Vl—事件的最迟发生时间Vl(j)"></a>Vl—事件的最迟发生时间Vl(j)</h3></li>
+<li><p><strong>汇点</strong>的最迟发生时间<strong>Vl[n]</strong>等于汇点的最早发生时间Ve[n]。<br>其余任一顶点Vi的最迟发生时间等于从汇点的最迟发生时间中减去从顶点Vi出发沿着各条路径达到汇点时，每条路径上权的累加和的最大值。<br>最迟发生时间一般用下列公式计算:</p>
+</li>
+</ul>
+<p><strong>Vl(i)=Min{vl(j)-dut(&lt;i ,j&gt;)}<br>      &lt;i,j&gt; ∈S, i = n -2,..,0</strong><br>其中， S为所有以第i个顶点为尾的弧的集合。<br><img src="https://img-blog.csdnimg.cn/20191126223448630.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="求Vl最迟发生时间"></p>
+<h3 id="e-i-——表示活动ai的最早开始时间"><a href="#e-i-——表示活动ai的最早开始时间" class="headerlink" title="e(i)——表示活动ai的最早开始时间"></a>e(i)——表示<strong>活动</strong>ai的最早开始时间</h3><h3 id="l-i-——表示活动ai的最迟开始时间"><a href="#l-i-——表示活动ai的最迟开始时间" class="headerlink" title="l(i)——表示活动ai的最迟开始时间"></a>l(i)——表示<strong>活动</strong>ai的最迟开始时间</h3><p>  设<strong>活动</strong>ai用弧&lt;j,k&gt;表示，<br>    其<strong>持续时间</strong>记为：dut(&lt;j,k&gt;)<br>    则有：（1）e(i)=Ve(j)  //最早开始时间是弧尾事件的最早发生时间<br>                （2）l(i)=Vl(k)-dut(&lt;j,k&gt;)//最迟开始时间是弧头事件的最晚发生时间<strong>减去</strong>活动的持续时间，即<strong>弧的权值</strong><br>                <img src="https://img-blog.csdnimg.cn/20191127163138279.png" alt></p>
+<ul>
+<li>l(i)-e(i)——表示完成活动ai的<strong>时间余量</strong></li>
+<li>关键活动——关键路径上的活动叫关键活动，即<strong>l(i)=e(i)</strong>的活动</li>
+</ul>
+<h3 id="算法实现-1"><a href="#算法实现-1" class="headerlink" title="算法实现"></a>算法实现</h3><p>描述</p>
+<ul>
+<li>输入顶点和弧信息，建立其邻接表</li>
+<li>计算每个顶点的入度</li>
+<li>对其进行拓扑排序</li>
+<li>排序过程中求顶点的Ve[i]</li>
+<li>将得到的拓扑序列进栈</li>
+<li>按逆拓扑序列求顶点的Vl[i]</li>
+<li>计算每条弧的e[i]和l[i],找出e[i]=l[i]的关键活动<br>……没看，待更新</li>
+</ul>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li></ul>
+
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/11/27/7.6%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          图-6|最短路径
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/11/26/7.4%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">图-4|图的连通性问题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#拓扑排序"><span class="nav-number">1.</span> <span class="nav-text">拓扑排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AOV网"><span class="nav-number">1.2.1.</span> <span class="nav-text">AOV网</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拓扑排序的定义"><span class="nav-number">1.2.2.</span> <span class="nav-text">拓扑排序的定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">1.3.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现"><span class="nav-number">1.4.</span> <span class="nav-text">算法实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键路径"><span class="nav-number">2.</span> <span class="nav-text">关键路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-1"><span class="nav-number">2.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-1"><span class="nav-number">2.2.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AOE网-Activity-On-Edge"><span class="nav-number">2.2.1.</span> <span class="nav-text">AOE网(Activity On Edge)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路径长度"><span class="nav-number">2.2.2.</span> <span class="nav-text">路径长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关键路径-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">关键路径</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ve——事件Vj的最早发生时间Ve-j"><span class="nav-number">2.3.</span> <span class="nav-text">Ve——事件Vj的最早发生时间Ve(j)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vl—事件的最迟发生时间Vl-j"><span class="nav-number">2.4.</span> <span class="nav-text">Vl—事件的最迟发生时间Vl(j)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-i-——表示活动ai的最早开始时间"><span class="nav-number">2.5.</span> <span class="nav-text">e(i)——表示活动ai的最早开始时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#l-i-——表示活动ai的最迟开始时间"><span class="nav-number">2.6.</span> <span class="nav-text">l(i)——表示活动ai的最迟开始时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现-1"><span class="nav-number">2.7.</span> <span class="nav-text">算法实现</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2019 夜明的Blog All Rights Reserved.
+        
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
