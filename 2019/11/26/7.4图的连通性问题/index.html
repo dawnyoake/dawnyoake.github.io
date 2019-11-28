@@ -688,6 +688,21 @@
 
 
 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: 'e724c1619eb29b8c00a2',
+          clientSecret: '217dc83b646276d7b1d4ead2b16870462fce0b06',
+          repo: 'dawnyoake.github.io',
+          owner: 'dawnyoake',
+          admin: ['dawnyoake'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
   
 
 
