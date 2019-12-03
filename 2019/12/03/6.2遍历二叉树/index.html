@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://daybreakland.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="本篇记录了数据结构树这一章学习的第二部分，即遍历二叉树。">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树-2|遍历二叉树">
+<meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;2019&#x2F;12&#x2F;03&#x2F;6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91&#x2F;index.html">
+<meta property="og:site_name" content="夜明的Blog">
+<meta property="og:description" content="本篇记录了数据结构树这一章学习的第二部分，即遍历二叉树。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191202152309756.png">
+<meta property="og:updated_time" content="2019-12-03T05:11:46.006Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191202152309756.png">
+
+<link rel="canonical" href="https://daybreakland.top/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>树-2|遍历二叉树 | 夜明的Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夜明的Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Daybreak</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="夜明">
+      <meta itemprop="description" content="Where would a south wind take us">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夜明的Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          树-2|遍历二叉树
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-03 13:03:42 / 修改时间：13:11:46" itemprop="dateCreated datePublished" datetime="2019-12-03T13:03:42+08:00">2019-12-03</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇记录了数据结构树这一章学习的第二部分，<br>即遍历二叉树。</p>
+<a id="more"></a>
+<h1 id="遍历二叉树"><a href="#遍历二叉树" class="headerlink" title="遍历二叉树"></a>遍历二叉树</h1><h2 id="树的常见操作"><a href="#树的常见操作" class="headerlink" title="树的常见操作"></a>树的常见操作</h2><h3 id="建树"><a href="#建树" class="headerlink" title="建树"></a>建树</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">CreateBiTree</span><span class="params">(BiTree &amp;T)</span></span></span><br><span class="line"><span class="function"> </span>&#123; <span class="comment">// 算法6.4:按先序次序输入二叉树中结点的值（可为字符型或整型，在主程中</span></span><br><span class="line">   <span class="comment">// 定义），构造二叉链表表示的二叉树T。变量Nil表示空（子）树。有改动</span></span><br><span class="line">   TElemType ch;</span><br><span class="line">	 <span class="built_in">cin</span>&gt;&gt;ch;</span><br><span class="line">	 </span><br><span class="line">   <span class="keyword">if</span>(ch==Nil) <span class="comment">// 空</span></span><br><span class="line">     T=<span class="literal">NULL</span>;</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">   &#123;</span><br><span class="line">     T=(BiTree)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BiTNode));</span><br><span class="line">     <span class="keyword">if</span>(!T)</span><br><span class="line">       <span class="built_in">exit</span>(OVERFLOW);</span><br><span class="line">     T-&gt;data=ch; <span class="comment">// 生成根结点</span></span><br><span class="line">     CreateBiTree(T-&gt;lchild); <span class="comment">// 构造左子树</span></span><br><span class="line">     CreateBiTree(T-&gt;rchild); <span class="comment">// 构造右子树</span></span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="求树的深度"><a href="#求树的深度" class="headerlink" title="求树的深度"></a>求树的深度</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BiTreeDepth</span><span class="params">(BiTree T)</span></span></span><br><span class="line"><span class="function"> </span>&#123; <span class="comment">// 初始条件: 二叉树T存在。操作结果: 返回T的深度</span></span><br><span class="line">   <span class="keyword">int</span> i,j;</span><br><span class="line">   <span class="keyword">if</span>(!T)</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">if</span>(T-&gt;lchild)</span><br><span class="line">     i=BiTreeDepth(T-&gt;lchild);</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">     i=<span class="number">0</span>;</span><br><span class="line">   <span class="keyword">if</span>(T-&gt;rchild)</span><br><span class="line">     j=BiTreeDepth(T-&gt;rchild);</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">     j=<span class="number">0</span>;</span><br><span class="line">   <span class="keyword">return</span> i&gt;j?i+<span class="number">1</span>:j+<span class="number">1</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="插入子树"><a href="#插入子树" class="headerlink" title="插入子树"></a>插入子树</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">InsertChild</span><span class="params">(BiTree p,<span class="keyword">int</span> LR,BiTree c)</span> <span class="comment">// 形参T无用</span></span></span><br><span class="line"><span class="function"> </span>&#123; <span class="comment">// 初始条件: 二叉树T存在,p指向T中某个结点,LR为0或1,非空二叉树c与T</span></span><br><span class="line">   <span class="comment">//           不相交且右子树为空</span></span><br><span class="line">   <span class="comment">// 操作结果: 根据LR为0或1,插入c为T中p所指结点的左或右子树。p所指结点的</span></span><br><span class="line">   <span class="comment">//           原有左或右子树则成为c的右子树</span></span><br><span class="line">   <span class="keyword">if</span>(p) <span class="comment">// p不空</span></span><br><span class="line">   &#123;</span><br><span class="line">     <span class="keyword">if</span>(LR==<span class="number">0</span>)</span><br><span class="line">     &#123;</span><br><span class="line">       c-&gt;rchild=p-&gt;lchild;</span><br><span class="line">       p-&gt;lchild=c;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">else</span> <span class="comment">// LR==1</span></span><br><span class="line">     &#123;</span><br><span class="line">       c-&gt;rchild=p-&gt;rchild;</span><br><span class="line">       p-&gt;rchild=c;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> OK;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> ERROR; <span class="comment">// p空</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="前序递归遍历二叉树"><a href="#前序递归遍历二叉树" class="headerlink" title="前序递归遍历二叉树"></a>前序递归遍历二叉树</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(BiTree T,Status(*Visit)(TElemType))</span></span></span><br><span class="line"><span class="function"> </span>&#123; <span class="comment">// 初始条件: 二叉树T存在,Visit是对结点操作的应用函数。算法6.1，有改动</span></span><br><span class="line">   <span class="comment">// 操作结果: 先序递归遍历T,对每个结点调用函数Visit一次且仅一次</span></span><br><span class="line">   <span class="keyword">if</span>(T) <span class="comment">// T不空</span></span><br><span class="line">   &#123;</span><br><span class="line">     Visit(T-&gt;data); <span class="comment">// 先访问根结点</span></span><br><span class="line">     PreOrderTraverse(T-&gt;lchild,Visit); <span class="comment">// 再先序遍历左子树</span></span><br><span class="line">     PreOrderTraverse(T-&gt;rchild,Visit); <span class="comment">// 最后先序遍历右子树</span></span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>前中后序的递归算法只是更改了visit(T-&gt;data)语句位置，前中后分别对应位置1、2、3</p>
+</blockquote>
+<h2 id="中序遍历二叉树"><a href="#中序遍历二叉树" class="headerlink" title="中序遍历二叉树"></a>中序遍历二叉树</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">InOrderTraverse</span><span class="params">( BiTree T, status (*visit)(TElemType e ))</span></span>&#123;</span><br><span class="line">	InitStack( S );</span><br><span class="line">	Push( S, T );				<span class="comment">// 根指针进栈</span></span><br><span class="line">	<span class="keyword">while</span>( ! StackEmpty( S ))&#123;</span><br><span class="line">		<span class="keyword">while</span>( GetTop( S, p ) &amp;&amp; p )</span><br><span class="line">			Push( S, p-&gt;lChild );<span class="comment">//向左，直到最左下角</span></span><br><span class="line">		Pop( S, p );			<span class="comment">// NULL退栈</span></span><br><span class="line">       <span class="keyword">if</span>( !StackEmpty( S))&#123;</span><br><span class="line">	       Pop( S, p );		<span class="comment">// 根退出   </span></span><br><span class="line">          <span class="keyword">if</span>( ! ( *Visit)(p-&gt;data) )   <span class="keyword">return</span> ERROR;</span><br><span class="line">		   Push( S, p-&gt;RChild );</span><br><span class="line">		&#125;<span class="comment">// if</span></span><br><span class="line">	&#125;<span class="comment">// while     return OK;</span></span><br><span class="line">&#125;<span class="comment">// InOrderTraverse</span></span><br></pre></td></tr></table></figure>
+<h2 id="二叉树的计数"><a href="#二叉树的计数" class="headerlink" title="二叉树的计数"></a>二叉树的计数</h2><p>由二叉树的前序序列和中序序列可唯一地确定一棵二叉树。</p>
+<h1 id="线索二叉树"><a href="#线索二叉树" class="headerlink" title="线索二叉树"></a>线索二叉树</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><h3 id="前驱与后继"><a href="#前驱与后继" class="headerlink" title="前驱与后继"></a>前驱与后继</h3><p>在二叉树的先序、中序或后序遍历序列中两个<strong>相邻的结点</strong>互称为~</p>
+<h3 id="线索"><a href="#线索" class="headerlink" title="线索"></a>线索</h3><p>指向前驱或后继结点的指针称为~</p>
+<h3 id="线索二叉树-1"><a href="#线索二叉树-1" class="headerlink" title="线索二叉树"></a>线索二叉树</h3><p>加上线索的二叉链表表示的二叉树叫~</p>
+<h3 id="线索化"><a href="#线索化" class="headerlink" title="线索化"></a>线索化</h3><p>对二叉树按某种遍历次序使其变为线索二叉树的过程叫~</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
+<li>在有n个结点的二叉链表中必定有n+1个空链域</li>
+<li>在二叉树或二叉链表中，<strong>若左孩子为空</strong>，则画出它的<strong>直接前驱</strong>，<strong>右孩子为空时</strong>，则画出它的<strong>直接后继</strong>，左右孩子不为空时，不需画前驱和后继。这样就得到了线索二叉树或线索二叉链表。<br><img src="https://img-blog.csdnimg.cn/20191202152309756.png" alt="存储结构"><br>对应tag为0，child域指向孩子；<br>对应tag为1，child域指向孩子。<h3 id="中序线索二叉树"><a href="#中序线索二叉树" class="headerlink" title="中序线索二叉树"></a>中序线索二叉树</h3><h3 id="线索二叉树的遍历"><a href="#线索二叉树的遍历" class="headerlink" title="线索二叉树的遍历"></a>线索二叉树的遍历</h3><h3 id="线索链表的遍历算法"><a href="#线索链表的遍历算法" class="headerlink" title="线索链表的遍历算法"></a>线索链表的遍历算法</h3></li>
+</ul>
+<h2 id="附带习题"><a href="#附带习题" class="headerlink" title="附带习题"></a>附带习题</h2><p>1 编写求二叉树的分枝结点个数的算法（用二叉链表存）</p>
+<p>2 二叉树求二叉树深度算法</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/03/6.1%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="prev" title="树-1|树和二叉树">
+      <i class="fa fa-chevron-left"></i> 树-1|树和二叉树
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/03/6.3%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/" rel="next" title="树-3|树和森林">
+      树-3|树和森林 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#遍历二叉树"><span class="nav-number">1.</span> <span class="nav-text">遍历二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#树的常见操作"><span class="nav-number">1.1.</span> <span class="nav-text">树的常见操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建树"><span class="nav-number">1.1.1.</span> <span class="nav-text">建树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求树的深度"><span class="nav-number">1.1.2.</span> <span class="nav-text">求树的深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入子树"><span class="nav-number">1.1.3.</span> <span class="nav-text">插入子树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前序递归遍历二叉树"><span class="nav-number">1.2.</span> <span class="nav-text">前序递归遍历二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中序遍历二叉树"><span class="nav-number">1.3.</span> <span class="nav-text">中序遍历二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的计数"><span class="nav-number">1.4.</span> <span class="nav-text">二叉树的计数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线索二叉树"><span class="nav-number">2.</span> <span class="nav-text">线索二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前驱与后继"><span class="nav-number">2.1.1.</span> <span class="nav-text">前驱与后继</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线索"><span class="nav-number">2.1.2.</span> <span class="nav-text">线索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线索二叉树-1"><span class="nav-number">2.1.3.</span> <span class="nav-text">线索二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线索化"><span class="nav-number">2.1.4.</span> <span class="nav-text">线索化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#中序线索二叉树"><span class="nav-number">2.2.1.</span> <span class="nav-text">中序线索二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线索二叉树的遍历"><span class="nav-number">2.2.2.</span> <span class="nav-text">线索二叉树的遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线索链表的遍历算法"><span class="nav-number">2.2.3.</span> <span class="nav-text">线索链表的遍历算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附带习题"><span class="nav-number">2.3.</span> <span class="nav-text">附带习题</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">夜明</p>
+  <div class="site-description" itemprop="description">Where would a south wind take us</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dawnyoake" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dawnyoake" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">夜明</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">21k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">39 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='0,0,255' opacity='1' zIndex='50' count='10' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'J0b3D8nEf5PQxGjiWrKGbC3t-gzGzoHsz',
+    appKey: 'y9Hv5m8z8Ly1aDBDXD24yt2K',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+  <div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>
+

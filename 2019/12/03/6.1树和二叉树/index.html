@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://daybreakland.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="本篇记录了数据结构树这一章学习的第一部分，即树和二叉树。">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树-1|树和二叉树">
+<meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;2019&#x2F;12&#x2F;03&#x2F;6.1%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91&#x2F;index.html">
+<meta property="og:site_name" content="夜明的Blog">
+<meta property="og:description" content="本篇记录了数据结构树这一章学习的第一部分，即树和二叉树。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191130112209690.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191130112530465.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191130112910974.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191130112942923.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-12-03T05:12:46.449Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191130112209690.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="https://daybreakland.top/2019/12/03/6.1%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>树-1|树和二叉树 | 夜明的Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夜明的Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Daybreak</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/03/6.1%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="夜明">
+      <meta itemprop="description" content="Where would a south wind take us">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夜明的Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          树-1|树和二叉树
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-03 13:03:08 / 修改时间：13:12:46" itemprop="dateCreated datePublished" datetime="2019-12-03T13:03:08+08:00">2019-12-03</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/03/6.1%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/6.1%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇记录了数据结构树这一章学习的第一部分，<br>即树和二叉树。</p>
+<a id="more"></a>
+<h1 id="树的定义和基本概念"><a href="#树的定义和基本概念" class="headerlink" title="树的定义和基本概念"></a>树的定义和基本概念</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>树(tree)是n(n&gt;0)个结点的有限集T，其中：<br>有且仅有一个特定的结点，称为树的根(root)<br>当n&gt;1时，其余结点可分为m(m&gt;0)个<strong>互不相交</strong>的有限集T1,T2,……Tm，其中每一个集合本身又是一棵树，称为根的子树(subtree)</p>
+<ul>
+<li>特点：<br>树中<strong>至少</strong>有一个结点——根<br>树中<strong>各子树是互不相交</strong>的集合<h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><h3 id="结点-node"><a href="#结点-node" class="headerlink" title="结点(node)"></a>结点(node)</h3>指树中的一个数据元素，包括数据项及若干指向其子树的分支。一般用一个字母表示。<h3 id="结点的度-degree"><a href="#结点的度-degree" class="headerlink" title="结点的度(degree)"></a>结点的度(degree)</h3>结点拥有的子树数<h3 id="叶子-leaf"><a href="#叶子-leaf" class="headerlink" title="叶子(leaf)"></a>叶子(leaf)</h3>度为0的结点，也叫终端结点。 <h3 id="分枝结点"><a href="#分枝结点" class="headerlink" title="分枝结点"></a>分枝结点</h3>除叶子结点外的所有结点，也叫非终端结点。<h3 id="孩子-child"><a href="#孩子-child" class="headerlink" title="孩子(child)"></a>孩子(child)</h3>结点子树的根称为该结点的孩子<h3 id="双亲-parents"><a href="#双亲-parents" class="headerlink" title="双亲(parents)"></a>双亲(parents)</h3>孩子结点的上层结点叫该结点的~<h3 id="祖先结点"><a href="#祖先结点" class="headerlink" title="祖先结点"></a>祖先结点</h3>从根结点到该结点所经过分枝上的所有结点为该结点的祖先，如图6-1c中M的祖先有A，D ，H 。<h3 id="子孙结点"><a href="#子孙结点" class="headerlink" title="子孙结点"></a>子孙结点</h3>某一结点的子女及子女的子女都为该结点子孙。<h3 id="兄弟-sibling"><a href="#兄弟-sibling" class="headerlink" title="兄弟(sibling)"></a>兄弟(sibling)</h3>具有同一个双亲的结点<h3 id="树的度"><a href="#树的度" class="headerlink" title="树的度"></a>树的度</h3>一棵树中<strong>最大</strong>的结点度数<h3 id="结点的层次-level"><a href="#结点的层次-level" class="headerlink" title="结点的层次(level)"></a>结点的层次(level)</h3>从根结点算起，根为第一层，它的孩子为第二层……<h3 id="深度-depth"><a href="#深度-depth" class="headerlink" title="深度(depth)"></a>深度(depth)</h3>树中结点的最大层次数<h3 id="有序树"><a href="#有序树" class="headerlink" title="有序树"></a>有序树</h3>若一棵树中所有子树从左到右的排序是有顺序的，不能颠倒次序。称该树为有序树。<h3 id="无序树"><a href="#无序树" class="headerlink" title="无序树"></a>无序树</h3>若一棵树中所有子树的次序无关紧要，则称为无序树。<h3 id="森林-forest"><a href="#森林-forest" class="headerlink" title="森林(forest)"></a>森林(forest)</h3>m(m&gt;=0)棵互不相交的树的集合.一棵树可以看成是一个特殊的森林。<h2 id="ADT"><a href="#ADT" class="headerlink" title="ADT"></a>ADT</h2></li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">ADT Tree&#123;</span><br><span class="line">	数据对象D：D是具有相同特性的数据元素的集合</span><br><span class="line">	</span><br><span class="line">	数据关系R：</span><br><span class="line">		若D为空集，则称为空树；</span><br><span class="line">		若D仅含一个数据元素，则R为空集，否则R=&#123;H&#125;，</span><br><span class="line">		    H是如下二元关系：</span><br><span class="line">		在D中存在唯一的称为根的数据元素root，它在关系H下无前驱；</span><br><span class="line">		若D-&#123;root&#125;≠Φ,则存在D-&#123;root&#125;的一个划分D1,D2,…Dm(m&gt;<span class="number">0</span>)，对任意j≠k (<span class="number">1</span>≤j,k≤m)又Dj∩Dk=Φ,且对任意的i(<span class="number">1</span>≤i≤m)，唯一存在数据元素xi∈Di，有&lt;root,xi&gt;∈H;</span><br><span class="line">		对应于D-&#123;root&#125;的划分，H - &#123;&lt;root,x1&gt;, … &lt;root , xm&gt; &#125; 有唯一的一个划分H1,H2,…Hm，m&gt;<span class="number">0</span>，对任意j≠k(<span class="number">1</span>≤j,k≤m)有Hj∩Hk=Φ，且对任意i（<span class="number">1</span>≤i≤m），Hi是Di上的二元关系，(Di,&#123;Hi&#125;）是一棵符合本定义的树，称为根root的子树。</span><br><span class="line">		</span><br><span class="line">	基本操作：</span><br><span class="line">	InitTree( &amp;T );			<span class="comment">// 初始化</span></span><br><span class="line">	DestroyTree( &amp;T );		<span class="comment">// 销毁</span></span><br><span class="line">	CreateTree( &amp;T, definition);<span class="comment">//按definition构造树</span></span><br><span class="line">	ClearTree( &amp;T );		<span class="comment">// 清空</span></span><br><span class="line">	TreeEmpty( T );			<span class="comment">// 空？</span></span><br><span class="line">	TreeDepth( T );			<span class="comment">// 树的深度</span></span><br><span class="line">	Root( T );			<span class="comment">// 树根</span></span><br><span class="line">	Value( T, cur_e );		<span class="comment">// 求结点cur_e的值</span></span><br><span class="line">	Assign( T, cur_e, value );	<span class="comment">// 赋值</span></span><br><span class="line">	Parent( T, cur_e );	<span class="comment">// 求cur_e的双亲</span></span><br><span class="line">	LeftChild( T, cur_e );	<span class="comment">// 求cur_e的最左孩子</span></span><br><span class="line">	RightSibling( T, cur_e );<span class="comment">// 求cur_e的右兄弟</span></span><br><span class="line">	InsertChild( &amp;T, &amp;p, i, c );<span class="comment">// 插入c为T中p所指结点的第i棵子树</span></span><br><span class="line">	DeleteChild( &amp;T, &amp;p, i);<span class="comment">// 删除T中，p所指结点的第i个子树		</span></span><br><span class="line">	TraverseTree( T, visit() );	<span class="comment">//遍历</span></span><br><span class="line">	&#125;<span class="comment">//ADT Tree</span></span><br></pre></td></tr></table></figure>
+<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><p>二叉树是n(n&gt;=0)个结点的有限集，它或为<strong>空树</strong>(n=0)，或由一个根结点和两棵分别称为左子树和右子树的互不相交的二叉树构成</p>
+<ul>
+<li>特点<br>每个结点至多有二棵子树(即不存在度大于2的结点)<br>二叉树的子树有左、右之分，且<strong>其次序不能任意颠倒</strong><h2 id="二叉树的ADT表示"><a href="#二叉树的ADT表示" class="headerlink" title="二叉树的ADT表示"></a>二叉树的ADT表示</h2></li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">ADT BinaryTree</span><br><span class="line">&#123;</span><br><span class="line">	数据对象D：D是具有相同特性的数据元素的集合；</span><br><span class="line">	数据关系R:</span><br><span class="line">		若D = Φ，则 R = Φ， 称BinaryTree为空二叉树；</span><br><span class="line">		若D ≠ Φ，则 R = &#123; H &#125;, H是如下的二元关系：</span><br><span class="line">			(<span class="number">1</span>) 在D中，存在唯一的称为根的数据元素</span><br><span class="line">                root, 它在关系H下无前驱；</span><br><span class="line">			(<span class="number">2</span>) 若D – &#123;root&#125; ≠ Φ, 则存在</span><br><span class="line">                D-&#123;root&#125; = &#123;Dl, Dr&#125;, 且 Dl ∩Dr = Φ；</span><br><span class="line">            (<span class="number">3</span>) 若Dl ≠ Φ, 则Dl中存在唯一的元素xl, </span><br><span class="line">			    &lt;root, xl&gt; ∈ H, 且存在Dl上的关系Hl ∈H；</span><br><span class="line">			    若Dr ≠ Φ,则Dr中存在唯一的元素xr,&lt;root,xr&gt;∈H, </span><br><span class="line">			    且存在Dr上的关系Hr ∈H； </span><br><span class="line">			    H = &#123; &lt;root, xl&gt;,&lt;root, xr&gt;, Hl, Hr&#125;;</span><br><span class="line">			(<span class="number">4</span>) ( Dl,&#123; Hl&#125;)是一棵符合本定义的二叉树，称为根的左子树；</span><br><span class="line">			    ( Dr, &#123;Hr&#125;)是一棵符合本定义的二叉树，称为根的右子树；</span><br><span class="line">	基本操作：</span><br><span class="line">			InitBiTree( &amp;T );		           <span class="comment">// 初始化</span></span><br><span class="line">			DestroyBiTree( &amp;T );		<span class="comment">// 销毁</span></span><br><span class="line">			CreateBiTree( &amp;T, definition );	<span class="comment">// 创建二叉树</span></span><br><span class="line">			ClearBiTree( &amp;T );			<span class="comment">// 清空</span></span><br><span class="line">			BiTreeEmpty( T );			<span class="comment">// 空？</span></span><br><span class="line">			BiTreeDepth( T );			<span class="comment">// 深度</span></span><br><span class="line">			Root( T );				<span class="comment">// 根</span></span><br><span class="line">			Value( T, e );				<span class="comment">// 求e的值</span></span><br><span class="line">			Assign( T, &amp;e, value );		<span class="comment">// 赋值</span></span><br><span class="line">			Parent( T, e );			<span class="comment">// 求双亲</span></span><br><span class="line">			LeftChild( T, e );			<span class="comment">// 左孩子</span></span><br><span class="line">			RightChild( T, e );			<span class="comment">// 右孩子</span></span><br><span class="line">			LeftSibling( T, e) ;			<span class="comment">// 左兄弟</span></span><br><span class="line">			RightSibling( T, e );			<span class="comment">// 右兄弟</span></span><br><span class="line">			InsertChild( T, p, LR, c );		    <span class="comment">// 插入</span></span><br><span class="line">			DeleteChild( T, p, LR );			<span class="comment">// 删除</span></span><br><span class="line">			PreOrderTraverse( T, Visit( ));		<span class="comment">// 先序遍历</span></span><br><span class="line">			InOrderTraverse( T, Visit( ));		<span class="comment">// 中序遍历</span></span><br><span class="line">			PostOrderTraverse( T, Visit( ));	<span class="comment">// 后序遍历</span></span><br><span class="line">			LeverOrderTraverse( T, Visit( ));	<span class="comment">// 层序遍历</span></span><br><span class="line">&#125; <span class="comment">// ADT BinaryTree</span></span><br></pre></td></tr></table></figure>
+<h2 id="二叉树的性质"><a href="#二叉树的性质" class="headerlink" title="二叉树的性质"></a>二叉树的性质</h2><ul>
+<li>性质1：在二叉树的第i层上至多有2^(i-1)个结点(i≥1)</li>
+<li>性质2：深度为k的二叉树至多有2^(k-1)个结点(k≥1)</li>
+<li>性质3：对任何一棵二叉树T，如果其终端结点数为n0，度为2的结点数为n2，则n0=n2+1</li>
+<li>性质4：具有n个结点的完全二叉树的深度为floor[ log2 n ] +1</li>
+<li>性质5：如果对一棵有n个结点的完全二叉树的结点按层序编号，则对任一结点i(1&lt;=i&lt;=n)，有：<br><img src="https://img-blog.csdnimg.cn/20191130112209690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="性质5"><br>(1)  如果i=1，则结点i是二叉树的根，无双亲；如果i&gt;1，则其双亲是florr[i/2]<br>(2)  如果2i&gt;n，则结点i无左孩子；如果2i&lt;=n，则其左孩子是2i<br>(3)  如果2i+1&gt;n，则结点i无右孩子；如果2i+1&lt;=n，则其右孩子是2i+1</li>
+</ul>
+<h2 id="特殊的二叉树"><a href="#特殊的二叉树" class="headerlink" title="特殊的二叉树"></a>特殊的二叉树</h2><h3 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h3><p>深度为k，其一共有2^(k)-1个节点<br>（每一层都满了）</p>
+<h3 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h3><p>深度为k，有n个结点的二叉树当且仅当其每一个结点都与深度为k的满二叉树中编号从1至n的结点一一对应<br>（最后一层，从最右节点去掉连续节点后的满二叉树）</p>
+<h2 id="二叉树的存储结构"><a href="#二叉树的存储结构" class="headerlink" title="二叉树的存储结构"></a>二叉树的存储结构</h2><h3 id="顺序存储结构"><a href="#顺序存储结构" class="headerlink" title="顺序存储结构"></a>顺序存储结构</h3><p>更适合存储完全二叉树，一般二叉树会浪费空间<br><img src="https://img-blog.csdnimg.cn/20191130112530465.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="顺序存储"></p>
+<h3 id="链式存储结构"><a href="#链式存储结构" class="headerlink" title="链式存储结构"></a>链式存储结构</h3><h4 id="二叉链表"><a href="#二叉链表" class="headerlink" title="二叉链表"></a>二叉链表</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BitNode</span></span></span><br><span class="line"><span class="class">&#123;</span>    TElemType data;</span><br><span class="line">     <span class="class"><span class="keyword">struct</span> <span class="title">BitNode</span> *<span class="title">lchild</span>,*<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode,*BiTree;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20191130112910974.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt></p>
+<h4 id="三叉链表"><a href="#三叉链表" class="headerlink" title="三叉链表"></a>三叉链表</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span>   Elemtype data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">lchild</span>,*<span class="title">rchild</span>,*<span class="title">parent</span>;</span></span><br><span class="line">&#125;;BiTNode, *BiTree;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20191130112942923.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/" rel="prev" title="绪论|数据结构">
+      <i class="fa fa-chevron-left"></i> 绪论|数据结构
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="next" title="树-2|遍历二叉树">
+      树-2|遍历二叉树 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#树的定义和基本概念"><span class="nav-number">1.</span> <span class="nav-text">树的定义和基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本术语"><span class="nav-number">1.2.</span> <span class="nav-text">基本术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结点-node"><span class="nav-number">1.2.1.</span> <span class="nav-text">结点(node)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结点的度-degree"><span class="nav-number">1.2.2.</span> <span class="nav-text">结点的度(degree)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#叶子-leaf"><span class="nav-number">1.2.3.</span> <span class="nav-text">叶子(leaf)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分枝结点"><span class="nav-number">1.2.4.</span> <span class="nav-text">分枝结点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#孩子-child"><span class="nav-number">1.2.5.</span> <span class="nav-text">孩子(child)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双亲-parents"><span class="nav-number">1.2.6.</span> <span class="nav-text">双亲(parents)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#祖先结点"><span class="nav-number">1.2.7.</span> <span class="nav-text">祖先结点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子孙结点"><span class="nav-number">1.2.8.</span> <span class="nav-text">子孙结点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兄弟-sibling"><span class="nav-number">1.2.9.</span> <span class="nav-text">兄弟(sibling)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树的度"><span class="nav-number">1.2.10.</span> <span class="nav-text">树的度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结点的层次-level"><span class="nav-number">1.2.11.</span> <span class="nav-text">结点的层次(level)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度-depth"><span class="nav-number">1.2.12.</span> <span class="nav-text">深度(depth)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有序树"><span class="nav-number">1.2.13.</span> <span class="nav-text">有序树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无序树"><span class="nav-number">1.2.14.</span> <span class="nav-text">无序树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#森林-forest"><span class="nav-number">1.2.15.</span> <span class="nav-text">森林(forest)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ADT"><span class="nav-number">1.3.</span> <span class="nav-text">ADT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树"><span class="nav-number">2.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-1"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的ADT表示"><span class="nav-number">2.2.</span> <span class="nav-text">二叉树的ADT表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的性质"><span class="nav-number">2.3.</span> <span class="nav-text">二叉树的性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊的二叉树"><span class="nav-number">2.4.</span> <span class="nav-text">特殊的二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#满二叉树"><span class="nav-number">2.4.1.</span> <span class="nav-text">满二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完全二叉树"><span class="nav-number">2.4.2.</span> <span class="nav-text">完全二叉树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的存储结构"><span class="nav-number">2.5.</span> <span class="nav-text">二叉树的存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序存储结构"><span class="nav-number">2.5.1.</span> <span class="nav-text">顺序存储结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式存储结构"><span class="nav-number">2.5.2.</span> <span class="nav-text">链式存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉链表"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">二叉链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三叉链表"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">三叉链表</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">夜明</p>
+  <div class="site-description" itemprop="description">Where would a south wind take us</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dawnyoake" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dawnyoake" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">夜明</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">21k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">39 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='0,0,255' opacity='1' zIndex='50' count='10' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'J0b3D8nEf5PQxGjiWrKGbC3t-gzGzoHsz',
+    appKey: 'y9Hv5m8z8Ly1aDBDXD24yt2K',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+  <div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>
+

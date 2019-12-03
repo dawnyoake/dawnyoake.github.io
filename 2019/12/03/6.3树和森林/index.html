@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://daybreakland.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="本篇记录了数据结构树这一章学习的第三部分，即树和森林。">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树-3|树和森林">
+<meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;2019&#x2F;12&#x2F;03&#x2F;6.3%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97&#x2F;index.html">
+<meta property="og:site_name" content="夜明的Blog">
+<meta property="og:description" content="本篇记录了数据结构树这一章学习的第三部分，即树和森林。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191203102717846.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191203103424312.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2019120310364961.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191202153321962.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191202153414484.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191202153516376.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2019120215355634.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2019120215432451.png">
+<meta property="og:updated_time" content="2019-12-03T05:12:03.410Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191203102717846.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="https://daybreakland.top/2019/12/03/6.3%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>树-3|树和森林 | 夜明的Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夜明的Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Daybreak</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/03/6.3%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="夜明">
+      <meta itemprop="description" content="Where would a south wind take us">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夜明的Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          树-3|树和森林
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-03 13:03:55 / 修改时间：13:12:03" itemprop="dateCreated datePublished" datetime="2019-12-03T13:03:55+08:00">2019-12-03</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/03/6.3%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/6.3%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇记录了数据结构树这一章学习的第三部分，<br>即树和森林。</p>
+<a id="more"></a>
+<h1 id="树的存储结构"><a href="#树的存储结构" class="headerlink" title="树的存储结构"></a>树的存储结构</h1><h2 id="双亲表示法"><a href="#双亲表示法" class="headerlink" title="双亲表示法"></a>双亲表示法</h2><p>取一块连续的内存空间，在存储每个结点的同时，各自都附加一个记录其双亲结点位置的变量。<br><img src="https://img-blog.csdnimg.cn/20191203102717846.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="双亲表示法"></p>
+<ul>
+<li>代码实现<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">PTNode</span>  //结点结构</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="keyword">int</span> parent;<span class="comment">//结点的父结点在数组中的位置下标</span></span><br><span class="line">&#125;PTNode;</span><br></pre></td></tr></table></figure>
+<h2 id="孩子表示法"><a href="#孩子表示法" class="headerlink" title="孩子表示法"></a>孩子表示法</h2>将树中的每个结点的孩子结点排列成一个线性表，用链表存储起来。对于含有 n 个结点的树来说，就会有 n 个单链表，再把 n 个单链表的头指针存储在一个线性表中。如果结点没有孩子，则其单链表为空。<br><img src="https://img-blog.csdnimg.cn/20191203103424312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="孩子表示法"></li>
+<li>代码表示<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">CTNode</span>//每个节点的孩子链表</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">　　<span class="keyword">int</span> child;　　<span class="comment">//数据在数组中存储的位置下标</span></span><br><span class="line">　　<span class="class"><span class="keyword">struct</span> <span class="title">CTNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;*ChildPtr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> //每个节点的信息</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">　　TElemType data;　　</span><br><span class="line">　　ChildPtr firstchild;　　<span class="comment">//孩子链表的头指针</span></span><br><span class="line">&#125;CTBox;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>//全树</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">　　CTBox nodes[Tree_Size];　　<span class="comment">//存储结点的数组</span></span><br><span class="line">　　<span class="keyword">int</span> n, r;　　<span class="comment">//结点数量和树根的位置</span></span><br><span class="line">&#125;CTree;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="孩子兄弟表示法（二叉树表示法）"><a href="#孩子兄弟表示法（二叉树表示法）" class="headerlink" title="孩子兄弟表示法（二叉树表示法）"></a>孩子兄弟表示法（二叉树表示法）</h2><p><img src="https://img-blog.csdnimg.cn/2019120310364961.png" alt="孩子兄弟表示法"></p>
+<ul>
+<li>代码表示</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">CSNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">　　ElemType data;</span><br><span class="line">　　<span class="class"><span class="keyword">struct</span> <span class="title">CSNode</span> *<span class="title">firstchild</span>, *<span class="title">nextsibling</span>;</span></span><br><span class="line">&#125;CSNode, *CSTree;</span><br></pre></td></tr></table></figure>
+<p>通过孩子兄弟表示法，普通树转化为了二叉树，所以孩子兄弟表示法又被称为“二叉树表示法”或者“二叉链表表示法”。</p>
+<h1 id="森林与二叉树转换"><a href="#森林与二叉树转换" class="headerlink" title="森林与二叉树转换"></a>森林与二叉树转换</h1><h2 id="将树转换成二叉树"><a href="#将树转换成二叉树" class="headerlink" title="将树转换成二叉树"></a>将树转换成二叉树</h2><p>加线：在兄弟之间加一连线<br>抹线：对每个结点，除了其左孩子外，去除其与其余孩子之间的关系<br>旋转：以树的根结点为轴心，将整树顺时针转45°<br><img src="https://img-blog.csdnimg.cn/20191202153321962.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt></p>
+<h2 id="将二叉树转换成树"><a href="#将二叉树转换成树" class="headerlink" title="将二叉树转换成树"></a>将二叉树转换成树</h2><p>加线：若p结点是双亲结点的左孩子，则将p的右孩子，右孩子的右孩子，……沿分支找到的所有右孩子，都与p的双亲用线连起来<br>抹线：抹掉原二叉树中双亲与右孩子之间的连线<br>调整：将结点按层次排列，形成树结构<br><img src="https://img-blog.csdnimg.cn/20191202153414484.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt></p>
+<h2 id="森林转换成二叉树"><a href="#森林转换成二叉树" class="headerlink" title="森林转换成二叉树"></a>森林转换成二叉树</h2><p>将各棵树分别转换成二叉树<br>将每棵树的根结点用线相连<br>以第一棵树根结点为二叉树的根，再以根结点为轴心，顺时针旋转，构成二叉树型结构<br><img src="https://img-blog.csdnimg.cn/20191202153516376.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt></p>
+<h2 id="二叉树转换成森林"><a href="#二叉树转换成森林" class="headerlink" title="二叉树转换成森林"></a>二叉树转换成森林</h2><p>抹线：将二叉树中根结点与其右孩子连线，及沿右分支搜索到的所有右孩子间连线全部抹掉，使之变成孤立的二叉树<br>还原：将孤立的二叉树还原成树<br><img src="https://img-blog.csdnimg.cn/2019120215355634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt></p>
+<h1 id="树和森林的遍历"><a href="#树和森林的遍历" class="headerlink" title="树和森林的遍历"></a>树和森林的遍历</h1><h2 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h2><h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><p>按一定规律走遍树的各个顶点，且使每一顶点仅被访问一次，即找一个完整而有规律的走法，以得到树中所有结点的一个线性排列</p>
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><ul>
+<li>先根（序）遍历：<br>先访问树的根结点，然后依次先根遍历根的每棵子树</li>
+<li>后根（序）遍历：<br>先依次后根遍历每棵子树，然后访问根结点</li>
+<li>按层次遍历：<br>先访问第一层上的结点，然后依次遍历第二层，……第n层的结点<h2 id="森林遍历"><a href="#森林遍历" class="headerlink" title="森林遍历"></a>森林遍历</h2></li>
+<li>先序遍历森林<br>若森林非空：<br>访问森林中第一棵树的根结点；先序遍历第一棵树根结点的子树森林；<br>先序遍历除第一棵树后剩余的树构成的森林；</li>
+<li>中序遍历森林<br>若森林非空：<br>中序遍历第一棵树根结点的子树森林；访问第一棵树的根结点；<br>中序遍历除第一棵树后剩余的树构成的森林；<h1 id="哈夫曼树-Huffman"><a href="#哈夫曼树-Huffman" class="headerlink" title="哈夫曼树(Huffman)"></a>哈夫曼树(Huffman)</h1>带权路径长度最短的树<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2></li>
+<li>路径：从树中一个结点到另一个结点之间的分支构成这<pre><code>两个结点间的~</code></pre></li>
+<li>路径长度：路径上的分支数目</li>
+<li>树的路径长度：从树根到每一个结点的路径长度之和</li>
+<li>树的带权路径长度：树中所有带权叶子结点的路径长度之和<br><img src="https://img-blog.csdnimg.cn/2019120215432451.png" alt><h2 id="Huffman树"><a href="#Huffman树" class="headerlink" title="Huffman树"></a>Huffman树</h2>设有n个权值{w1,w2,……wn}，构造一棵有n个叶子结点的二叉树，每个叶子的权值为wi,则wpl最小的二叉树叫Huffman树<h2 id="Huffman算法"><a href="#Huffman算法" class="headerlink" title="Huffman算法"></a>Huffman算法</h2></li>
+<li><strong>构造Huffman树步骤</strong><br>》根据给定的n个权值{w1,w2,……wn}，构造n棵只有根结点的二叉树，令其权值为wj。<br>》在森林中选取两棵根结点权值最小的树作左右子树，构造一棵新的二叉树，置新二叉树根结点权值为其左右子树根结点权值之和。<br>》在森林中删除这两棵树，同时将新得到的二叉树加入森林中。<br>》重复上述两步，直到只含一棵树为止，这棵树即哈夫曼树。<h2 id="Huffman编码"><a href="#Huffman编码" class="headerlink" title="Huffman编码"></a>Huffman编码</h2>哈弗曼编码是数据通信用的二进制编码</li>
+<li>思想：根据字符出现频率编码，使电文总长最短</li>
+<li>编码：根据字符<strong>出现频率</strong>构造Huffman树，然后将树中结点引向其左孩子的分支标“0”，引向其右孩子的分支标“1”（左0右1）；每个字符的编码即为从根到每个叶子的路径上得到的0、1序列</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="prev" title="树-2|遍历二叉树">
+      <i class="fa fa-chevron-left"></i> 树-2|遍历二叉树
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#树的存储结构"><span class="nav-number">1.</span> <span class="nav-text">树的存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#双亲表示法"><span class="nav-number">1.1.</span> <span class="nav-text">双亲表示法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#孩子表示法"><span class="nav-number">1.2.</span> <span class="nav-text">孩子表示法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#孩子兄弟表示法（二叉树表示法）"><span class="nav-number">1.3.</span> <span class="nav-text">孩子兄弟表示法（二叉树表示法）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#森林与二叉树转换"><span class="nav-number">2.</span> <span class="nav-text">森林与二叉树转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#将树转换成二叉树"><span class="nav-number">2.1.</span> <span class="nav-text">将树转换成二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将二叉树转换成树"><span class="nav-number">2.2.</span> <span class="nav-text">将二叉树转换成树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#森林转换成二叉树"><span class="nav-number">2.3.</span> <span class="nav-text">森林转换成二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树转换成森林"><span class="nav-number">2.4.</span> <span class="nav-text">二叉树转换成森林</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#树和森林的遍历"><span class="nav-number">3.</span> <span class="nav-text">树和森林的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#树的遍历"><span class="nav-number">3.1.</span> <span class="nav-text">树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历"><span class="nav-number">3.1.1.</span> <span class="nav-text">遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用方法"><span class="nav-number">3.1.2.</span> <span class="nav-text">常用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#森林遍历"><span class="nav-number">3.2.</span> <span class="nav-text">森林遍历</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#哈夫曼树-Huffman"><span class="nav-number">4.</span> <span class="nav-text">哈夫曼树(Huffman)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">4.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Huffman树"><span class="nav-number">4.2.</span> <span class="nav-text">Huffman树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Huffman算法"><span class="nav-number">4.3.</span> <span class="nav-text">Huffman算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Huffman编码"><span class="nav-number">4.4.</span> <span class="nav-text">Huffman编码</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">夜明</p>
+  <div class="site-description" itemprop="description">Where would a south wind take us</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dawnyoake" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dawnyoake" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">夜明</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">21k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">39 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='0,0,255' opacity='1' zIndex='50' count='10' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'J0b3D8nEf5PQxGjiWrKGbC3t-gzGzoHsz',
+    appKey: 'y9Hv5m8z8Ly1aDBDXD24yt2K',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+  <div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>
+

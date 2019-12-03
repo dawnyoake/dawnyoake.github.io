@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://daybreakland.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="本篇记录了数据结构的绪论部分。">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="绪论|数据结构">
+<meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;2019&#x2F;12&#x2F;03&#x2F;1.0%E7%BB%AA%E8%AE%BA&#x2F;index.html">
+<meta property="og:site_name" content="夜明的Blog">
+<meta property="og:description" content="本篇记录了数据结构的绪论部分。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191202144431641.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2019120215104986.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191202151334931.png">
+<meta property="og:updated_time" content="2019-12-03T05:13:29.493Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191202144431641.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="https://daybreakland.top/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>绪论|数据结构 | 夜明的Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夜明的Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Daybreak</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="夜明">
+      <meta itemprop="description" content="Where would a south wind take us">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夜明的Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          绪论|数据结构
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-03 12:59:51 / 修改时间：13:13:29" itemprop="dateCreated datePublished" datetime="2019-12-03T12:59:51+08:00">2019-12-03</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇记录了数据结构的绪论部分。</p>
+<a id="more"></a>
+<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><ol>
+<li>什么是数据结构</li>
+<li>一些基本概念和术语</li>
+<li>算法和算法分析</li>
+<li>时间复杂度的渐进表示法</li>
+</ol>
+<h1 id="什么是数据结构"><a href="#什么是数据结构" class="headerlink" title="什么是数据结构"></a>什么是数据结构</h1><p> 程序=数据结构+算法</p>
+<p>数据结构是一门研究<strong>非数值计算</strong>的程序设计问题中计算机的<strong>操作对象</strong>以及它们之间的<strong>关系</strong>和<strong>操作</strong>等等的学科</p>
+<h2 id="基本概念和术语"><a href="#基本概念和术语" class="headerlink" title="基本概念和术语"></a>基本概念和术语</h2><h3 id="数据（data"><a href="#数据（data" class="headerlink" title="数据（data)"></a>数据（data)</h3><pre><code>所有能输入到计算机中去的描述客观事物的符号</code></pre><h3 id="数据元素（data-element）"><a href="#数据元素（data-element）" class="headerlink" title="数据元素（data element）"></a>数据元素（data element）</h3><pre><code>数据的基本单位，也称节点（node）或记录（record）。
+有时一个数据元素可以由若干数据项(Data Item)组成。</code></pre><h3 id="数据项（data-item）"><a href="#数据项（data-item）" class="headerlink" title="数据项（data item）"></a>数据项（data item）</h3><pre><code>有独立含义的数据最小单位，也称域(field)</code></pre><h3 id="数据结构（data-structure"><a href="#数据结构（data-structure" class="headerlink" title="数据结构（data structure)"></a>数据结构（data structure)</h3><pre><code>数据元素和数据元素关系的集合
+（带结构的数据元素的集合）</code></pre><h2 id="四种基本数据结构"><a href="#四种基本数据结构" class="headerlink" title="四种基本数据结构"></a>四种基本数据结构</h2><p>集合——数据元素间除“同属于一个集合”外，无其它关系<br>线性结构——一个对一个，如线性表、栈、队列<br>树形结构——一个对多个，如树<br>图状结构——多个对多个，如图</p>
+<h2 id="数据结构的表示"><a href="#数据结构的表示" class="headerlink" title="数据结构的表示"></a>数据结构的表示</h2><h3 id="图示表示"><a href="#图示表示" class="headerlink" title="图示表示"></a>图示表示</h3><p>图示表示是由顶点和边构成的图，其中顶点表示数据,边表示数据之间的结构关系；</p>
+<h3 id="二元组表示"><a href="#二元组表示" class="headerlink" title="二元组表示"></a>二元组表示</h3><p>数据结构的形式定义为：数据结构是一个二元组：<br>              Data-Structure=(D，S)<br>其中：D是数据元素的有限集，S是D上关系的有限集。</p>
+<h1 id="一些基本概念和术语"><a href="#一些基本概念和术语" class="headerlink" title="一些基本概念和术语"></a>一些基本概念和术语</h1><h2 id="数据结构的三个主要问题"><a href="#数据结构的三个主要问题" class="headerlink" title="数据结构的三个主要问题"></a>数据结构的三个主要问题</h2><p><img src="https://img-blog.csdnimg.cn/20191202144431641.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>数据的逻辑结构<br>只抽象反映数据元素的逻辑关系</li>
+<li>数据的存储（物理）结构<br>数据的逻辑结构在计算机存储器中的实现</li>
+<li>数据的逻辑结构与存储结构密切相关<br>  算法设计-&gt; 逻辑结构<br>  算法实现-&gt; 存储结构</li>
+</ul>
+<h3 id="数据的逻辑结构"><a href="#数据的逻辑结构" class="headerlink" title="数据的逻辑结构"></a>数据的逻辑结构</h3><h3 id="数据的存储结构"><a href="#数据的存储结构" class="headerlink" title="数据的存储结构"></a>数据的存储结构</h3><p>存储结构分为：</p>
+<ul>
+<li>顺序存储结构——借助元素在存储器中的相对位置来表示数据元素间的逻辑关系</li>
+<li>链式存储结构——借助指示元素存储地址的指针表示数据元素间的逻辑关系</li>
+</ul>
+<h2 id="抽象数据类型ADT"><a href="#抽象数据类型ADT" class="headerlink" title="抽象数据类型ADT"></a>抽象数据类型ADT</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ADT 抽象数据类型名&#123;</span><br><span class="line">    数据对象：&lt;数据对象的定义&gt;</span><br><span class="line">    数据关系：&lt;数据关系的定义&gt;</span><br><span class="line">    基本操作：基本操作名（参数表）</span><br><span class="line">               初始条件：&lt;初始条件描述&gt;</span><br><span class="line">               操作结果：&lt;操作结果描述&gt; </span><br><span class="line">&#125;ADT 抽象数据类型名</span><br></pre></td></tr></table></figure>
+<h1 id="算法和算法分析"><a href="#算法和算法分析" class="headerlink" title="算法和算法分析"></a>算法和算法分析</h1><h2 id="算法的概念"><a href="#算法的概念" class="headerlink" title="算法的概念"></a>算法的概念</h2><p>解决某一特定问题的具体步骤的描述，是指令的有限序列.其中每一条指令表示一个或多个操作。</p>
+<h2 id="算法的特性"><a href="#算法的特性" class="headerlink" title="算法的特性"></a>算法的特性</h2><h3 id="1-有穷性"><a href="#1-有穷性" class="headerlink" title="1 有穷性"></a>1 有穷性</h3><p>一个算法必须总是在执行有穷步之后结束，且每一步都在有穷时间内完成。</p>
+<h3 id="2-确定性"><a href="#2-确定性" class="headerlink" title="2 确定性"></a>2 确定性</h3><p>算法中每一条指令必须有确切的含义。不存在二义性。且算法只有一个入口和一个出口。</p>
+<h3 id="3-可行性"><a href="#3-可行性" class="headerlink" title="3 可行性"></a>3 可行性</h3><p>一个算法是可行的。即算法描述的操作都是可以通过已经实现的基本运算执行有限次来实现的。</p>
+<h3 id="4-输入"><a href="#4-输入" class="headerlink" title="4 输入"></a>4 输入</h3><p> 一个算法有零个或多个输入，这些输入取自于某个特定的对象集合。</p>
+<h3 id="5-输出"><a href="#5-输出" class="headerlink" title="5 输出"></a>5 输出</h3><p> 一个算法有一个或多个输出，这些输出是同输入有着某些特定关系的量。</p>
+<h2 id="算法的评价标准"><a href="#算法的评价标准" class="headerlink" title="算法的评价标准"></a>算法的评价标准</h2><h3 id="1-正确性-Correctness"><a href="#1-正确性-Correctness" class="headerlink" title="1 正确性(Correctness)"></a>1 正确性(Correctness)</h3><p>算法应满足具体问题的需求。</p>
+<h3 id="2-可读性-Readability"><a href="#2-可读性-Readability" class="headerlink" title="2 可读性(Readability)"></a>2 可读性(Readability)</h3><p>算法应该好读。以有利于阅读者对程序的理解。</p>
+<h3 id="3-健壮性-Robustness"><a href="#3-健壮性-Robustness" class="headerlink" title="3 健壮性(Robustness)"></a>3 健壮性(Robustness)</h3><p>算法应具有容错处理。当输入非法数据时，算法应对其作出反应，而不是产生莫名其妙的输出结果。</p>
+<h3 id="4-效率与存储量需求"><a href="#4-效率与存储量需求" class="headerlink" title="4 效率与存储量需求"></a>4 效率与存储量需求</h3><p>效率指的是算法执行的时间；存储量需求指算法执行过程中所需要的最大存储空间。一般，这两者与问题的规模有关。</p>
+<h2 id="算法时间复杂度"><a href="#算法时间复杂度" class="headerlink" title="算法时间复杂度"></a>算法时间复杂度</h2><p>通常用程序中基本操作的执行次数来做为程序执行时间的评估值，并取问题规模作为自变量<br>T(n)称作算法的渐近时间复杂度。<br><img src="https://img-blog.csdnimg.cn/2019120215104986.png" alt="常见的时间复杂度"><br>很多算法的时间复杂度不仅与<strong>问题的规模</strong>有关，而且还与它<strong>所处理的数据集的状态</strong>有关。通常是根据数据集中可能出现的最坏情况估计出算法的<strong>最坏时间复杂度</strong>。</p>
+<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p><img src="https://img-blog.csdnimg.cn/20191202151334931.png" alt></p>
+<p>程序所用的存储空间包括两个部分:<br>(1)固定部分<br>这部分空间的大小与输入输出的个数多少、数值大小无关。<br>(2)可变部分<br>这部分空间主要包括其尺寸与实例特征有关的成分变量所占空间、引用变量所占空间、以及递归栈所用的空间，还有算法运行时动态命令使用的空间。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/27/7.6%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" rel="prev" title="图-6|最短路径">
+      <i class="fa fa-chevron-left"></i> 图-6|最短路径
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/03/6.1%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="next" title="树-1|树和二叉树">
+      树-1|树和二叉树 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要内容"><span class="nav-number">1.</span> <span class="nav-text">主要内容</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是数据结构"><span class="nav-number"></span> <span class="nav-text">什么是数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念和术语"><span class="nav-number">1.</span> <span class="nav-text">基本概念和术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据（data"><span class="nav-number">1.1.</span> <span class="nav-text">数据（data)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据元素（data-element）"><span class="nav-number">1.2.</span> <span class="nav-text">数据元素（data element）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据项（data-item）"><span class="nav-number">1.3.</span> <span class="nav-text">数据项（data item）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构（data-structure"><span class="nav-number">1.4.</span> <span class="nav-text">数据结构（data structure)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四种基本数据结构"><span class="nav-number">2.</span> <span class="nav-text">四种基本数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构的表示"><span class="nav-number">3.</span> <span class="nav-text">数据结构的表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图示表示"><span class="nav-number">3.1.</span> <span class="nav-text">图示表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二元组表示"><span class="nav-number">3.2.</span> <span class="nav-text">二元组表示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些基本概念和术语"><span class="nav-number"></span> <span class="nav-text">一些基本概念和术语</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构的三个主要问题"><span class="nav-number">1.</span> <span class="nav-text">数据结构的三个主要问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据的逻辑结构"><span class="nav-number">1.1.</span> <span class="nav-text">数据的逻辑结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据的存储结构"><span class="nav-number">1.2.</span> <span class="nav-text">数据的存储结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象数据类型ADT"><span class="nav-number">2.</span> <span class="nav-text">抽象数据类型ADT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法和算法分析"><span class="nav-number"></span> <span class="nav-text">算法和算法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的概念"><span class="nav-number">1.</span> <span class="nav-text">算法的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的特性"><span class="nav-number">2.</span> <span class="nav-text">算法的特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-有穷性"><span class="nav-number">2.1.</span> <span class="nav-text">1 有穷性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-确定性"><span class="nav-number">2.2.</span> <span class="nav-text">2 确定性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-可行性"><span class="nav-number">2.3.</span> <span class="nav-text">3 可行性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-输入"><span class="nav-number">2.4.</span> <span class="nav-text">4 输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-输出"><span class="nav-number">2.5.</span> <span class="nav-text">5 输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的评价标准"><span class="nav-number">3.</span> <span class="nav-text">算法的评价标准</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-正确性-Correctness"><span class="nav-number">3.1.</span> <span class="nav-text">1 正确性(Correctness)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-可读性-Readability"><span class="nav-number">3.2.</span> <span class="nav-text">2 可读性(Readability)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-健壮性-Robustness"><span class="nav-number">3.3.</span> <span class="nav-text">3 健壮性(Robustness)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-效率与存储量需求"><span class="nav-number">3.4.</span> <span class="nav-text">4 效率与存储量需求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法时间复杂度"><span class="nav-number">4.</span> <span class="nav-text">算法时间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空间复杂度"><span class="nav-number">5.</span> <span class="nav-text">空间复杂度</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">夜明</p>
+  <div class="site-description" itemprop="description">Where would a south wind take us</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dawnyoake" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dawnyoake" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">夜明</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">21k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">39 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='0,0,255' opacity='1' zIndex='50' count='10' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'J0b3D8nEf5PQxGjiWrKGbC3t-gzGzoHsz',
+    appKey: 'y9Hv5m8z8Ly1aDBDXD24yt2K',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+  <div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>
+
