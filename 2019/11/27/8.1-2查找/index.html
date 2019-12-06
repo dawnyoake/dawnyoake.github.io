@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://daybreakland.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="主要内容  9.1 静态查找表  9.1.1 顺序表的查找  9.1.2 有序表的查找 9.2 动态查找表  9.2.1 二叉排序树和二叉平衡树  9.2.2 B_树和B+树&#x2F;&#x2F;本篇文章此处截止 9.3 哈希(Hashing)表(散列表)     参考资料：B树部分大面积整理使用了这位文哥的资料，前辈总结的真的特别好，这里直接使用了……侵删。作者：文哥的学习日记链接：https:&#x2F;&#x2F;www.j">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构|查找">
+<meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;2019&#x2F;11&#x2F;27&#x2F;8.1-2%E6%9F%A5%E6%89%BE&#x2F;index.html">
+<meta property="og:site_name" content="夜明的Blog">
+<meta property="og:description" content="主要内容  9.1 静态查找表  9.1.1 顺序表的查找  9.1.2 有序表的查找 9.2 动态查找表  9.2.1 二叉排序树和二叉平衡树  9.2.2 B_树和B+树&#x2F;&#x2F;本篇文章此处截止 9.3 哈希(Hashing)表(散列表)     参考资料：B树部分大面积整理使用了这位文哥的资料，前辈总结的真的特别好，这里直接使用了……侵删。作者：文哥的学习日记链接：https:&#x2F;&#x2F;www.j">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206173449682.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206174044804.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206175214450.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206180807751.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206194730489.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206195627536.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206195643721.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206195703231.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206212836925.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206212759137.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206214024397.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206214043273.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;201912062141262.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206220854883.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206220916121.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206220925993.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2019120622093773.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206220946529.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206221533664.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206221551329.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206221602335.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206221615920.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-12-06T15:51:48.148Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206173449682.png">
+
+<link rel="canonical" href="https://daybreakland.top/2019/11/27/8.1-2%E6%9F%A5%E6%89%BE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>数据结构|查找 | 夜明的Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夜明的Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Daybreak</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/11/27/8.1-2%E6%9F%A5%E6%89%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="夜明">
+      <meta itemprop="description" content="Where would a south wind take us">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夜明的Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构|查找
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-27 23:38:58" itemprop="dateCreated datePublished" datetime="2019-11-27T23:38:58+08:00">2019-11-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-06 23:51:48" itemprop="dateModified" datetime="2019-12-06T23:51:48+08:00">2019-12-06</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/27/8.1-2%E6%9F%A5%E6%89%BE/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/27/8.1-2%E6%9F%A5%E6%89%BE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              <span>8.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              <span>16 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <a id="more"></a>
+
+<p><strong>主要内容</strong></p>
+<ul>
+<li>9.1 静态查找表<br>  9.1.1 顺序表的查找<br>  9.1.2 有序表的查找</li>
+<li>9.2 动态查找表<br>  9.2.1 二叉排序树和二叉平衡树<br>  9.2.2 B_树和B+树<strong>//本篇文章此处截止</strong></li>
+<li>9.3 哈希(Hashing)表(散列表)   </li>
+</ul>
+<p><strong>参考资料</strong>：<br>B树部分大面积整理使用了这位文哥的资料，前辈总结的真的特别好，这里直接使用了……侵删。<br>作者：文哥的学习日记<br>链接：<a href="https://www.jianshu.com/p/7dedb7ebe033" target="_blank" rel="noopener">https://www.jianshu.com/p/7dedb7ebe033</a></p>
+<p><strong>概 述</strong></p>
+<ul>
+<li>查找表 (search table):<br>同一类型数据元素构成的集合。</li>
+<li>查找操作:<br>(1)查询某个“特定的”数据元素是否在查找表中;<br>(2)检索某个“特定的”数据元素的各种属性;<br>(3)在查找表中插入一个数据元素;<br>(4)从查找表中删除某个数据元素.</li>
+</ul>
+<p><strong>静态查找表</strong>：对查找表只作(1)、(2)操作；<br><strong>动态查找表</strong>：可以对查找表作(1)-(4)操作。</p>
+<ul>
+<li>查找方法评价</li>
+</ul>
+<p>1.查找速度<br>2.占用存储空间多少<br>3.算法本身复杂程度<br>4.<strong>平均查找长度ASL</strong>(Average Search Length)：为确定记录在表中的位置，需和给定值进行比较的关键字的个数的期望值叫查找算法的ASL。<br><img src="https://img-blog.csdnimg.cn/20191206173449682.png" alt="ASL计算公式"></p>
+<h1 id="静态查找表"><a href="#静态查找表" class="headerlink" title="静态查找表"></a>静态查找表</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>只提供如下两种查找的查找表:<br>   1） 查询某个“特定”元素是否在表中；<br>   2） 检索某个“特定”元素的各种属性；</p>
+<h2 id="顺序表及其查找-——-顺序查找法"><a href="#顺序表及其查找-——-顺序查找法" class="headerlink" title="顺序表及其查找 —— 顺序查找法"></a>顺序表及其查找 —— 顺序查找法</h2><h3 id="查找表组织"><a href="#查找表组织" class="headerlink" title="查找表组织"></a>查找表组织</h3><p>查找表用线性表表示。<br>即将查找表的记录排成一个记录序列（无序）。<br>L1=(45,53,12,3,37,24,100,61,90,78)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span> <span class="comment">//静态查找表的顺序存储结构</span></span><br><span class="line">   ElemType *elem;</span><br><span class="line">   <span class="keyword">int</span> length;</span><br><span class="line">&#125;SSTable;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20191206174044804.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<h3 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h3><p>查找过程：从表的一端开始逐个进行记录的关键字和给定值的比较</p>
+<p>逐一比较，且设置0号位置为监视哨，0处值等于待查找值。</p>
+<h3 id="顺序查找的性能分析"><a href="#顺序查找的性能分析" class="headerlink" title="顺序查找的性能分析"></a>顺序查找的性能分析</h3><p>平均查找长度ASLss=（n+1）/2</p>
+<h3 id="顺序查找的算法"><a href="#顺序查找的算法" class="headerlink" title="顺序查找的算法"></a>顺序查找的算法</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Seq</span><span class="params">(SSTable ST, KeyType key)</span></span>&#123;</span><br><span class="line">   <span class="comment">//在顺序表ST中顺序查找其关键字等于key的数据元素。</span></span><br><span class="line">   <span class="comment">//若找到，则函数值为该元素在表中的位置，否则为0。</span></span><br><span class="line">    ST.elem[<span class="number">0</span>].key=key;   <span class="comment">// “哨兵”</span></span><br><span class="line">    <span class="keyword">for</span>(i=ST.length;!EQ(key,ST.elem[mid].key);--i) </span><br><span class="line">      <span class="comment">//从后向前找</span></span><br><span class="line">    <span class="keyword">return</span> i;     <span class="comment">//若表中不存在待查元素，i=0</span></span><br><span class="line">    &#125;<span class="comment">//Search_Seq</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="有序表及其查找-——-折半查找法"><a href="#有序表及其查找-——-折半查找法" class="headerlink" title="有序表及其查找 —— 折半查找法"></a>有序表及其查找 —— 折半查找法</h2><ul>
+<li>有序表<br>若线性表中的记录按关键字有序，则称为有序表<h3 id="查找表组织-1"><a href="#查找表组织-1" class="headerlink" title="查找表组织"></a>查找表组织</h3>查找表用<strong>有序表</strong>表示。<br>即将查找表的记录排成按关键字<strong>有序</strong>的序列。<h3 id="折半查找"><a href="#折半查找" class="headerlink" title="折半查找"></a>折半查找</h3></li>
+<li>查找过程：每次将待查记录所在区间缩小一半</li>
+<li>适用条件：采用顺序存储结构的有序表</li>
+<li>算法实现<br>设表长为n，low、high和mid分别指向待查元素所在区间的上界、下界和中点,k为给定值<br>初始时，令low=1,high=n,mid=floor[(low+high)/2]<br>让k与mid指向的记录比较:<br>若k==r[mid].key，<strong>查找成功</strong>;<br>若k&lt;r[mid].key，则high=mid-1;<br>若k&gt;r[mid].key，则low=mid+1;<br>重复上述操作，直至low&gt;high时，查找失败.<h3 id="折半查找的性能分析"><a href="#折半查找的性能分析" class="headerlink" title="折半查找的性能分析"></a>折半查找的性能分析</h3>查找过程中所有元素可构成一颗判定二叉树，例如：<br><img src="https://img-blog.csdnimg.cn/20191206175214450.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="判定树"></li>
+<li>判定树上每个结点需要的查找次数刚好为该结点所在的<strong>层数</strong>.</li>
+<li>无论查找成功或失败，次数不会超过判定树的<strong>深度</strong></li>
+<li>n个结点的判定树的深度为[log2n]+1</li>
+<li>折半查找的算法复杂度不超过[log2n]+1</li>
+</ul>
+<p><strong>查找成功时的平均查找长度</strong><br>ASLbs= log2(n+1)-1</p>
+<h3 id="折半查找的算法"><a href="#折半查找的算法" class="headerlink" title="折半查找的算法"></a>折半查找的算法</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Bin</span> <span class="params">( SSTable ST, KeyType key )</span> </span>&#123; </span><br><span class="line"><span class="comment">// 在有序表ST中折半查找其关键字等于key的数据元素。</span></span><br><span class="line"><span class="comment">// 若找到，则函数值为该元素在表中的位置，否则为0。</span></span><br><span class="line">	low=<span class="number">1</span>;high=ST.length; <span class="comment">// 置区间初值</span></span><br><span class="line">		<span class="keyword">while</span> (low&lt;=high) &#123;</span><br><span class="line">			mid=(low+high)/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>（EQ(key,ST.elem[mid].key))</span><br><span class="line">			<span class="keyword">return</span> mid; <span class="comment">// 找到待查元素</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (LT(key,ST.elem[mid].key))</span><br><span class="line">			high = mid - <span class="number">1</span>; <span class="comment">// 继续在前半区间进行查找</span></span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			low = mid + <span class="number">1</span>; <span class="comment">// 继续在后半区间进行查找</span></span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 顺序表中不存在待查元素</span></span><br><span class="line">&#125; <span class="comment">// Search_Bin</span></span><br></pre></td></tr></table></figure>
+<h2 id="分块查找-——-索引顺序查找"><a href="#分块查找-——-索引顺序查找" class="headerlink" title="分块查找 —— 索引顺序查找"></a>分块查找 —— 索引顺序查找</h2><h3 id="查找表组织-2"><a href="#查找表组织-2" class="headerlink" title="查找表组织"></a>查找表组织</h3><p>分块有序表</p>
+<h3 id="索引顺序查找"><a href="#索引顺序查找" class="headerlink" title="索引顺序查找"></a>索引顺序查找</h3><p><strong>查找过程</strong><br>将表分成几块，块内无序，块间有序；<br>先确定待查记录所在块，再在块内查找。</p>
+<h3 id="索引顺序查找的性能分析"><a href="#索引顺序查找的性能分析" class="headerlink" title="索引顺序查找的性能分析"></a>索引顺序查找的性能分析</h3><p><img src="https://img-blog.csdnimg.cn/20191206180807751.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<h3 id="索引顺序查找的算法实现"><a href="#索引顺序查找的算法实现" class="headerlink" title="索引顺序查找的算法实现"></a>索引顺序查找的算法实现</h3><p>该表的构造过程是：把要查找的表分成长度相等的几个子表（称为块）。对每个子表建立一个索引项。<br>索引表中关键字递增有序，具体表块内部记录可以无序。但块之间一定有序（即后一块中的最小关键字都大于前一块中最大关键字）。<br>查找过程分两步：<br>1.首先在索引表中确定待查记录所在的块；<br>2.在块中按顺序查找。<br>注意，索引表<strong>有序</strong>且是<strong>顺序存储结构</strong>中可以用折半查找。块中记录无序只能用顺序查找。</p>
+<h2 id="查找方法比较"><a href="#查找方法比较" class="headerlink" title="查找方法比较"></a>查找方法比较</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>顺序查找</th>
+<th>折半查找</th>
+<th>分块查找</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ASL</td>
+<td>最大</td>
+<td>最小</td>
+<td>中间</td>
+</tr>
+<tr>
+<td>表结构</td>
+<td>有序/无序</td>
+<td>有序</td>
+<td>分块有序</td>
+</tr>
+<tr>
+<td>存储结构</td>
+<td>顺序存储结构/线性链表</td>
+<td>顺序存储</td>
+<td>顺序存储结构/线性链表</td>
+</tr>
+</tbody></table>
+<h1 id="动态查找表"><a href="#动态查找表" class="headerlink" title="动态查找表"></a>动态查找表</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><p>静态以外，额外提供查找后的插入和删除操作。</p>
+<h2 id="二叉排序树"><a href="#二叉排序树" class="headerlink" title="二叉排序树"></a>二叉排序树</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>二叉排序树或是一棵空树，或是具有下列性质的二叉树：</li>
+</ul>
+<p>1.若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值<br>2.若它的右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值<br>3.它的左、右子树也分别为二叉排序树</p>
+<h3 id="二叉排序树的插入（生成）"><a href="#二叉排序树的插入（生成）" class="headerlink" title="二叉排序树的插入（生成）"></a>二叉排序树的插入（生成）</h3><ul>
+<li>插入原则<br>若二叉排序树为空，则插入结点应为新的根结点；否则，继续在其左、右子树上查找，直至某个叶子结点的左子树或右子树为空为止，则插入结点应为该叶子结点的左孩子或右孩子</li>
+<li>二叉排序树生成<br>从空树出发，经过一系列的查找、插入操作之后，可生成一棵二叉排序树</li>
+</ul>
+<h3 id="查找算法一"><a href="#查找算法一" class="headerlink" title="查找算法一"></a>查找算法一</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在根指针T所指二叉排序树中递归地查找某关键字等于key的数据元素，</span></span><br><span class="line"><span class="comment">//若查找成功，则返回指向该数据元素结点的指针,否则返回空指针。</span></span><br><span class="line"><span class="function">BiTree <span class="title">SearchBST</span><span class="params">(BiTree T,KeyType key)</span></span>&#123;</span><br><span class="line">   <span class="keyword">if</span>(!T)||EQ(key,T-&gt;data.key)) </span><br><span class="line">      <span class="keyword">return</span>(T);</span><br><span class="line">   <span class="keyword">else</span> <span class="keyword">if</span> LT(key, T-&gt;data.key) <span class="comment">//查找的值比当前节点小</span></span><br><span class="line">      <span class="keyword">return</span>(SearchBST(T-&gt;lchild,key));</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">      <span class="keyword">return</span>(SearchBST(T-&gt;rchild.key));</span><br><span class="line">&#125;<span class="comment">//SearchBST</span></span><br></pre></td></tr></table></figure>
+<h3 id="查找算法二"><a href="#查找算法二" class="headerlink" title="查找算法二"></a>查找算法二</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在根指针T所指二叉排序树中递归地查找其关键字等于key的数据元素，若查找</span></span><br><span class="line"><span class="comment">//成功，则指针p指向该数据元素结点，并返回TRUE，否则指针p指向查找路径上</span></span><br><span class="line"><span class="comment">//访问的最后一个结点并返回FALSE,指针f指向T的双亲，其初始调用值为NULL</span></span><br><span class="line"><span class="function">Status <span class="title">SearchBST</span><span class="params">(BiTree T,KeyType key,BiTree f,BiTree &amp;p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!T) </span><br><span class="line">		&#123;p=f;<span class="keyword">return</span> FALSE;&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> EQ(key,T-&gt;data.key)</span><br><span class="line">		&#123; p=T;<span class="keyword">return</span> TRUE;&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> LT(key,T-&gt;data.key)<span class="comment">//每一步查找记录cur的双亲，即把T赋给下一个f</span></span><br><span class="line">		SearchBST(T-&gt;lchild,key,T,p);</span><br><span class="line">	<span class="keyword">else</span>    </span><br><span class="line">		SearchBST(T-&gt;rchild,key,T,p);</span><br><span class="line">&#125;<span class="comment">//SearchBST</span></span><br></pre></td></tr></table></figure>
+<h3 id="插入算法"><a href="#插入算法" class="headerlink" title="插入算法"></a>插入算法</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当二叉排序树T中不存在关键字等于e.key的数据元素时，插入e并返回TRUE，</span></span><br><span class="line"><span class="comment">// 否则返回FALSE。</span></span><br><span class="line"><span class="function">Status <span class="title">InsertBST</span><span class="params">(BiTree &amp;T,ElemType e)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!SearchBST(T, e.key, <span class="literal">NULL</span>, p)&#123;</span><br><span class="line">		s=(BiTree)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BiTNode));</span><br><span class="line">		s-&gt;data=e;</span><br><span class="line">		s-&gt;lchild=s-&gt;rchild=<span class="literal">NULL</span>;</span><br><span class="line">		<span class="keyword">if</span>(!p) <span class="comment">//指针p指向了查找路径上访问的最后一个结点</span></span><br><span class="line">			T=s;<span class="comment">//这里是判断若整个二叉树为空，则把s作为根节点</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(LT(e.key,p-&gt;data.key)</span><br><span class="line">			p-&gt;lchild=s;</span><br><span class="line">		<span class="keyword">else</span> </span><br><span class="line">			p-&gt;rchild=s;</span><br><span class="line">		<span class="keyword">return</span> TRUE;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>  <span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;<span class="comment">//InsertBST</span></span><br></pre></td></tr></table></figure>
+<h3 id="二叉排序树的生成"><a href="#二叉排序树的生成" class="headerlink" title="二叉排序树的生成"></a>二叉排序树的生成</h3><p><img src="https://img-blog.csdnimg.cn/20191206194730489.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt><br>注意：若有重复元素，则不再插入。</p>
+<h3 id="二叉排序树的删除"><a href="#二叉排序树的删除" class="headerlink" title="二叉排序树的删除"></a>二叉排序树的删除</h3><p>要删除二叉排序树中的p结点，分三种情况：</p>
+<ul>
+<li>(1) p为叶子结点，只需修改p双亲f的指针<pre><code>f-&gt;lchild=NULL              f-&gt;rchild=NULL</code></pre></li>
+<li>(2) p只有左子树或右子树<br>p只有左子树，用p的左孩子代替p        (1)(2)<br>p只有右子树，用p的右孩子代替p        (3)(4)</li>
+<li>(3) p左、右子树均非空<br>沿<strong>p左子树的根C</strong>的<strong>右子树分支</strong>找到<strong>S</strong>，满足S的右子树为空，将S的左子树成为S的双亲Q的右子树，用S取代p    (5)<br>若C无右子树，用C取代p     (6)</li>
+</ul>
+<p><strong><em>也即S替代要删的店，S的左子树替代S。</em></strong><br><img src="https://img-blog.csdnimg.cn/20191206195627536.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="1、2"><br><img src="https://img-blog.csdnimg.cn/20191206195643721.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="3、4"><br><img src="https://img-blog.csdnimg.cn/20191206195703231.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="5、6"></p>
+<h4 id="算法在二叉排序树中删除一个节点的算法"><a href="#算法在二叉排序树中删除一个节点的算法" class="headerlink" title="算法在二叉排序树中删除一个节点的算法"></a>算法在二叉排序树中删除一个节点的算法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">DeleteBST</span><span class="params">(BiTree &amp;T,KeyType key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!T) </span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> EQ(key,T-&gt;data.key) </span><br><span class="line">			Delete(T);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> LT(key,T-&gt;data.key) </span><br><span class="line">			DeleteBST(T-&gt;lchild, key);</span><br><span class="line">		<span class="keyword">else</span> </span><br><span class="line">			DeleteBST(T-&gt;rchild, key);</span><br><span class="line">		<span class="keyword">return</span> TRUE;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span><span class="params">(BiTree &amp;p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!p-&gt;rchild)&#123;q=p;p=p-&gt;lchild;<span class="built_in">free</span>(q);&#125;</span><br><span class="line">	<span class="comment">//用p的左孩子代替p</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(!p-&gt;lchild)&#123;q=p;p=p-&gt;rchild;<span class="built_in">free</span>(q);&#125;</span><br><span class="line">	<span class="comment">//用p的右孩子代替p</span></span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		q=p;s=p-&gt;lchild;</span><br><span class="line">		<span class="keyword">while</span>(s-&gt;rchild)&#123;q=s;s=s-&gt;rchild;&#125; </span><br><span class="line">		<span class="comment">//转左，然后向右到尽头</span></span><br><span class="line">		p-&gt;data=s-&gt;data;          <span class="comment">//s指向被删结点的"前驱"</span></span><br><span class="line">		<span class="keyword">if</span>(q!=p)</span><br><span class="line">			q-&gt;rchild=s-&gt;lchild; <span class="comment">//重接*q的右子树</span></span><br><span class="line">		<span class="keyword">else</span> q-&gt;lchild=s-&gt;lchild;        <span class="comment">//重接*q的左子树 </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;<span class="comment">//delete</span></span><br></pre></td></tr></table></figure>
+<h3 id="二叉排序树性能分析"><a href="#二叉排序树性能分析" class="headerlink" title="二叉排序树性能分析"></a>二叉排序树性能分析</h3><p>只有二叉排序树为<strong>平衡树</strong>时，其平均查找时间为O(log n)，<br>反之，可能退化直到顺序查找O(n)。</p>
+<h2 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h2><h3 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h3><p>平衡二叉树又称<strong>AVL树</strong>。<br>它或者是一棵空树，或者是具有下列性质的二叉树：<br>它的左子树和右子树都是平衡二叉树，且<strong>左子树和右子树的深度之差的绝对值不超过1</strong>。</p>
+<h3 id="平衡因子"><a href="#平衡因子" class="headerlink" title="平衡因子"></a>平衡因子</h3><p>  结点的平衡因子BF(Balance Factor)是左子树的深度减去右子树的深度,它只可能是 -1, 0, 1</p>
+<h3 id="二叉排序树转成平衡树"><a href="#二叉排序树转成平衡树" class="headerlink" title="二叉排序树转成平衡树"></a>二叉排序树转成平衡树</h3><p>失去平衡后进行调整的四种情况</p>
+<h4 id="单向右旋平衡处理-LL型"><a href="#单向右旋平衡处理-LL型" class="headerlink" title="单向右旋平衡处理 LL型"></a>单向右旋平衡处理 LL型</h4><p>当在左子树上插入左结点,使平衡因子由1增至2时<br><strong>调整过程</strong><br>将BA向右旋转90度，把B的右孩子变为A的左孩子，A变为B的右孩子，B替代A的位置。</p>
+<h4 id="单向左旋平衡处理-RR型"><a href="#单向左旋平衡处理-RR型" class="headerlink" title="单向左旋平衡处理 RR型"></a>单向左旋平衡处理 RR型</h4><p>当在右子树上插入右结点,使平衡因子由-1增至-2时<br><strong>调整过程</strong><br>将BA向右旋转90度，把B的右孩子变为A的左孩子，A变为B的右孩子，B替代A的位置。</p>
+<h4 id="双向旋转-先左后右-平衡处理-LR型"><a href="#双向旋转-先左后右-平衡处理-LR型" class="headerlink" title="双向旋转(先左后右)平衡处理 LR型"></a>双向旋转(先左后右)平衡处理 LR型</h4><p>当在左子树上插入右结点,使平衡因子由1增至2时<br><strong>调整过程</strong><br>1）将CB向左旋转90度，把CL变为B的右子树，把B变为C 的左孩子；<br>2）将BCA向右旋转90 度，把CR变为A的左孩子，A变为C的右孩子；最后，C带替A的位置。</p>
+<h4 id="双向旋转-先右后左-平衡处理-RL型"><a href="#双向旋转-先右后左-平衡处理-RL型" class="headerlink" title="双向旋转(先右后左)平衡处理 RL型"></a>双向旋转(先右后左)平衡处理 RL型</h4><p>当在右子树上插入左结点,使平衡因子由-1增至-2时<br><strong>调整过程</strong><br>1）将CB向右旋转90度，把CR变为B的右子树，把B变为C的左孩子；<br>2）将BCA向左旋转90度，把C的左孩子变为A的右孩子，A变为C的左孩子；最后，C带替A的位置。</p>
+<h3 id="平衡二叉树的查找及性能分析"><a href="#平衡二叉树的查找及性能分析" class="headerlink" title="平衡二叉树的查找及性能分析"></a>平衡二叉树的查找及性能分析</h3><p>它的时间复杂度与二叉排序树的最好时间复杂相同，都为O(log2n)。</p>
+<h2 id="B-树"><a href="#B-树" class="headerlink" title="B-树"></a>B-树</h2><blockquote>
+<p>类似“多叉的”二叉查找树</p>
+</blockquote>
+<h3 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h3><p>B-树中所有结点中孩子结点个数的最大值成为B-树的阶，通常用m表示，从查找效率考虑，一般要求m&gt;=3。一棵m阶B-树或者是一棵空树，或者是满足以下条件的m叉树。<br>1）每个结点最多有m个分支（子树）；而最少分支数要看是否为根结点，如果是<strong>根结点且不是叶子结点</strong>，则至少要有<strong>两个分支</strong>，<strong>非根非叶结点</strong>至少有<strong>ceil(m/2)个分支</strong>，这里ceil代表向上取整。<br>2）如果一个结点有n-1个关键字，那么该结点有n个分支。这n-1个关键字按照递增顺序排列。<br>3）每个结点的结构为：<br><strong>n    k1    k2    …    kn<br>p0    p1    p2    …    pn</strong></p>
+<p>其中，n为该结点中关键字的个数；ki为该结点的关键字且满足ki&lt;ki+1；pi为该结点的孩子结点指针且满足pi所指结点上的关键字大于ki且小于ki+1，p0所指结点上的关键字小于k1，pn所指结点上的关键字大于kn。</p>
+<p>4）结点内各关键字互不相等且按从小到大排列。<br>5）叶子结点处于同一层；可以用空指针表示，是查找失败到达的位置。</p>
+<p>注：平衡m叉查找树是指每个关键字的左侧子树与右侧子树的高度差的绝对值不超过1的查找树，其结点结构与上面提到的B-树结点结构相同，<strong>由此可见，B-树是平衡m叉查找树，但限制更强，要求所有叶结点都在同一层。</strong></p>
+<p>摘录了大佬 文哥的学习日记 的实例，原文链接在开篇已经给出。<br><img src="https://img-blog.csdnimg.cn/20191206212836925.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="B-树实例"></p>
+<p>上面的图片显示了一棵B-树，最底层的叶子结点没有显示。我们对上面提到的5条特点进行逐条解释：<br>1）结点的分支数等于关键字数+1，最大的分支数就是B-树的阶数，因此m阶的B-树中结点最多有m个分支，所以可以看到，上面的一棵树是一个5-阶B-树。<br>2）因为上面是一棵5阶B-树，所以非根非叶结点至少要有ceil(5/2)=3个分支。根结点可以不满足这个条件，图中的根结点有两个分支。<br>3）如果根结点中没有关键字就没有分支，此时B-树是空树，如果根结点有关键字，则其分支数比大于或等于2，因为分支数等于关键字数+1.<br>4）上图中除根结点外，结点中的关键字个数至少为2，因为分支数至少为3，分支数比关键字数多1，还可以看出结点内关键字都是有序的，并且在同一层中，左边结点内所有关键字均小于右边结点内的关键字，例如，第二层上的两个结点，左边结点内的关键字为15，26，他们均小于右边结点内的关键字39和45.<br>B-树一个很重要的特征是，下层结点内的关键字取值总是落在由上层结点关键字所划分的区间内，具体落在哪个区间内可以由指向它的指针看出。例如，第二层最左边的结点内的关键字划分了三个区间，小于15，15到26，大于26，可以看出其下层中最左边结点内的关键字都小于15，中间结点的关键字在15和26之间，右边结点的关键字大于26.<br>5）上图中叶子结点都在第四层上，代表查找不成功的位置。</p>
+<h3 id="B-树上的查找"><a href="#B-树上的查找" class="headerlink" title="B-树上的查找"></a>B-树上的查找</h3><p>（1）将给定key值与根结点关键字k[i]（k[]为结点内的关键字数组）比较，如果相等，那么查找成功。<br>（2）</p>
+<ul>
+<li>若key&lt;k[1]，则到p[0]所指示的子树中进行继续查找（p[ ]为结点内的指针数组)，这里要注意B-树中每个结点的内部结构。</li>
+<li>若key&gt;k[n]，则道p[n]所指示的子树中继续查找。</li>
+<li>若k[i]&lt;key&lt;k[i+1]，则沿着指针p[I]所指示的子树继续查找。</li>
+</ul>
+<p>（3）如果，查找到叶子结点，那么查找失败。<br><img src="https://img-blog.csdnimg.cn/20191206212759137.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="例子"></p>
+<h3 id="B-树上的插入"><a href="#B-树上的插入" class="headerlink" title="B-树上的插入"></a>B-树上的插入</h3><p>与二叉排序树一样，B-树的创建过程也是将关键字逐个插入到树中的过程。<br>在进行插入之前，要确定一下每个结点中关键字个数的范围，如果B-树的阶数为m，则结点中关键字个数的范围为 [ceil(m/2)-1,m-1] 个。<br>对于关键字的插入，需要找到插入位置。在B-树的查找过程中，当遇到空指针时，则证明查找不成功，同时也找到了插入位置，即根据空指针可以确定在最底层非叶结点中的插入位置，为了方便，我们称最底层的非叶结点为终端结点，由此可见，B-树结点的插入总是落在终端结点上。在插入过程中有可能破坏B-树的特征，如新关键字的插入使得结点中关键字的个数超过规定个数，这是要进行结点的拆分。</p>
+<p>接下来，我们以关键字序列{1,2,6,7,11,4,8,13,10,5,17,9,16,20,3,12,14,18,19,15}创建一棵5阶B-树，我们将详细体会B-树的插入过程。<br>（1）确定结点中关键字个数范围<br>由于题目要求建立5阶B-树，因此关键字的个数范围为2～4<br>（2）根结点最多可以容纳4个关键字，依次插入关键字1、2、6、7后的B-树如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206214024397.png" alt=" "><br>（3）当插入关键字11的时候，发现此时结点中关键字的个数变为5，超出范围，需要拆分，去关键字数组中的中间位置，也就是k[3]=6，作为一个独立的结点，即新的根结点，将关键字6左、右关键字分别做成两个结点，作为新根结点的两个分支，此时树如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206214043273.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "><br>（4）新关键字总是插在叶子结点上，插入关键字4、8、13之后树为：<br><img src="https://img-blog.csdnimg.cn/201912062141262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<p>（5）关键字10需要插入在关键字8和11之间，此时又会出现关键字个数超出范围的情况，因此需要拆分。拆分时需要将关键字10纳入根结点中，并将10左右的关键字做成两个新的结点连在根结点上。插入关键字10并经过拆分操作后的B-树如下图：<br><img src="https://img-blog.csdnimg.cn/20191206220854883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<p>（6）插入关键字5、17、9、16之后的B-树如图所示：<br><img src="https://img-blog.csdnimg.cn/20191206220916121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<p>（7）关键字20插入在关键字17以后，此时会造成结点关键字个数超出范围，需要拆分，方法同上，树为：<br><img src="https://img-blog.csdnimg.cn/20191206220925993.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<p>（8）按照上述步骤依次插入关键字3、12、14、18、19之后B-树如下图所示：<br><img src="https://img-blog.csdnimg.cn/2019120622093773.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<p>（9）插入最后一个关键字15，15应该插入在14之后，此时会出现关键字个数超出范围的情况，则需要进行拆分，将13并入根结点，13并入根结点之后，又使得根结点的关键字个数超出范围，需要再次进行拆分，将10作为新的根结点，并将10左、右关键字做成两个新结点连接到新根结点的指针上，这种插入一个关键字之后出现多次拆分的情况称为连锁反应，最终形成的B-树如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206220946529.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<h3 id="B-树的删除"><a href="#B-树的删除" class="headerlink" title="B-树的删除"></a>B-树的删除</h3><p>对于B-树关键字的删除，需要找到待删除的关键字，在结点中删除关键字的过程也有可能破坏B-树的特性，如旧关键字的删除可能使得结点中关键字的个数少于规定个数，这是可能需要向其兄弟结点借关键字或者和其孩子结点进行关键字的交换，也可能需要进行结点的合并，其中，和当前结点的孩子进行关键字交换的操作可以保证删除操作总是发生在终端结点上。</p>
+<p>我们用刚刚生成的B-树作为例子，一次删除8、16、15、4这4个关键字。<br>（1）删除关键字8、16。关键字8在终端结点上，并且删除后其所在结点中关键字的个数不会少于2，因此可以直接删除。关键字16不在终端结点上，但是可以用17来覆盖16，然后将原来的17删除掉，这就是上面提到的和孩子结点进行关键字交换的操作。这里不能用15和16进行关键字交换，因为这样会导致15所在结点中关键字的个数小于2。因此，删除8和16之后B-树如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206221533664.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<p>（2）删除关键字15，15虽然也在终端结点上，但是不能直接删除，因为删除后当前结点中关键字的个数小于2。这是需要向其兄弟结点借关键字，显然应该向其右兄弟来借关键字，因为左兄弟的关键字个数已经是下限2.借关键字不能直接将18移到15所在的结点上，因为这样会使得15所在的结点上出现比17大的关键字，所以正确的借法应该是先用17覆盖15，在用18覆盖原来的17，最后删除原来的18，删除关键字15后的B-树如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206221551329.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<p>（3）删除关键字4，4在终端结点上，但是此时4所在的结点的关键字个数已经到下限，需要借关键字，不过可以看到其左右兄弟结点已经没有多余的关键字可借。所以就需要进行关键字的合并。可以先将关键字4删除，然后将关键字5、6、7、9进行合并作为一个结点链接在关键字3右边的指针上，也可以将关键字1、2、3、5合并作为一个结点链接在关键字6左边的指针上，如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206221602335.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<p>显然上述两种情况下都不满足B-树的规定，即出现了非根的双分支结点，需要继续进行合并，合并后的B-树如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206221615920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "><br>有时候删除的结点不在终端结点上，我们首先需要将其转化到终端结点上，然后再按上面的各种情况进行删除。在讲述这种情况下的删除方法之前，要引入一个相邻关键字的概念，对于不在终端结点的关键字a，它的相邻关键字为其左子树中值最大的关键字或者其右子树中值最小的关键字。找a的相邻关键字的方法为：沿着a的左指针来到其子树根结点，然后沿着根结点中最右端的关键字的右指针往下走，用同样的方法一直走到叶结点上，叶结点上的最右端的关键字即为a的相邻关键字（这里找的是a左边的相邻关键字，我们可以用同样的思路找到a右边的相邻关键字）。可以看到下图中a的相邻关键字是d和e，要删除关键字a，可以用d来取代a，然后按照上面的情况删除叶子结点上的d即可。</p>
+<h3 id="B-树的应用"><a href="#B-树的应用" class="headerlink" title="B-树的应用"></a>B-树的应用</h3><p>为了将大型数据库文件存储在硬盘上，以减少访问硬盘次数为目的，在此提出了一种平衡多路查找树——B-树结构。由其性能分析可知它的检索效率是相当高的 为了提高 B-树性能’还有很多种B-树的变型，力图对B-树进行改进，比如B+树。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/27/7.6%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" rel="prev" title="图-6|最短路径">
+      <i class="fa fa-chevron-left"></i> 图-6|最短路径
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/" rel="next" title="绪论|数据结构">
+      绪论|数据结构 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#静态查找表"><span class="nav-number">1.</span> <span class="nav-text">静态查找表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序表及其查找-——-顺序查找法"><span class="nav-number">1.2.</span> <span class="nav-text">顺序表及其查找 —— 顺序查找法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找表组织"><span class="nav-number">1.2.1.</span> <span class="nav-text">查找表组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序查找"><span class="nav-number">1.2.2.</span> <span class="nav-text">顺序查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序查找的性能分析"><span class="nav-number">1.2.3.</span> <span class="nav-text">顺序查找的性能分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序查找的算法"><span class="nav-number">1.2.4.</span> <span class="nav-text">顺序查找的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有序表及其查找-——-折半查找法"><span class="nav-number">1.3.</span> <span class="nav-text">有序表及其查找 —— 折半查找法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找表组织-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">查找表组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折半查找"><span class="nav-number">1.3.2.</span> <span class="nav-text">折半查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折半查找的性能分析"><span class="nav-number">1.3.3.</span> <span class="nav-text">折半查找的性能分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折半查找的算法"><span class="nav-number">1.3.4.</span> <span class="nav-text">折半查找的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分块查找-——-索引顺序查找"><span class="nav-number">1.4.</span> <span class="nav-text">分块查找 —— 索引顺序查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找表组织-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">查找表组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引顺序查找"><span class="nav-number">1.4.2.</span> <span class="nav-text">索引顺序查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引顺序查找的性能分析"><span class="nav-number">1.4.3.</span> <span class="nav-text">索引顺序查找的性能分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引顺序查找的算法实现"><span class="nav-number">1.4.4.</span> <span class="nav-text">索引顺序查找的算法实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找方法比较"><span class="nav-number">1.5.</span> <span class="nav-text">查找方法比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态查找表"><span class="nav-number">2.</span> <span class="nav-text">动态查找表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-1"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉排序树"><span class="nav-number">2.2.</span> <span class="nav-text">二叉排序树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-2"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树的插入（生成）"><span class="nav-number">2.2.2.</span> <span class="nav-text">二叉排序树的插入（生成）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找算法一"><span class="nav-number">2.2.3.</span> <span class="nav-text">查找算法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找算法二"><span class="nav-number">2.2.4.</span> <span class="nav-text">查找算法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入算法"><span class="nav-number">2.2.5.</span> <span class="nav-text">插入算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树的生成"><span class="nav-number">2.2.6.</span> <span class="nav-text">二叉排序树的生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树的删除"><span class="nav-number">2.2.7.</span> <span class="nav-text">二叉排序树的删除</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法在二叉排序树中删除一个节点的算法"><span class="nav-number">2.2.7.1.</span> <span class="nav-text">算法在二叉排序树中删除一个节点的算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树性能分析"><span class="nav-number">2.2.8.</span> <span class="nav-text">二叉排序树性能分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">2.3.</span> <span class="nav-text">平衡二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-3"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡因子"><span class="nav-number">2.3.2.</span> <span class="nav-text">平衡因子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树转成平衡树"><span class="nav-number">2.3.3.</span> <span class="nav-text">二叉排序树转成平衡树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单向右旋平衡处理-LL型"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">单向右旋平衡处理 LL型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单向左旋平衡处理-RR型"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">单向左旋平衡处理 RR型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向旋转-先左后右-平衡处理-LR型"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">双向旋转(先左后右)平衡处理 LR型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向旋转-先右后左-平衡处理-RL型"><span class="nav-number">2.3.3.4.</span> <span class="nav-text">双向旋转(先右后左)平衡处理 RL型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡二叉树的查找及性能分析"><span class="nav-number">2.3.4.</span> <span class="nav-text">平衡二叉树的查找及性能分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树"><span class="nav-number">2.4.</span> <span class="nav-text">B-树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-4"><span class="nav-number">2.4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树上的查找"><span class="nav-number">2.4.2.</span> <span class="nav-text">B-树上的查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树上的插入"><span class="nav-number">2.4.3.</span> <span class="nav-text">B-树上的插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树的删除"><span class="nav-number">2.4.4.</span> <span class="nav-text">B-树的删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树的应用"><span class="nav-number">2.4.5.</span> <span class="nav-text">B-树的应用</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">夜明</p>
+  <div class="site-description" itemprop="description">Where would a south wind take us</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dawnyoake" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dawnyoake" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">夜明</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">47k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:25</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='0,0,255' opacity='1' zIndex='50' count='10' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'J0b3D8nEf5PQxGjiWrKGbC3t-gzGzoHsz',
+    appKey: 'y9Hv5m8z8Ly1aDBDXD24yt2K',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+  <div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>
+
