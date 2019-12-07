@@ -46,30 +46,35 @@
   };
 </script>
 
-  <meta name="description" content="Where would a south wind take us">
-<meta property="og:type" content="website">
-<meta property="og:title" content="夜明的Blog">
-<meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;index.html">
+  <meta name="description" content="插入排序、希尔排序、快速排序、选择排序、堆排序、归并排序、基数排序。&amp;lt;!more&amp;gt;主要内容10.1 概述10.2 插入排序   10.2.1 直接插入排序 10.2.2 折半插入排序 10.2.3 shell排序10.3 交换排序（快速排序）10.4 选择排序   10.4.1 简单选择排序 10.4.3 堆排序10.5 归并排序10.6 基数排序10.7 各种排序方法的比较讨论 概述">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构|内部排序">
+<meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;2019&#x2F;12&#x2F;09&#x2F;10.0%E5%86%85%E9%83%A8%E6%8E%92%E5%BA%8F&#x2F;index.html">
 <meta property="og:site_name" content="夜明的Blog">
-<meta property="og:description" content="Where would a south wind take us">
+<meta property="og:description" content="插入排序、希尔排序、快速排序、选择排序、堆排序、归并排序、基数排序。&amp;lt;!more&amp;gt;主要内容10.1 概述10.2 插入排序   10.2.1 直接插入排序 10.2.2 折半插入排序 10.2.3 shell排序10.3 交换排序（快速排序）10.4 选择排序   10.4.1 简单选择排序 10.4.3 堆排序10.5 归并排序10.6 基数排序10.7 各种排序方法的比较讨论 概述">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191207200904969.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191207201014516.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-12-07T12:47:32.060Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191207200904969.png">
 
-<link rel="canonical" href="https://daybreakland.top/">
+<link rel="canonical" href="https://daybreakland.top/2019/12/09/10.0%E5%86%85%E9%83%A8%E6%8E%92%E5%BA%8F/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>夜明的Blog</title>
+  <title>数据结构|内部排序 | 夜明的Blog</title>
   
 
 
@@ -166,10 +171,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/09/10.0%E5%86%85%E9%83%A8%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -183,8 +188,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/09/10.0%E5%86%85%E9%83%A8%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">数据结构|内部排序</a>
+          数据结构|内部排序
         </h1>
 
         <div class="post-meta">
@@ -241,7 +245,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>插入排序、希尔排序、快速排序、选择排序、堆排序、归并排序、基数排序。<br>&lt;!more&gt;<br><strong>主要内容</strong><br>10.1 概述<br>10.2 插入排序  </p>
+        <p>插入排序、希尔排序、快速排序、选择排序、堆排序、归并排序、基数排序。<br>&lt;!more&gt;<br><strong>主要内容</strong><br>10.1 概述<br>10.2 插入排序  </p>
 <pre><code>10.2.1 直接插入排序
 10.2.2 折半插入排序
 10.2.3 shell排序</code></pre><p>10.3 交换排序（快速排序）<br>10.4 选择排序  </p>
@@ -318,861 +322,30 @@
 <p><strong>最高位优先法（MSD)</strong><br>先对最高位关键字k1（如花色）排序，将序列分成若干子序列，每个子序列有相同的k1值；然后让每个子序列对次关键字k2（如面值）排序，又分成若干更小的子序列；依次重复，直至就每个子序列对最低位关键字kd排序；最后将所有子序列依次连接在一起成为一个有序序列</p>
 <p><strong>最低位优先法(LSD)</strong><br>从最低位关键字kd起进行排序，然后再对高一位的关键字排序，……依次重复，直至对最高位关键字k1排序后，便成为一个有序序列</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          </div>
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/08/9.0%E6%9F%A5%E6%89%BE/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="夜明">
-      <meta itemprop="description" content="Where would a south wind take us">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜明的Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/08/9.0%E6%9F%A5%E6%89%BE/" class="post-title-link" itemprop="url">数据结构|查找</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-08 11:39:58" itemprop="dateCreated datePublished" datetime="2019-12-08T11:39:58+08:00">2019-12-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-07 11:31:45" itemprop="dateModified" datetime="2019-12-07T11:31:45+08:00">2019-12-07</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/08/9.0%E6%9F%A5%E6%89%BE/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/08/9.0%E6%9F%A5%E6%89%BE/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              <span>11k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              <span>19 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>静态查找表：顺序查找和折半查找；<br>动态查找表：二叉排序树、二叉平衡树、B/B+树、哈希查找、哈希表</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/08/9.0%E6%9F%A5%E6%89%BE/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/08/9.0%E6%9F%A5%E6%89%BE/" rel="prev" title="数据结构|查找">
+      <i class="fa fa-chevron-left"></i> 数据结构|查找
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/06/3.0%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="夜明">
-      <meta itemprop="description" content="Where would a south wind take us">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜明的Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/06/3.0%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/" class="post-title-link" itemprop="url">线性结构|栈和队列</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-06 22:34:58" itemprop="dateCreated datePublished" datetime="2019-12-06T22:34:58+08:00">2019-12-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-07 00:07:16" itemprop="dateModified" datetime="2019-12-07T00:07:16+08:00">2019-12-07</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
     
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/06/3.0%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/06/3.0%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              <span>7.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              <span>14 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>顺序栈、链栈、循环队列、链队列</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/06/3.0%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/03/2.0%E7%BA%BF%E6%80%A7%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="夜明">
-      <meta itemprop="description" content="Where would a south wind take us">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜明的Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/03/2.0%E7%BA%BF%E6%80%A7%E8%A1%A8/" class="post-title-link" itemprop="url">线性结构|线性表</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-03 17:40:48" itemprop="dateCreated datePublished" datetime="2019-12-03T17:40:48+08:00">2019-12-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-06 23:51:57" itemprop="dateModified" datetime="2019-12-06T23:51:57+08:00">2019-12-06</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/03/2.0%E7%BA%BF%E6%80%A7%E8%A1%A8/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/2.0%E7%BA%BF%E6%80%A7%E8%A1%A8/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              <span>8.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              <span>16 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本篇记录了数据结构的线性表部分。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/03/2.0%E7%BA%BF%E6%80%A7%E8%A1%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/03/6.3%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="夜明">
-      <meta itemprop="description" content="Where would a south wind take us">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜明的Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/03/6.3%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/" class="post-title-link" itemprop="url">树-3|树和森林</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-12-03 13:03:55 / 修改时间：13:12:03" itemprop="dateCreated datePublished" datetime="2019-12-03T13:03:55+08:00">2019-12-03</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/03/6.3%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/6.3%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本篇记录了数据结构树这一章学习的第三部分，<br>即树和森林。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/03/6.3%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="夜明">
-      <meta itemprop="description" content="Where would a south wind take us">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜明的Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/" class="post-title-link" itemprop="url">树-2|遍历二叉树</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-12-03 13:03:42 / 修改时间：13:11:46" itemprop="dateCreated datePublished" datetime="2019-12-03T13:03:42+08:00">2019-12-03</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              <span>2.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本篇记录了数据结构树这一章学习的第二部分，<br>即遍历二叉树。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/03/6.1%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="夜明">
-      <meta itemprop="description" content="Where would a south wind take us">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜明的Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/03/6.1%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/" class="post-title-link" itemprop="url">树-1|树和二叉树</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-12-03 13:03:08 / 修改时间：13:12:46" itemprop="dateCreated datePublished" datetime="2019-12-03T13:03:08+08:00">2019-12-03</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/03/6.1%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/6.1%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              <span>3.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本篇记录了数据结构树这一章学习的第一部分，<br>即树和二叉树。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/03/6.1%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="夜明">
-      <meta itemprop="description" content="Where would a south wind take us">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜明的Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/" class="post-title-link" itemprop="url">绪论|数据结构</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-12-03 12:59:51 / 修改时间：13:13:29" itemprop="dateCreated datePublished" datetime="2019-12-03T12:59:51+08:00">2019-12-03</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              <span>1.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本篇记录了数据结构的绪论部分。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/11/27/7.6%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="夜明">
-      <meta itemprop="description" content="Where would a south wind take us">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜明的Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/27/7.6%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" class="post-title-link" itemprop="url">图-6|最短路径</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-11-27 17:34:58 / 修改时间：17:17:47" itemprop="dateCreated datePublished" datetime="2019-11-27T17:34:58+08:00">2019-11-27</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/11/27/7.6%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/27/7.6%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              <span>724</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本篇记录了数据结构图这一章学习的第六部分，<br>即图的最短路径问题。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/27/7.6%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/11/27/7.5%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%8F%8A%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="夜明">
-      <meta itemprop="description" content="Where would a south wind take us">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜明的Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/27/7.5%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%8F%8A%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" class="post-title-link" itemprop="url">图-5|拓扑排序</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-11-27 17:14:58 / 修改时间：17:17:36" itemprop="dateCreated datePublished" datetime="2019-11-27T17:14:58+08:00">2019-11-27</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/11/27/7.5%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%8F%8A%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/27/7.5%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%8F%8A%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本篇记录了数据结构图这一章学习的第五部分，<br>即图的拓扑排序问题。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/27/7.5%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%8F%8A%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
@@ -1180,15 +353,10 @@
 
   </div>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
-
 
           </div>
           
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -1213,6 +381,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#排序定义"><span class="nav-number">1.1.</span> <span class="nav-text">排序定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序分类"><span class="nav-number">1.2.</span> <span class="nav-text">排序分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插入排序"><span class="nav-number">2.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#直接插入排序"><span class="nav-number">2.1.</span> <span class="nav-text">直接插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现"><span class="nav-number">2.1.1.</span> <span class="nav-text">算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法评价"><span class="nav-number">2.1.2.</span> <span class="nav-text">算法评价</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#折半插入排序"><span class="nav-number">2.2.</span> <span class="nav-text">折半插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法评价-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">算法评价</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#希尔排序-缩小增量法"><span class="nav-number">2.3.</span> <span class="nav-text">希尔排序(缩小增量法)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本思想"><span class="nav-number">2.3.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#希尔排序特点"><span class="nav-number">2.3.3.</span> <span class="nav-text">希尔排序特点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交换排序"><span class="nav-number">3.</span> <span class="nav-text">交换排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#冒泡排序"><span class="nav-number">3.1.</span> <span class="nav-text">冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本思想-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法评价-2"><span class="nav-number">3.1.2.</span> <span class="nav-text">算法评价</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排序"><span class="nav-number">3.2.</span> <span class="nav-text">快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本思想-2"><span class="nav-number">3.2.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现-3"><span class="nav-number">3.2.2.</span> <span class="nav-text">算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法评价-3"><span class="nav-number">3.2.3.</span> <span class="nav-text">算法评价</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择排序"><span class="nav-number">4.</span> <span class="nav-text">选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单选择排序"><span class="nav-number">4.1.</span> <span class="nav-text">简单选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序过程"><span class="nav-number">4.1.1.</span> <span class="nav-text">排序过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现-4"><span class="nav-number">4.1.2.</span> <span class="nav-text">算法实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆排序"><span class="nav-number">4.2.</span> <span class="nav-text">堆排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#堆的定义"><span class="nav-number">4.2.1.</span> <span class="nav-text">堆的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆排序基本思想"><span class="nav-number">4.2.2.</span> <span class="nav-text">堆排序基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆排序的算法"><span class="nav-number">4.2.3.</span> <span class="nav-text">堆排序的算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法评价-4"><span class="nav-number">4.2.4.</span> <span class="nav-text">算法评价</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#归并排序"><span class="nav-number">5.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-路归并排序"><span class="nav-number">5.1.</span> <span class="nav-text">2-路归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序过程-1"><span class="nav-number">5.1.1.</span> <span class="nav-text">排序过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现-5"><span class="nav-number">5.1.2.</span> <span class="nav-text">算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法评价-5"><span class="nav-number">5.1.3.</span> <span class="nav-text">算法评价</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基数排序"><span class="nav-number">6.</span> <span class="nav-text">基数排序</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
