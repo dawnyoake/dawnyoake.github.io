@@ -46,13 +46,13 @@
   };
 </script>
 
-  <meta name="description" content="静态查找表：顺序查找和折半查找；动态查找表：二叉排序树、二叉平衡树、B&#x2F;B+树">
+  <meta name="description" content="静态查找表：顺序查找和折半查找；动态查找表：二叉排序树、二叉平衡树、B&#x2F;B+树、哈希查找、哈希表">
 <meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构|查找">
-<meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;2019&#x2F;12&#x2F;07&#x2F;8.1-2%E6%9F%A5%E6%89%BE&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;2019&#x2F;12&#x2F;08&#x2F;8.0%E6%9F%A5%E6%89%BE&#x2F;index.html">
 <meta property="og:site_name" content="夜明的Blog">
-<meta property="og:description" content="静态查找表：顺序查找和折半查找；动态查找表：二叉排序树、二叉平衡树、B&#x2F;B+树">
+<meta property="og:description" content="静态查找表：顺序查找和折半查找；动态查找表：二叉排序树、二叉平衡树、B&#x2F;B+树、哈希查找、哈希表">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206173449682.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206174044804.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
@@ -76,11 +76,12 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206221551329.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206221602335.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206221615920.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-12-06T16:05:14.262Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191207112211414.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-12-07T03:31:45.717Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191206173449682.png">
 
-<link rel="canonical" href="https://daybreakland.top/2019/12/07/8.1-2%E6%9F%A5%E6%89%BE/">
+<link rel="canonical" href="https://daybreakland.top/2019/12/08/8.0%E6%9F%A5%E6%89%BE/">
 
 
 <script id="page-configurations">
@@ -195,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/07/8.1-2%E6%9F%A5%E6%89%BE/">
+    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/08/8.0%E6%9F%A5%E6%89%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -217,10 +218,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-07 23:39:58 / 修改时间：00:05:14" itemprop="dateCreated datePublished" datetime="2019-12-07T23:39:58+08:00">2019-12-07</time>
+              <time title="创建时间：2019-12-08 11:39:58" itemprop="dateCreated datePublished" datetime="2019-12-08T11:39:58+08:00">2019-12-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-07 11:31:45" itemprop="dateModified" datetime="2019-12-07T11:31:45+08:00">2019-12-07</time>
+              </span>
 
           
   
@@ -231,8 +238,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/12/07/8.1-2%E6%9F%A5%E6%89%BE/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/07/8.1-2%E6%9F%A5%E6%89%BE/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/12/08/8.0%E6%9F%A5%E6%89%BE/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/08/8.0%E6%9F%A5%E6%89%BE/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -241,13 +248,13 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
               </span>
-              <span>8.9k</span>
+              <span>11k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
-              <span>16 分钟</span>
+              <span>19 分钟</span>
             </span>
 
         </div>
@@ -259,14 +266,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>静态查找表：顺序查找和折半查找；<br>动态查找表：二叉排序树、二叉平衡树、B/B+树</p>
+        <p>静态查找表：顺序查找和折半查找；<br>动态查找表：二叉排序树、二叉平衡树、B/B+树、哈希查找、哈希表</p>
 <a id="more"></a>
 
 <p><strong>主要内容</strong></p>
 <ul>
 <li>9.1 静态查找表<br>  9.1.1 顺序表的查找<br>  9.1.2 有序表的查找</li>
 <li>9.2 动态查找表<br>  9.2.1 二叉排序树和二叉平衡树<br>  9.2.2 B_树和B+树<strong>//本篇文章此处截止</strong></li>
-<li>9.3 哈希(Hashing)表(散列表)   </li>
+<li>9.3 哈希( Hashing )表(散列表)   </li>
 </ul>
 <p><strong>参考资料</strong>：<br>B树部分大面积整理使用了这位文哥的资料，前辈总结的真的特别好，这里直接使用了……侵删。<br>作者：文哥的学习日记<br>链接：<a href="https://www.jianshu.com/p/7dedb7ebe033" target="_blank" rel="noopener">https://www.jianshu.com/p/7dedb7ebe033</a></p>
 <p><strong>概 述</strong></p>
@@ -385,12 +392,86 @@
 <p>（7）关键字20插入在关键字17以后，此时会造成结点关键字个数超出范围，需要拆分，方法同上，树为：<br><img src="https://img-blog.csdnimg.cn/20191206220925993.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
 <p>（8）按照上述步骤依次插入关键字3、12、14、18、19之后B-树如下图所示：<br><img src="https://img-blog.csdnimg.cn/2019120622093773.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
 <p>（9）插入最后一个关键字15，15应该插入在14之后，此时会出现关键字个数超出范围的情况，则需要进行拆分，将13并入根结点，13并入根结点之后，又使得根结点的关键字个数超出范围，需要再次进行拆分，将10作为新的根结点，并将10左、右关键字做成两个新结点连接到新根结点的指针上，这种插入一个关键字之后出现多次拆分的情况称为连锁反应，最终形成的B-树如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206220946529.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
-<h3 id="B-树的删除"><a href="#B-树的删除" class="headerlink" title="B-树的删除"></a>B-树的删除</h3><p>对于B-树关键字的删除，需要找到待删除的关键字，在结点中删除关键字的过程也有可能破坏B-树的特性，如旧关键字的删除可能使得结点中关键字的个数少于规定个数，这是可能需要向其兄弟结点借关键字或者和其孩子结点进行关键字的交换，也可能需要进行结点的合并，其中，和当前结点的孩子进行关键字交换的操作可以保证删除操作总是发生在终端结点上。</p>
+<h3 id="B-树的删除"><a href="#B-树的删除" class="headerlink" title="B-树的删除"></a>B-树的删除</h3><p>对于B-树关键字的删除，需要找到待删除的关键字，在结点中删除关键字的过程也有可能破坏B-树的特性，如旧关键字的删除可能使得<strong>结点中关键字的个数少于规定个数</strong>，这是可能需要<strong>向其兄弟结点借关键字</strong>或者<strong>和其孩子结点进行关键字的交换</strong>，也可能需要进行结点的合并，其中，和当前结点的孩子进行关键字交换的操作可以保证删除操作总是发生在终端结点上。</p>
 <p>我们用刚刚生成的B-树作为例子，一次删除8、16、15、4这4个关键字。<br>（1）删除关键字8、16。关键字8在终端结点上，并且删除后其所在结点中关键字的个数不会少于2，因此可以直接删除。关键字16不在终端结点上，但是可以用17来覆盖16，然后将原来的17删除掉，这就是上面提到的和孩子结点进行关键字交换的操作。这里不能用15和16进行关键字交换，因为这样会导致15所在结点中关键字的个数小于2。因此，删除8和16之后B-树如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206221533664.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
 <p>（2）删除关键字15，15虽然也在终端结点上，但是不能直接删除，因为删除后当前结点中关键字的个数小于2。这是需要向其兄弟结点借关键字，显然应该向其右兄弟来借关键字，因为左兄弟的关键字个数已经是下限2.借关键字不能直接将18移到15所在的结点上，因为这样会使得15所在的结点上出现比17大的关键字，所以正确的借法应该是先用17覆盖15，在用18覆盖原来的17，最后删除原来的18，删除关键字15后的B-树如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206221551329.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
 <p>（3）删除关键字4，4在终端结点上，但是此时4所在的结点的关键字个数已经到下限，需要借关键字，不过可以看到其左右兄弟结点已经没有多余的关键字可借。所以就需要进行关键字的合并。可以先将关键字4删除，然后将关键字5、6、7、9进行合并作为一个结点链接在关键字3右边的指针上，也可以将关键字1、2、3、5合并作为一个结点链接在关键字6左边的指针上，如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206221602335.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
-<p>显然上述两种情况下都不满足B-树的规定，即出现了非根的双分支结点，需要继续进行合并，合并后的B-树如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206221615920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "><br>有时候删除的结点不在终端结点上，我们首先需要将其转化到终端结点上，然后再按上面的各种情况进行删除。在讲述这种情况下的删除方法之前，要引入一个相邻关键字的概念，对于不在终端结点的关键字a，它的相邻关键字为其左子树中值最大的关键字或者其右子树中值最小的关键字。找a的相邻关键字的方法为：沿着a的左指针来到其子树根结点，然后沿着根结点中最右端的关键字的右指针往下走，用同样的方法一直走到叶结点上，叶结点上的最右端的关键字即为a的相邻关键字（这里找的是a左边的相邻关键字，我们可以用同样的思路找到a右边的相邻关键字）。可以看到下图中a的相邻关键字是d和e，要删除关键字a，可以用d来取代a，然后按照上面的情况删除叶子结点上的d即可。</p>
-<h3 id="B-树的应用"><a href="#B-树的应用" class="headerlink" title="B-树的应用"></a>B-树的应用</h3><p>为了将大型数据库文件存储在硬盘上，以减少访问硬盘次数为目的，在此提出了一种平衡多路查找树——B-树结构。由其性能分析可知它的检索效率是相当高的 为了提高 B-树性能’还有很多种B-树的变型，力图对B-树进行改进，比如B+树。</p>
+<p>显然上述两种情况下都不满足B-树的规定，即出现了非根的双分支结点，需要继续进行合并，合并后的B-树如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191206221615920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "><br>有时候删除的结点不在终端结点上，我们首先需要将其转化到终端结点上，然后再按上面的各种情况进行删除。在讲述这种情况下的删除方法之前，要引入一个<strong>相邻关键字</strong>的概念，对于不在终端结点的关键字a，它的相邻关键字为其左子树中值最大的关键字或者其右子树中值最小的关键字。找a的相邻关键字的方法为：沿着a的左指针来到其子树根结点，然后沿着根结点中最右端的关键字的右指针往下走，用同样的方法一直走到叶结点上，叶结点上的最右端的关键字即为a的相邻关键字（这里找的是a左边的相邻关键字，我们可以用同样的思路找到a右边的相邻关键字）。可以看到下图中a的相邻关键字是d和e，要删除关键字a，可以用d来取代a，然后按照上面的情况删除叶子结点上的d即可。</p>
+<h3 id="B-树的应用"><a href="#B-树的应用" class="headerlink" title="B-树的应用"></a>B-树的应用</h3><p>为了将<em>大型数据库文件存储</em>在硬盘上，以减少访问硬盘次数为目的，在此提出了一种平衡多路查找树——B-树结构。由其性能分析可知它的检索效率是相当高的 为了提高 B-树性能’还有很多种B-树的变型，力图对B-树进行改进，比如B+树。</p>
+<h2 id="B-树-1"><a href="#B-树-1" class="headerlink" title="B+树"></a>B+树</h2><p>B+树是应文件系统所需而出的一种B-树的变型树。<br>一棵m阶的B+树和m阶的B-树的<strong>差异</strong>在于：</p>
+<ol>
+<li>有n棵子树的结点中含有n个关键字。</li>
+<li>所有的叶子结点中包含了全部关键字信息，及指向含这些关键字记录的指针，且叶子结点本身依关键字的大小自小而大顺序链接。</li>
+<li>所有的非终端结点可以看成是索引部分，结点中仅含有其子树（根结点）中的最大（或最小）关键字。<h2 id="键树"><a href="#键树" class="headerlink" title="键树"></a>键树</h2>又称数字查找树，它是一棵度≥2的树，树中的每个结点中不是包含一个或几个关键字，而是只含有组成关键字的符号。</li>
+</ol>
+<blockquote>
+<p>例如，若关键字为数值，则结点中只包含一个数位；若关键字为单词，则结点中只包含一个字母字符。这种树会给某种类型关键字的表的查找带来方便。</p>
+</blockquote>
+<h1 id="哈希查找"><a href="#哈希查找" class="headerlink" title="哈希查找"></a>哈希查找</h1><h2 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h2><p>在记录的存储地址和它的关键字之间建立一个确定的对应关系；这样，不经过比较，一次存取就能得到所查元素的查找方法</p>
+<h2 id="定义-5"><a href="#定义-5" class="headerlink" title="定义"></a>定义</h2><h3 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h3><p>在记录的关键字与记录的存储地址之间建立的一种对应关系叫哈希函数。<br>addr(ai)=H(ki)<br>其中，ai是表中元素，addr()是取址函数，ki是ai的关键字，H()是哈希函数。</p>
+<p><strong>关键字集合</strong>——<em>H( )</em>——&gt;<strong>存储地址集合</strong></p>
+<h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><p>应用哈希函数，由记录的关键字确定记录在表中的地址，并将记录放入此地址，这样构成的表叫哈希表。</p>
+<h3 id="哈希查找-1"><a href="#哈希查找-1" class="headerlink" title="哈希查找"></a>哈希查找</h3><p>又叫散列查找，利用哈希函数进行查找的过程。</p>
+<h2 id="哈希函数的构造方法"><a href="#哈希函数的构造方法" class="headerlink" title="哈希函数的构造方法"></a>哈希函数的构造方法</h2><h3 id="直接定址法"><a href="#直接定址法" class="headerlink" title="直接定址法"></a>直接定址法</h3><ul>
+<li>构造<br>取关键字或关键字的某个线性函数作哈希地址，即H(key)=key    或   H(key)=a·key+b</li>
+<li>特点<br>直接定址法所得地址集合与关键字集合大小相等，<strong>不会发生冲突</strong></li>
+<li>实际中能用这种哈希函数的情况很少</li>
+</ul>
+<h3 id="数字分析法"><a href="#数字分析法" class="headerlink" title="数字分析法"></a>数字分析法</h3><ul>
+<li>构造<br>对关键字进行分析，取关键字的若干位或其组合作哈希地址</li>
+<li>适于关键字位数比哈希地址位数大，且可能出现的关键字事先知道的情况</li>
+</ul>
+<h3 id="平方取中法"><a href="#平方取中法" class="headerlink" title="平方取中法"></a>平方取中法</h3><ul>
+<li>构造<br>取关键字平方后中间几位作哈希地址</li>
+<li>适于不知道全部关键字情况</li>
+</ul>
+<h3 id="折叠法"><a href="#折叠法" class="headerlink" title="折叠法"></a>折叠法</h3><ul>
+<li>构造<br>将关键字分割成位数相同的几部分，然后取这几部分的叠加和（舍去进位）做哈希地址</li>
+<li>种类<br>移位叠加：将分割后的几部分低位对齐相加<br>间界叠加：从一端沿分割界来回折送，然后对齐相加</li>
+<li>适于关键字位数很多，且每一位上数字分布大致均匀情况<h3 id="除留余数法"><a href="#除留余数法" class="headerlink" title="除留余数法"></a>除留余数法</h3></li>
+<li>构造<br>取关键字被某个不大于哈希表表长m的数p除后所得余数作哈希地址，即H(key)=key   MOD  p，pm</li>
+<li>特点<br>简单、常用，可与上述几种方法结合使用<br>p的选取很重要；p选的不好，容易产生同义词</li>
+</ul>
+<h3 id="随机数法"><a href="#随机数法" class="headerlink" title="随机数法"></a>随机数法</h3><ul>
+<li>构造<br>取关键字的随机函数值作哈希地址，即H(key)=random(key)</li>
+<li>适于关键字长度不等的情况<h2 id="选取哈希函数的因素"><a href="#选取哈希函数的因素" class="headerlink" title="选取哈希函数的因素"></a>选取哈希函数的因素</h2></li>
+</ul>
+<ol>
+<li>计算哈希函数所需时间</li>
+<li>关键字长度</li>
+<li>哈希表长度（哈希地址范围）</li>
+<li>关键字分布情况</li>
+<li>记录的查找频率<h2 id="处理冲突的方法"><a href="#处理冲突的方法" class="headerlink" title="处理冲突的方法"></a>处理冲突的方法</h2><h3 id="开放定址法"><a href="#开放定址法" class="headerlink" title="开放定址法"></a><strong>开放定址法</strong></h3></li>
+</ol>
+<ul>
+<li>方法<br>当冲突发生时，形成一个探查序列；沿此序列逐个地址探查，直到找到一个空位置（开放的地址），将发生冲突的记录放到该地址中，</li>
+</ul>
+<p><strong>即hash(key) = （hash(key)+di）mod TableSize。</strong><br>di为增量序列，TableSize为表长。</p>
+<ul>
+<li>分类<br>线性探测再散列：di=1,2,3,……m-1<br>二次探测再散列：di=1²,-1²,2²,-2²,3²,……±k²(k &lt;= m/2)<br>伪随机探测再散列：di=伪随机数序列</li>
+</ul>
+<h3 id="再哈希法"><a href="#再哈希法" class="headerlink" title="再哈希法"></a>再哈希法</h3><ul>
+<li>方法<br>构造若干个哈希函数，当发生冲突时，计算下一个哈希地址，即：Hi=Rhi(key)     i=1,2,……k<br>其中：Rhi——不同的哈希函数</li>
+<li>特点<br>计算时间增加<h3 id="链地址法"><a href="#链地址法" class="headerlink" title="链地址法"></a>链地址法</h3></li>
+<li>方法<br>将所有关键字为同义词的记录存储在一个单链表中，并用一维数组存放头指针。</li>
+</ul>
+<h2 id="哈希查找过程及分析"><a href="#哈希查找过程及分析" class="headerlink" title="哈希查找过程及分析"></a>哈希查找过程及分析</h2><h3 id="哈希查找过程"><a href="#哈希查找过程" class="headerlink" title="哈希查找过程"></a>哈希查找过程</h3><p><img src="https://img-blog.csdnimg.cn/20191207112211414.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<h3 id="哈希查找分析"><a href="#哈希查找分析" class="headerlink" title="哈希查找分析"></a>哈希查找分析</h3><ul>
+<li>哈希查找过程仍是一个给定值与关键字进行比较的过程</li>
+<li>评价哈希查找效率仍要用ASL</li>
+<li>哈希查找过程与给定值进行比较的关键字的个数取决于：</li>
+</ul>
+<ol>
+<li>哈希函数</li>
+<li>处理冲突的方法</li>
+<li>哈希表的填满因子=表中填入的记录数/哈希表长度</li>
+</ol>
+<h2 id="哈希表小结"><a href="#哈希表小结" class="headerlink" title="哈希表小结"></a>哈希表小结</h2><ul>
+<li>散列方法的查找效率不依赖于n ，只依赖于负载因子<br>  α=n/M   n为散列表中关键字个数,M为散列表表长,散列表检索的平均检索长度只随α 的增大而增加。</li>
+</ul>
+<ul>
+<li>散列方法的应用限制<br>散列方法一般不适用于重复关键码值的应用程序<br>散列方法一般不适用于范围检索</li>
+</ul>
 
     </div>
 
@@ -451,7 +532,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#静态查找表"><span class="nav-number">1.</span> <span class="nav-text">静态查找表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序表及其查找-——-顺序查找法"><span class="nav-number">1.2.</span> <span class="nav-text">顺序表及其查找 —— 顺序查找法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找表组织"><span class="nav-number">1.2.1.</span> <span class="nav-text">查找表组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序查找"><span class="nav-number">1.2.2.</span> <span class="nav-text">顺序查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序查找的性能分析"><span class="nav-number">1.2.3.</span> <span class="nav-text">顺序查找的性能分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序查找的算法"><span class="nav-number">1.2.4.</span> <span class="nav-text">顺序查找的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有序表及其查找-——-折半查找法"><span class="nav-number">1.3.</span> <span class="nav-text">有序表及其查找 —— 折半查找法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找表组织-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">查找表组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折半查找"><span class="nav-number">1.3.2.</span> <span class="nav-text">折半查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折半查找的性能分析"><span class="nav-number">1.3.3.</span> <span class="nav-text">折半查找的性能分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折半查找的算法"><span class="nav-number">1.3.4.</span> <span class="nav-text">折半查找的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分块查找-——-索引顺序查找"><span class="nav-number">1.4.</span> <span class="nav-text">分块查找 —— 索引顺序查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找表组织-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">查找表组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引顺序查找"><span class="nav-number">1.4.2.</span> <span class="nav-text">索引顺序查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引顺序查找的性能分析"><span class="nav-number">1.4.3.</span> <span class="nav-text">索引顺序查找的性能分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引顺序查找的算法实现"><span class="nav-number">1.4.4.</span> <span class="nav-text">索引顺序查找的算法实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找方法比较"><span class="nav-number">1.5.</span> <span class="nav-text">查找方法比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态查找表"><span class="nav-number">2.</span> <span class="nav-text">动态查找表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-1"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉排序树"><span class="nav-number">2.2.</span> <span class="nav-text">二叉排序树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-2"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树的插入（生成）"><span class="nav-number">2.2.2.</span> <span class="nav-text">二叉排序树的插入（生成）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找算法一"><span class="nav-number">2.2.3.</span> <span class="nav-text">查找算法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找算法二"><span class="nav-number">2.2.4.</span> <span class="nav-text">查找算法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入算法"><span class="nav-number">2.2.5.</span> <span class="nav-text">插入算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树的生成"><span class="nav-number">2.2.6.</span> <span class="nav-text">二叉排序树的生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树的删除"><span class="nav-number">2.2.7.</span> <span class="nav-text">二叉排序树的删除</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法在二叉排序树中删除一个节点的算法"><span class="nav-number">2.2.7.1.</span> <span class="nav-text">算法在二叉排序树中删除一个节点的算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树性能分析"><span class="nav-number">2.2.8.</span> <span class="nav-text">二叉排序树性能分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">2.3.</span> <span class="nav-text">平衡二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-3"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡因子"><span class="nav-number">2.3.2.</span> <span class="nav-text">平衡因子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树转成平衡树"><span class="nav-number">2.3.3.</span> <span class="nav-text">二叉排序树转成平衡树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单向右旋平衡处理-LL型"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">单向右旋平衡处理 LL型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单向左旋平衡处理-RR型"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">单向左旋平衡处理 RR型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向旋转-先左后右-平衡处理-LR型"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">双向旋转(先左后右)平衡处理 LR型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向旋转-先右后左-平衡处理-RL型"><span class="nav-number">2.3.3.4.</span> <span class="nav-text">双向旋转(先右后左)平衡处理 RL型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡二叉树的查找及性能分析"><span class="nav-number">2.3.4.</span> <span class="nav-text">平衡二叉树的查找及性能分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树"><span class="nav-number">2.4.</span> <span class="nav-text">B-树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-4"><span class="nav-number">2.4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树上的查找"><span class="nav-number">2.4.2.</span> <span class="nav-text">B-树上的查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树上的插入"><span class="nav-number">2.4.3.</span> <span class="nav-text">B-树上的插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树的删除"><span class="nav-number">2.4.4.</span> <span class="nav-text">B-树的删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树的应用"><span class="nav-number">2.4.5.</span> <span class="nav-text">B-树的应用</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#静态查找表"><span class="nav-number">1.</span> <span class="nav-text">静态查找表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序表及其查找-——-顺序查找法"><span class="nav-number">1.2.</span> <span class="nav-text">顺序表及其查找 —— 顺序查找法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找表组织"><span class="nav-number">1.2.1.</span> <span class="nav-text">查找表组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序查找"><span class="nav-number">1.2.2.</span> <span class="nav-text">顺序查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序查找的性能分析"><span class="nav-number">1.2.3.</span> <span class="nav-text">顺序查找的性能分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序查找的算法"><span class="nav-number">1.2.4.</span> <span class="nav-text">顺序查找的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有序表及其查找-——-折半查找法"><span class="nav-number">1.3.</span> <span class="nav-text">有序表及其查找 —— 折半查找法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找表组织-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">查找表组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折半查找"><span class="nav-number">1.3.2.</span> <span class="nav-text">折半查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折半查找的性能分析"><span class="nav-number">1.3.3.</span> <span class="nav-text">折半查找的性能分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折半查找的算法"><span class="nav-number">1.3.4.</span> <span class="nav-text">折半查找的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分块查找-——-索引顺序查找"><span class="nav-number">1.4.</span> <span class="nav-text">分块查找 —— 索引顺序查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找表组织-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">查找表组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引顺序查找"><span class="nav-number">1.4.2.</span> <span class="nav-text">索引顺序查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引顺序查找的性能分析"><span class="nav-number">1.4.3.</span> <span class="nav-text">索引顺序查找的性能分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引顺序查找的算法实现"><span class="nav-number">1.4.4.</span> <span class="nav-text">索引顺序查找的算法实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找方法比较"><span class="nav-number">1.5.</span> <span class="nav-text">查找方法比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态查找表"><span class="nav-number">2.</span> <span class="nav-text">动态查找表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-1"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉排序树"><span class="nav-number">2.2.</span> <span class="nav-text">二叉排序树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-2"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树的插入（生成）"><span class="nav-number">2.2.2.</span> <span class="nav-text">二叉排序树的插入（生成）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找算法一"><span class="nav-number">2.2.3.</span> <span class="nav-text">查找算法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找算法二"><span class="nav-number">2.2.4.</span> <span class="nav-text">查找算法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入算法"><span class="nav-number">2.2.5.</span> <span class="nav-text">插入算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树的生成"><span class="nav-number">2.2.6.</span> <span class="nav-text">二叉排序树的生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树的删除"><span class="nav-number">2.2.7.</span> <span class="nav-text">二叉排序树的删除</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法在二叉排序树中删除一个节点的算法"><span class="nav-number">2.2.7.1.</span> <span class="nav-text">算法在二叉排序树中删除一个节点的算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树性能分析"><span class="nav-number">2.2.8.</span> <span class="nav-text">二叉排序树性能分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">2.3.</span> <span class="nav-text">平衡二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-3"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡因子"><span class="nav-number">2.3.2.</span> <span class="nav-text">平衡因子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树转成平衡树"><span class="nav-number">2.3.3.</span> <span class="nav-text">二叉排序树转成平衡树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单向右旋平衡处理-LL型"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">单向右旋平衡处理 LL型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单向左旋平衡处理-RR型"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">单向左旋平衡处理 RR型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向旋转-先左后右-平衡处理-LR型"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">双向旋转(先左后右)平衡处理 LR型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向旋转-先右后左-平衡处理-RL型"><span class="nav-number">2.3.3.4.</span> <span class="nav-text">双向旋转(先右后左)平衡处理 RL型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡二叉树的查找及性能分析"><span class="nav-number">2.3.4.</span> <span class="nav-text">平衡二叉树的查找及性能分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树"><span class="nav-number">2.4.</span> <span class="nav-text">B-树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-4"><span class="nav-number">2.4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树上的查找"><span class="nav-number">2.4.2.</span> <span class="nav-text">B-树上的查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树上的插入"><span class="nav-number">2.4.3.</span> <span class="nav-text">B-树上的插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树的删除"><span class="nav-number">2.4.4.</span> <span class="nav-text">B-树的删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树的应用"><span class="nav-number">2.4.5.</span> <span class="nav-text">B-树的应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树-1"><span class="nav-number">2.5.</span> <span class="nav-text">B+树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#键树"><span class="nav-number">2.6.</span> <span class="nav-text">键树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#哈希查找"><span class="nav-number">3.</span> <span class="nav-text">哈希查找</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思想"><span class="nav-number">3.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-5"><span class="nav-number">3.2.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希函数"><span class="nav-number">3.2.1.</span> <span class="nav-text">哈希函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希表"><span class="nav-number">3.2.2.</span> <span class="nav-text">哈希表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希查找-1"><span class="nav-number">3.2.3.</span> <span class="nav-text">哈希查找</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希函数的构造方法"><span class="nav-number">3.3.</span> <span class="nav-text">哈希函数的构造方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直接定址法"><span class="nav-number">3.3.1.</span> <span class="nav-text">直接定址法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字分析法"><span class="nav-number">3.3.2.</span> <span class="nav-text">数字分析法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平方取中法"><span class="nav-number">3.3.3.</span> <span class="nav-text">平方取中法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折叠法"><span class="nav-number">3.3.4.</span> <span class="nav-text">折叠法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#除留余数法"><span class="nav-number">3.3.5.</span> <span class="nav-text">除留余数法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机数法"><span class="nav-number">3.3.6.</span> <span class="nav-text">随机数法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选取哈希函数的因素"><span class="nav-number">3.4.</span> <span class="nav-text">选取哈希函数的因素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理冲突的方法"><span class="nav-number">3.5.</span> <span class="nav-text">处理冲突的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开放定址法"><span class="nav-number">3.5.1.</span> <span class="nav-text">开放定址法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再哈希法"><span class="nav-number">3.5.2.</span> <span class="nav-text">再哈希法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链地址法"><span class="nav-number">3.5.3.</span> <span class="nav-text">链地址法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希查找过程及分析"><span class="nav-number">3.6.</span> <span class="nav-text">哈希查找过程及分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希查找过程"><span class="nav-number">3.6.1.</span> <span class="nav-text">哈希查找过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希查找分析"><span class="nav-number">3.6.2.</span> <span class="nav-text">哈希查找分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希表小结"><span class="nav-number">3.7.</span> <span class="nav-text">哈希表小结</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -509,12 +590,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">47k</span>
+    <span title="站点总字数">48k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:25</span>
+    <span title="站点阅读时长">1:28</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
