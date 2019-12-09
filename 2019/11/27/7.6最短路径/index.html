@@ -46,15 +46,15 @@
   };
 </script>
 
-  <meta name="description" content="本篇记录了数据结构图这一章学习的第六部分，即图的最短路径问题。">
+  <meta name="description" content="迪杰斯特拉算法、弗洛伊德算法">
 <meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图-6|最短路径">
+<meta property="og:title" content="数据结构 | 图-6 | 最短路径">
 <meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;2019&#x2F;11&#x2F;27&#x2F;7.6%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84&#x2F;index.html">
 <meta property="og:site_name" content="夜明的Blog">
-<meta property="og:description" content="本篇记录了数据结构图这一章学习的第六部分，即图的最短路径问题。">
+<meta property="og:description" content="迪杰斯特拉算法、弗洛伊德算法">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-27T09:17:47.991Z">
+<meta property="og:updated_time" content="2019-12-09T01:46:10.359Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://daybreakland.top/2019/11/27/7.6%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">
@@ -71,7 +71,7 @@
   };
 </script>
 
-  <title>图-6|最短路径 | 夜明的Blog</title>
+  <title>数据结构 | 图-6 | 最短路径 | 夜明的Blog</title>
   
 
 
@@ -185,7 +185,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          图-6|最短路径
+          数据结构 | 图-6 | 最短路径
         </h1>
 
         <div class="post-meta">
@@ -194,10 +194,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-11-27 17:34:58 / 修改时间：17:17:47" itemprop="dateCreated datePublished" datetime="2019-11-27T17:34:58+08:00">2019-11-27</time>
+              <time title="创建时间：2019-11-27 17:34:58" itemprop="dateCreated datePublished" datetime="2019-11-27T17:34:58+08:00">2019-11-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-09 09:46:10" itemprop="dateModified" datetime="2019-12-09T09:46:10+08:00">2019-12-09</time>
+              </span>
 
           
   
@@ -218,7 +224,7 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
               </span>
-              <span>724</span>
+              <span>707</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -236,7 +242,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本篇记录了数据结构图这一章学习的第六部分，<br>即图的最短路径问题。</p>
+        <p>迪杰斯特拉算法、弗洛伊德算法</p>
 <a id="more"></a>
 <p>用带权的有向图表示一个交通运输网，图中：</p>
 <ul>
@@ -275,12 +281,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/11/27/7.5%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%8F%8A%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" rel="prev" title="图-5|拓扑排序">
-      <i class="fa fa-chevron-left"></i> 图-5|拓扑排序
+    <a href="/2019/11/27/7.5%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%8F%8A%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" rel="prev" title="数据结构 | 图-5 | 拓扑排序">
+      <i class="fa fa-chevron-left"></i> 数据结构 | 图-5 | 拓扑排序
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/" rel="next" title="绪论|数据结构">
-      绪论|数据结构 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/12/03/1.0%E7%BB%AA%E8%AE%BA/" rel="next" title="数据结构 | 绪论">
+      数据结构 | 绪论 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -406,7 +412,7 @@
   </div>
 
   
-  <script color='0,0,255' opacity='1' zIndex='50' count='10' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script color='0,0,255' opacity='1' zIndex='5' count='5' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>

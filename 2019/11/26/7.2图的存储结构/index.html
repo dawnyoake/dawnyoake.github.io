@@ -46,13 +46,13 @@
   };
 </script>
 
-  <meta name="description" content="本篇记录了数据结构图这一章学习的第二部分，即图的存储结构。">
+  <meta name="description" content="邻接矩阵、邻接多重表邻接表、逆邻接表、十字链表">
 <meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图-2|图的存储结构">
+<meta property="og:title" content="数据结构 | 图-2 | 图的存储结构">
 <meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;2019&#x2F;11&#x2F;26&#x2F;7.2%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84&#x2F;index.html">
 <meta property="og:site_name" content="夜明的Blog">
-<meta property="og:description" content="本篇记录了数据结构图这一章学习的第二部分，即图的存储结构。">
+<meta property="og:description" content="邻接矩阵、邻接多重表邻接表、逆邻接表、十字链表">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191125214217141.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191126155752909.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
@@ -63,7 +63,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191126162814190.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191126162935545.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191126163045740.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-11-28T04:00:16.958Z">
+<meta property="og:updated_time" content="2019-12-09T01:45:38.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191125214217141.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
 
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>图-2|图的存储结构 | 夜明的Blog</title>
+  <title>数据结构 | 图-2 | 图的存储结构 | 夜明的Blog</title>
   
 
 
@@ -195,7 +195,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          图-2|图的存储结构
+          数据结构 | 图-2 | 图的存储结构
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-28 12:00:16" itemprop="dateModified" datetime="2019-11-28T12:00:16+08:00">2019-11-28</time>
+                <time title="修改时间：2019-12-09 09:45:38" itemprop="dateModified" datetime="2019-12-09T09:45:38+08:00">2019-12-09</time>
               </span>
 
           
@@ -234,7 +234,7 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
               </span>
-              <span>635</span>
+              <span>623</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -252,16 +252,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本篇记录了数据结构图这一章学习的第二部分，<br>即图的存储结构。</p>
-<h1 id><a href="#" class="headerlink" title></a><a id="more"></a></h1><h3 id="1-数组表示法-邻接矩阵表示"><a href="#1-数组表示法-邻接矩阵表示" class="headerlink" title="1.数组表示法(邻接矩阵表示)"></a>1.数组表示法(邻接矩阵表示)</h3><p>有向图的邻接矩阵表示：<br><img src="https://img-blog.csdnimg.cn/20191125214217141.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="数组表示法例题"><br>无向图中顶点Vi的度TD(Vi)是邻接矩阵A中第 i 行元素之和.</p>
-<h3 id="2-邻接表"><a href="#2-邻接表" class="headerlink" title="2.邻接表"></a>2.邻接表</h3><ul>
+        <p>邻接矩阵、邻接多重表<br>邻接表、逆邻接表、十字链表</p>
+<h1 id><a href="#" class="headerlink" title></a><a id="more"></a></h1><h3 id="数组表示法-邻接矩阵表示"><a href="#数组表示法-邻接矩阵表示" class="headerlink" title="数组表示法(邻接矩阵表示)"></a>数组表示法(邻接矩阵表示)</h3><p>有向图的邻接矩阵表示：<br><img src="https://img-blog.csdnimg.cn/20191125214217141.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="数组表示法例题"><br>无向图中顶点Vi的度TD(Vi)是邻接矩阵A中第 i 行元素之和.</p>
+<h3 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h3><ul>
 <li>无向图中顶点Vi的度为第i个单链表中的结点数</li>
 </ul>
 <h4 id="无向图的邻接表"><a href="#无向图的邻接表" class="headerlink" title="无向图的邻接表"></a>无向图的邻接表<img src="https://img-blog.csdnimg.cn/20191126155752909.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="无向图的邻接表"></h4><ul>
 <li>有向图中<br>顶点Vi的出度为第i个单链表中的结点个数<br>顶点Vi的入度为整个单链表中邻接点域值是i的结点个数</li>
 <li>逆邻接表：有向图中对每个结点建立以Vi为头的弧的单链表<h4 id="有向图的邻接表和逆邻接表"><a href="#有向图的邻接表和逆邻接表" class="headerlink" title="有向图的邻接表和逆邻接表"></a>有向图的邻接表和逆邻接表</h4><img src="https://img-blog.csdnimg.cn/20191126155810467.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="邻接表&amp;逆邻接表"></li>
 </ul>
-<h3 id="3-有向图的十字链表表示法"><a href="#3-有向图的十字链表表示法" class="headerlink" title="3.有向图的十字链表表示法"></a>3.有向图的十字链表表示法</h3><p>十字链表是有向图的一种存贮方式<br>其中，图中的<strong>顶点</strong>用<strong>顶点结点单元</strong>表示。<strong>弧</strong>用<strong>弧结点单元</strong>表示。</p>
+<h3 id="有向图的十字链表表示法"><a href="#有向图的十字链表表示法" class="headerlink" title="有向图的十字链表表示法"></a>有向图的十字链表表示法</h3><p>十字链表是有向图的一种存贮方式<br>其中，图中的<strong>顶点</strong>用<strong>顶点结点单元</strong>表示。<strong>弧</strong>用<strong>弧结点单元</strong>表示。</p>
 <h4 id="弧节点单元"><a href="#弧节点单元" class="headerlink" title="弧节点单元"></a>弧节点单元</h4><p><img src="https://img-blog.csdnimg.cn/20191126161819819.png" alt="弧结点"></p>
 <ul>
 <li>tailvex / headvex: <pre><code>尾/头域：弧尾和弧头两个顶点在图中的位置</code></pre></li>
@@ -298,8 +298,8 @@
       <i class="fa fa-chevron-left"></i> Hexo+github搭建博客纪实
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/11/26/7.3%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86/" rel="next" title="图-3|图的遍历">
-      图-3|图的遍历 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/11/26/7.3%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86/" rel="next" title="数据结构 | 图-3 | 图的遍历">
+      数据结构 | 图-3 | 图的遍历 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -339,7 +339,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-数组表示法-邻接矩阵表示"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.数组表示法(邻接矩阵表示)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-邻接表"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.邻接表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无向图的邻接表"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">无向图的邻接表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有向图的邻接表和逆邻接表"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">有向图的邻接表和逆邻接表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-有向图的十字链表表示法"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.有向图的十字链表表示法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#弧节点单元"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">弧节点单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#顶点节点单元"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">顶点节点单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表示样例"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">表示样例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无向图邻接多重表表示法"><span class="nav-number">1.0.4.</span> <span class="nav-text">无向图邻接多重表表示法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#边节点单元"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">边节点单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#顶点节点单元-1"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">顶点节点单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表示样例-1"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">表示样例</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组表示法-邻接矩阵表示"><span class="nav-number">1.0.1.</span> <span class="nav-text">数组表示法(邻接矩阵表示)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#邻接表"><span class="nav-number">1.0.2.</span> <span class="nav-text">邻接表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无向图的邻接表"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">无向图的邻接表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有向图的邻接表和逆邻接表"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">有向图的邻接表和逆邻接表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有向图的十字链表表示法"><span class="nav-number">1.0.3.</span> <span class="nav-text">有向图的十字链表表示法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#弧节点单元"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">弧节点单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#顶点节点单元"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">顶点节点单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表示样例"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">表示样例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无向图邻接多重表表示法"><span class="nav-number">1.0.4.</span> <span class="nav-text">无向图邻接多重表表示法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#边节点单元"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">边节点单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#顶点节点单元-1"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">顶点节点单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表示样例-1"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">表示样例</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -425,7 +425,7 @@
   </div>
 
   
-  <script color='0,0,255' opacity='1' zIndex='50' count='10' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script color='0,0,255' opacity='1' zIndex='5' count='5' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>

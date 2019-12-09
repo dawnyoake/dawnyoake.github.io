@@ -46,13 +46,13 @@
   };
 </script>
 
-  <meta name="description" content="本篇记录了数据结构树这一章学习的第三部分，即树和森林。">
+  <meta name="description" content="数的存储结构(表示法)、森林与二叉树的转换、树和森林的遍历、哈夫曼树">
 <meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="树-3|树和森林">
+<meta property="og:title" content="数据结构 | 树-3 | 树和森林">
 <meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;2019&#x2F;12&#x2F;03&#x2F;6.3%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97&#x2F;index.html">
 <meta property="og:site_name" content="夜明的Blog">
-<meta property="og:description" content="本篇记录了数据结构树这一章学习的第三部分，即树和森林。">
+<meta property="og:description" content="数的存储结构(表示法)、森林与二叉树的转换、树和森林的遍历、哈夫曼树">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191203102717846.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191203103424312.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
@@ -62,7 +62,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191202153516376.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2019120215355634.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2019120215432451.png">
-<meta property="og:updated_time" content="2019-12-03T05:12:03.410Z">
+<meta property="og:updated_time" content="2019-12-09T01:45:19.017Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191203102717846.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
 
@@ -80,7 +80,7 @@
   };
 </script>
 
-  <title>树-3|树和森林 | 夜明的Blog</title>
+  <title>数据结构 | 树-3 | 树和森林 | 夜明的Blog</title>
   
 
 
@@ -194,7 +194,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          树-3|树和森林
+          数据结构 | 树-3 | 树和森林
         </h1>
 
         <div class="post-meta">
@@ -203,10 +203,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-03 13:03:55 / 修改时间：13:12:03" itemprop="dateCreated datePublished" datetime="2019-12-03T13:03:55+08:00">2019-12-03</time>
+              <time title="创建时间：2019-12-03 13:03:55" itemprop="dateCreated datePublished" datetime="2019-12-03T13:03:55+08:00">2019-12-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-09 09:45:19" itemprop="dateModified" datetime="2019-12-09T09:45:19+08:00">2019-12-09</time>
+              </span>
 
           
   
@@ -245,7 +251,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本篇记录了数据结构树这一章学习的第三部分，<br>即树和森林。</p>
+        <p>数的存储结构(表示法)、森林与二叉树的转换、<br>树和森林的遍历、哈夫曼树</p>
 <a id="more"></a>
 <h1 id="树的存储结构"><a href="#树的存储结构" class="headerlink" title="树的存储结构"></a>树的存储结构</h1><h2 id="双亲表示法"><a href="#双亲表示法" class="headerlink" title="双亲表示法"></a>双亲表示法</h2><p>取一块连续的内存空间，在存储每个结点的同时，各自都附加一个记录其双亲结点位置的变量。<br><img src="https://img-blog.csdnimg.cn/20191203102717846.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="双亲表示法"></p>
 <ul>
@@ -298,12 +304,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="prev" title="树-2|遍历二叉树">
-      <i class="fa fa-chevron-left"></i> 树-2|遍历二叉树
+    <a href="/2019/12/03/6.2%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="prev" title="数据结构 | 树-2 | 遍历二叉树">
+      <i class="fa fa-chevron-left"></i> 数据结构 | 树-2 | 遍历二叉树
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/12/03/2.0%E7%BA%BF%E6%80%A7%E8%A1%A8/" rel="next" title="线性结构|线性表">
-      线性结构|线性表 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/12/03/2.0%E7%BA%BF%E6%80%A7%E8%A1%A8/" rel="next" title="数据结构 | 线性表">
+      数据结构 | 线性表 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -429,7 +435,7 @@
   </div>
 
   
-  <script color='0,0,255' opacity='1' zIndex='50' count='10' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script color='0,0,255' opacity='1' zIndex='5' count='5' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
