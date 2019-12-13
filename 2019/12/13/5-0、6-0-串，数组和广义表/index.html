@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://daybreakland.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="串的基本概念，存储方式、模式匹配算法广义表的表长、表头表尾、链式存储">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构 | 串，数组和广义表">
+<meta property="og:url" content="https:&#x2F;&#x2F;daybreakland.top&#x2F;2019&#x2F;12&#x2F;13&#x2F;5-0%E3%80%816-0-%E4%B8%B2%EF%BC%8C%E6%95%B0%E7%BB%84%E5%92%8C%E5%B9%BF%E4%B9%89%E8%A1%A8&#x2F;index.html">
+<meta property="og:site_name" content="夜明的Blog">
+<meta property="og:description" content="串的基本概念，存储方式、模式匹配算法广义表的表长、表头表尾、链式存储">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2019121309183721.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191213092651413.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191213093419244.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191213093359684.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191213093535485.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191213093437142.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191213093739209.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-12-13T01:55:27.941Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2019121309183721.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="https://daybreakland.top/2019/12/13/5-0%E3%80%816-0-%E4%B8%B2%EF%BC%8C%E6%95%B0%E7%BB%84%E5%92%8C%E5%B9%BF%E4%B9%89%E8%A1%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>数据结构 | 串，数组和广义表 | 夜明的Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夜明的Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Daybreak</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://daybreakland.top/2019/12/13/5-0%E3%80%816-0-%E4%B8%B2%EF%BC%8C%E6%95%B0%E7%BB%84%E5%92%8C%E5%B9%BF%E4%B9%89%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="夜明">
+      <meta itemprop="description" content="Where would a south wind take us">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夜明的Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构 | 串，数组和广义表
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-13 09:53:17 / 修改时间：09:55:27" itemprop="dateCreated datePublished" datetime="2019-12-13T09:53:17+08:00">2019-12-13</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/13/5-0%E3%80%816-0-%E4%B8%B2%EF%BC%8C%E6%95%B0%E7%BB%84%E5%92%8C%E5%B9%BF%E4%B9%89%E8%A1%A8/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/13/5-0%E3%80%816-0-%E4%B8%B2%EF%BC%8C%E6%95%B0%E7%BB%84%E5%92%8C%E5%B9%BF%E4%B9%89%E8%A1%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>串的基本概念，存储方式、模式匹配算法<br>广义表的表长、表头表尾、链式存储</p>
+<a id="more"></a>
+
+<p><strong>串是以字符为元素的线性表</strong><br>4.1 串类型的定义<br>4.2 串的表示和实现<br>     <em>4.2.1 定长顺序存储表示<br>     4.2.2 堆分配存储表示</em><br>4.3 串的模式匹配算法</p>
+<h1 id="串"><a href="#串" class="headerlink" title="串"></a>串</h1><h2 id="串类型的定义"><a href="#串类型的定义" class="headerlink" title="串类型的定义"></a>串类型的定义</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p><strong>串</strong>(字符串 string)：<br>由零个或多个字符组成的有限序列<br>记为:  s =‘a1a2…an’ (n ≥ 0)<br>  ai(1≤i≤n)是字母,数字或其它字符</p>
+<p><strong>串名</strong>： s为串名</p>
+<p><strong>串值</strong>：‘a1a2…an’为串值</p>
+<p><strong>长度</strong>：n称为串的长度</p>
+<p><strong>空串</strong>：n=0的串称为空串(Null string)记为：<strong>Ф</strong></p>
+<p><strong>空白串</strong>:通常将仅由一个或多个空格组成的串称为空白串(Blank String)</p>
+<p>注意：空串和空白串的不同，例如“ ”和“”分别表示长度为1的空白串和长度为0的空串。<br><strong>子串</strong>：串中任意个连续字符组成的序列；</p>
+<p><strong>位置</strong>：字符在序列中的序号</p>
+<p><strong>子串的位置</strong>：子串第一个字符在主串中的位置</p>
+<h3 id="ADT"><a href="#ADT" class="headerlink" title="ADT"></a>ADT</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">ADT String &#123;</span><br><span class="line">数据对象：D = &#123;ai |  ai∈CharacterSet,i=<span class="number">1</span>,<span class="number">2</span>,...n, n&gt;=<span class="number">0</span>&#125;</span><br><span class="line">数据关系： R1= &#123;&lt;ai<span class="number">-1.</span>, aj&gt;| ai ∈D, i=<span class="number">2</span>,...n&#125;。</span><br><span class="line">基本操作：</span><br><span class="line">     StrAssign(&amp;T,chars)</span><br><span class="line">	初始条件: chars是字符串常量。</span><br><span class="line">	操作结果: 生成一个其值等于chars的串T。</span><br><span class="line">	StrCopy(&amp;T,S)</span><br><span class="line">	初始条件: 字符串S已经存在。</span><br><span class="line">	操作结果: 由串S复制得串T。</span><br><span class="line">	StrEmpty (S)</span><br><span class="line">	初始条件: 字符串S已经存在。</span><br><span class="line">	操作结果: 若S为空串，则返回TRUE,否则返回FALSE。</span><br><span class="line">	StrCompare(S,T)</span><br><span class="line">	初始条件: 字符串S和T存在。</span><br><span class="line">	操作结果: 若S&gt;T,则返回值&gt;<span class="number">0</span>;若S=T,则返回值=<span class="number">0</span>;否则返回值&lt;<span class="number">0</span>。</span><br><span class="line">	StrLength(S)</span><br><span class="line">	初始条件: 字符串S已经存在。</span><br><span class="line">	操作结果: 返回串S元素个数，称为串的长度。</span><br><span class="line">	ClearString(&amp;S)</span><br><span class="line">	初始条件: 字符串S已经存在。</span><br><span class="line">	操作结果: 将串S清为空串。</span><br><span class="line">	Concat(&amp;T,S1,S2)</span><br><span class="line">	初始条件: 字符串S1,S2已经存在。</span><br><span class="line">	操作结果: 用T返回由串S1和S2联结而成的新串。</span><br><span class="line">	Substring(&amp;Sub,S,pos,len)</span><br><span class="line">	初始条件: 串S存在,<span class="number">1</span>&lt;=pos&lt;=S的长度,<span class="number">0</span>&lt;=len&lt;=S的长度-pos+<span class="number">1</span>。</span><br><span class="line">	操作结果: 用Sub返回串S的第pos个字符起长度为len的子串。</span><br><span class="line">	Index(S,T,pos)</span><br><span class="line">	初始条件: 串S和T存在,T是非空串，<span class="number">1</span>&lt;=pos&lt;=S的长度。</span><br><span class="line">	操作结果: 若主串S中存在和串T相同的子串，则返回它在主串S中第pos个字符之后第一次出现的位置；否则返回０。</span><br><span class="line">	Replace(&amp;S,T,V)</span><br><span class="line">	初始条件: 字符串S,T,V已经存在，T是非空串。</span><br><span class="line">	操作结果: 用V替换主串S中出现的所有与T相等的不重叠的子串。</span><br><span class="line">	StrInsert(&amp;S,pos,T)</span><br><span class="line">	初始条件: 字符串S,T存在，<span class="number">1</span>&lt;=pos&lt;=S的长度+<span class="number">1</span>。</span><br><span class="line">	操作结果: 在串S的第pos个字符之前插入串T。</span><br><span class="line">	StrDelete(&amp;S,pos,len)</span><br><span class="line">	初始条件: 串S存在，<span class="number">1</span>&lt;=pos&lt;=S的长度-len+<span class="number">1</span>。</span><br><span class="line">	操作结果: 从串S中删除第pos个字符起长度为len的子串。</span><br><span class="line">	DestroyString(&amp;S):　把存在的串S销毁。</span><br><span class="line">&#125;ADT String</span><br></pre></td></tr></table></figure>
+
+<h3 id="串类型的最小操作子集"><a href="#串类型的最小操作子集" class="headerlink" title="串类型的最小操作子集"></a>串类型的最小操作子集</h3><p> 下面<strong>5种操作</strong>构成<strong>最小操作子集</strong>:<br>串赋值 StrAssign;<br>串比较 StrCompare;<br>求串长 StrLength;<br>串联结 Concat;<br>求子串 Substring;</p>
+<h2 id="串的表示和实现"><a href="#串的表示和实现" class="headerlink" title="串的表示和实现"></a>串的表示和实现</h2><h3 id="顺序表示"><a href="#顺序表示" class="headerlink" title="顺序表示"></a>顺序表示</h3><h4 id="定长顺序表示"><a href="#定长顺序表示" class="headerlink" title="定长顺序表示"></a>定长顺序表示</h4><p>用连续的存储单元存储串,存储单元的长度固定。</p>
+<h4 id="堆分配存贮表示"><a href="#堆分配存贮表示" class="headerlink" title="堆分配存贮表示"></a>堆分配存贮表示</h4><p>特点：仍用连续的存储单元存储串，但存储空间是在程序执行过程中动态分配而得。</p>
+<h3 id="链式表示"><a href="#链式表示" class="headerlink" title="链式表示"></a>链式表示</h3><h4 id="块链存贮表示"><a href="#块链存贮表示" class="headerlink" title="块链存贮表示"></a>块链存贮表示</h4><p>一个结点的数据域不仅放一个数据元素（字符），而是放多个数据元素。</p>
+<h2 id="串的模式匹配算法"><a href="#串的模式匹配算法" class="headerlink" title="串的模式匹配算法"></a>串的模式匹配算法</h2><p>求子串位置的定位函数:<strong>子串的定位操作</strong>通常称作<strong>串的模式匹配</strong>（其中T被称<strong>模式串</strong>），是各种串处理系统中最重要的操作之一。</p>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><p>设n = StrLength(S);m = StrLength(T);</p>
+<p><strong>最好情况的复杂度</strong>为O(n+m)；<br><strong>最坏情况的复杂度</strong>为O(n*m)。</p>
+<h3 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h3><p><strong>模式匹配的一种改进算法</strong><br>KMP算法的改进在于:</p>
+<ul>
+<li>每一趟匹配过程中出现字符比较不等时,不需要回朔i指针</li>
+<li>只要利用已经“部分匹配”结果,调整j指针,即将模式向右滑动尽可能远的一段距离,来个提高算法效率.</li>
+</ul>
+<h1 id="数组和广义表"><a href="#数组和广义表" class="headerlink" title="数组和广义表"></a>数组和广义表</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>数组可以看成是一种特殊的线性表，即线性表中数据元素本身也是一个线性表。<br><img src="https://img-blog.csdnimg.cn/2019121309183721.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<h2 id="ADT-1"><a href="#ADT-1" class="headerlink" title="ADT"></a>ADT</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ADT Array&#123;</span><br><span class="line">	数据对象：D=&#123;aj1j2…jn|n(&gt;<span class="number">0</span>)称为数组的维数， </span><br><span class="line">			     bi 是数组第i维的长度</span><br><span class="line">              	 ji  是数组元素的第i维下标，</span><br><span class="line">                     ji = <span class="number">0</span>, …, bi – <span class="number">1</span>, i = <span class="number">1</span>, <span class="number">2</span>, …, n，</span><br><span class="line">			         aj1j2…jn ∈ ElemSet &#125;</span><br><span class="line">	数据关系：R =  &#123;R1, R2, … Rn&#125;</span><br><span class="line">		         Ri = &#123; &lt;a j1…ji…jn, aj1…ji+<span class="number">1</span>…jn&gt;|</span><br><span class="line">				<span class="number">0</span>≤jk ≤ bk<span class="number">-1</span>, <span class="number">1</span> ≤k ≤n 且k ≠i, </span><br><span class="line">				<span class="number">0</span> ≤ji ≤bi –<span class="number">2</span>,</span><br><span class="line">			         aj1…ji…jn, aj1…ji+<span class="number">1</span>…jn ∈ D, i = <span class="number">2</span>, …, n &#125;</span><br><span class="line">	基本操作:</span><br><span class="line">        InitArray(&amp;A,n,b1,…，bn );  <span class="comment">// 初始化</span></span><br><span class="line">		DestroyArray(&amp;A );	            <span class="comment">// 销毁</span></span><br><span class="line">		Value( A, &amp;e,  i1, i2, … in);	<span class="comment">// 取值</span></span><br><span class="line">		Assign( &amp;A, e, i1, i2, … in);	<span class="comment">// 赋值</span></span><br><span class="line">&#125;<span class="comment">// Array</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组的顺序存储结构"><a href="#数组的顺序存储结构" class="headerlink" title="数组的顺序存储结构"></a>数组的顺序存储结构</h2><h3 id="主序存放"><a href="#主序存放" class="headerlink" title="主序存放"></a>主序存放</h3><ul>
+<li>按列序为主序存放</li>
+<li>按行序为主序存放<h3 id="n维数组的存储地址计算公式"><a href="#n维数组的存储地址计算公式" class="headerlink" title="n维数组的存储地址计算公式"></a>n维数组的存储地址计算公式</h3><img src="https://img-blog.csdnimg.cn/20191213092651413.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="公式及例题"><h2 id="矩阵的压缩存储"><a href="#矩阵的压缩存储" class="headerlink" title="矩阵的压缩存储"></a>矩阵的压缩存储</h2></li>
+<li>矩阵:     二维数组</li>
+<li>特殊矩阵: 大量重复元素或大量0元素 </li>
+<li>稀疏矩阵: 大量0元素 </li>
+<li>压缩存储: 重复元素只分配一个存储空间,0元素不分配存储空间</li>
+</ul>
+<h3 id="对称矩阵"><a href="#对称矩阵" class="headerlink" title="对称矩阵"></a>对称矩阵</h3><p><img src="https://img-blog.csdnimg.cn/20191213093419244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "><br><img src="https://img-blog.csdnimg.cn/20191213093359684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt="对称阵例子"></p>
+<h3 id="三角矩阵"><a href="#三角矩阵" class="headerlink" title="三角矩阵"></a>三角矩阵</h3><p><img src="https://img-blog.csdnimg.cn/20191213093535485.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt></p>
+<h3 id="下三角矩阵"><a href="#下三角矩阵" class="headerlink" title="下三角矩阵"></a>下三角矩阵</h3><p><img src="https://img-blog.csdnimg.cn/20191213093437142.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<h3 id="对角矩阵"><a href="#对角矩阵" class="headerlink" title="对角矩阵"></a>对角矩阵</h3><p><img src="https://img-blog.csdnimg.cn/20191213093739209.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5OTY2NDU4,size_16,color_FFFFFF,t_70" alt=" "></p>
+<h3 id="稀疏矩阵"><a href="#稀疏矩阵" class="headerlink" title="稀疏矩阵"></a>稀疏矩阵</h3><ul>
+<li>定义：非零元素<strong>较少</strong>，且<strong>分布没有一定规律</strong>的矩阵</li>
+<li>压缩存储原则：只存矩阵的<strong>行列维数</strong>和每个非零元素的<strong>行列下标及其值</strong></li>
+</ul>
+<blockquote>
+<p>通常稀疏因子&lt;0.05时称为稀疏矩阵</p>
+</blockquote>
+<h4 id="稀疏矩阵的压缩存储方法"><a href="#稀疏矩阵的压缩存储方法" class="headerlink" title="稀疏矩阵的压缩存储方法"></a>稀疏矩阵的压缩存储方法</h4><p>顺序存储结构：三元组表<br>链式存储结构：十字链表</p>
+<h1 id="广义表"><a href="#广义表" class="headerlink" title="广义表"></a>广义表</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><ul>
+<li>广义表：LS = ( α1, α2, … αn)</li>
+<li>αi 可以是单个数据元素，也可以是广义表。</li>
+<li>广义表是由n个数据元素构成的一个表，其数据元素可以是单个数据元素，也可以是一个广义表。</li>
+<li>n 长度;<br>若αi为单个元素，称为原子；否则子表<br>α1为表头，其余元素组成的表为表尾<h2 id="表长"><a href="#表长" class="headerlink" title="表长"></a>表长</h2>最大括号内的逗号数+1<br>特别地，E = ( a, E );        递归表，长度为2<h2 id="广义表的链式存储结构"><a href="#广义表的链式存储结构" class="headerlink" title="广义表的链式存储结构"></a>广义表的链式存储结构</h2>广义表<strong>不能</strong>使用顺序存储，<strong>只能</strong>链式存储。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/09/10.0%E5%86%85%E9%83%A8%E6%8E%92%E5%BA%8F/" rel="prev" title="数据结构 | 内部排序">
+      <i class="fa fa-chevron-left"></i> 数据结构 | 内部排序
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#串"><span class="nav-number">1.</span> <span class="nav-text">串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#串类型的定义"><span class="nav-number">1.1.</span> <span class="nav-text">串类型的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">1.1.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ADT"><span class="nav-number">1.1.2.</span> <span class="nav-text">ADT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#串类型的最小操作子集"><span class="nav-number">1.1.3.</span> <span class="nav-text">串类型的最小操作子集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#串的表示和实现"><span class="nav-number">1.2.</span> <span class="nav-text">串的表示和实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表示"><span class="nav-number">1.2.1.</span> <span class="nav-text">顺序表示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定长顺序表示"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">定长顺序表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆分配存贮表示"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">堆分配存贮表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式表示"><span class="nav-number">1.2.2.</span> <span class="nav-text">链式表示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#块链存贮表示"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">块链存贮表示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#串的模式匹配算法"><span class="nav-number">1.3.</span> <span class="nav-text">串的模式匹配算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法分析"><span class="nav-number">1.3.1.</span> <span class="nav-text">算法分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KMP算法"><span class="nav-number">1.3.2.</span> <span class="nav-text">KMP算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组和广义表"><span class="nav-number">2.</span> <span class="nav-text">数组和广义表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ADT-1"><span class="nav-number">2.2.</span> <span class="nav-text">ADT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的顺序存储结构"><span class="nav-number">2.3.</span> <span class="nav-text">数组的顺序存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主序存放"><span class="nav-number">2.3.1.</span> <span class="nav-text">主序存放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#n维数组的存储地址计算公式"><span class="nav-number">2.3.2.</span> <span class="nav-text">n维数组的存储地址计算公式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的压缩存储"><span class="nav-number">2.4.</span> <span class="nav-text">矩阵的压缩存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对称矩阵"><span class="nav-number">2.4.1.</span> <span class="nav-text">对称矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三角矩阵"><span class="nav-number">2.4.2.</span> <span class="nav-text">三角矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下三角矩阵"><span class="nav-number">2.4.3.</span> <span class="nav-text">下三角矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对角矩阵"><span class="nav-number">2.4.4.</span> <span class="nav-text">对角矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏矩阵"><span class="nav-number">2.4.5.</span> <span class="nav-text">稀疏矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#稀疏矩阵的压缩存储方法"><span class="nav-number">2.4.5.1.</span> <span class="nav-text">稀疏矩阵的压缩存储方法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#广义表"><span class="nav-number">3.</span> <span class="nav-text">广义表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-1"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表长"><span class="nav-number">3.2.</span> <span class="nav-text">表长</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#广义表的链式存储结构"><span class="nav-number">3.3.</span> <span class="nav-text">广义表的链式存储结构</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">夜明</p>
+  <div class="site-description" itemprop="description">Where would a south wind take us</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">夜明</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">56k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">51 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: true,
+      appId: 'J0b3D8nEf5PQxGjiWrKGbC3t-gzGzoHsz',
+      appKey: 'y9Hv5m8z8Ly1aDBDXD24yt2K',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
